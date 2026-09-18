@@ -26,8 +26,19 @@ export default function BotanicalCanvas() {
     if (!ctx) return;
 
     let animationFrameId: number;
-    let width = (canvas.width = window.innerWidth);
-    let height = (canvas.height = window.innerHeight);
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    let width = window.innerWidth;
+    let height = window.innerHeight;
+
+    const updateCanvasDimensions = () => {
+      width = window.innerWidth;
+      height = window.innerHeight;
+      canvas.width = Math.floor(width * dpr);
+      canvas.height = Math.floor(height * dpr);
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.scale(dpr, dpr);
+    };
+    updateCanvasDimensions();
 
     // Paleta Verde Oliva & Sálvia Botânico-Digital Vibrante e Aparente
     const oliveColors = [
@@ -39,8 +50,10 @@ export default function BotanicalCanvas() {
 
     const binaryChars = ["0", "1", "01", "10", "101", "010", "11"];
 
-    // Gerador de partículas heterogêneas (Redes Neurais + Binário + Folhas + Flores)
-    const particleCount = Math.min(Math.floor((width * height) / 12000), 90);
+    // Gerador de partículas heterogêneas calibrado por dispositivo para alta performance móvel
+    const isMobile = width < 640;
+    const maxParticles = isMobile ? 26 : 85;
+    const particleCount = Math.min(Math.floor((width * height) / 14000), maxParticles);
     const particles: Particle[] = [];
 
     for (let i = 0; i < particleCount; i++) {
@@ -107,8 +120,19 @@ export default function BotanicalCanvas() {
 
     const handleResize = () => {
       if (!canvas) return;
-      width = canvas.width = window.innerWidth;
-      height = canvas.height = window.innerHeight;
+      updateCanvasDimensions();
+    };
+
+    const prefersReducedMotion =
+      typeof window !== "undefined" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        cancelAnimationFrame(animationFrameId);
+      } else if (!prefersReducedMotion) {
+        animationFrameId = requestAnimationFrame(render);
+      }
     };
 
     window.addEventListener("mousemove", handleMouseMove, { passive: true });
@@ -117,11 +141,13 @@ export default function BotanicalCanvas() {
     window.addEventListener("touchmove", handleTouchMove, { passive: true });
     window.addEventListener("touchend", handleTouchEnd, { passive: true });
     window.addEventListener("resize", handleResize);
+    document.addEventListener("visibilitychange", handleVisibilityChange);
 
-    const maxDistance = 120;
+    const maxDistance = isMobile ? 85 : 120;
     let time = 0;
 
     const render = () => {
+      if (document.hidden) return;
       time += 0.015;
       ctx.clearRect(0, 0, width, height);
 
@@ -246,6 +272,7 @@ export default function BotanicalCanvas() {
       window.removeEventListener("touchmove", handleTouchMove);
       window.removeEventListener("touchend", handleTouchEnd);
       window.removeEventListener("resize", handleResize);
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
     };
   }, []);
 

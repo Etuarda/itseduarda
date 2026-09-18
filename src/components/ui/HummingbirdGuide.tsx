@@ -33,7 +33,7 @@ function HummingbirdSvg({
 }) {
   return (
     <div
-      className="relative w-12 sm:w-14 md:w-16 h-12 sm:h-14 md:h-16 pointer-events-auto cursor-pointer group"
+      className="relative w-11 sm:w-14 md:w-16 h-11 sm:h-14 md:h-16 pointer-events-auto cursor-pointer group"
       onClick={onClick}
       title="Clique para eu alternar para a próxima borda da narrativa!"
       style={{
@@ -343,7 +343,7 @@ export default function HummingbirdGuide({
   if (isCinematicIntro) {
     const screenW = typeof window !== "undefined" ? window.innerWidth : 1024;
     const finalX = screenW - (isMobile ? 65 : 85);
-    const finalY = isMobile ? 24 : 36;
+    const finalY = isMobile ? 78 : 84;
 
     return (
       <aside
@@ -360,7 +360,7 @@ export default function HummingbirdGuide({
           }}
           animate={{
             x: [-80, screenW * 0.28, screenW * 0.68, finalX],
-            y: [20, isMobile ? 20 : 35, isMobile ? 32 : 50, finalY],
+            y: [20, isMobile ? 50 : 45, isMobile ? 65 : 60, finalY],
             scale: [0.8, 1.05, 1, 1],
             opacity: [0, 1, 1, 1],
             rotate: [15, -4, 6, 0],

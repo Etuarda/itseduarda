@@ -131,7 +131,7 @@ function TimelineCard({
 }) {
   return (
     <article
-      className={`botanical-card texture-archive rounded-2xl p-4 sm:p-6 md:p-7 relative overflow-hidden transition-all border ${palette.cardBorder} shadow-xs group hover:shadow-md bg-[#FAF8F5]`}
+      className={`botanical-card texture-archive rounded-2xl p-4 sm:p-6 md:p-7 relative overflow-hidden transition-all border ${palette.cardBorder} shadow-xs group hover:shadow-md bg-[#FAF8F5] min-w-0 break-words`}
     >
       <div className="grid grid-cols-1 md:grid-cols-12 gap-4 sm:gap-6 relative z-10">
         {/* Coluna 1: Ano e Período (3 cols) */}
@@ -161,19 +161,19 @@ function TimelineCard({
         </div>
 
         {/* Coluna 2: Conteúdo Técnico & Competências (9 cols) */}
-        <div className="md:col-span-9 flex flex-col justify-between">
+        <div className="md:col-span-9 flex flex-col justify-between min-w-0">
           <div>
             <div className="flex flex-wrap items-center justify-between gap-2 mb-1">
-              <h3 className="font-serif font-bold text-lg sm:text-xl text-[#1C1A18] tracking-tight">
+              <h3 className="font-serif font-bold text-lg sm:text-xl text-[#1C1A18] tracking-tight min-w-0 break-words">
                 {entry.title}
               </h3>
             </div>
 
-            <p className="font-sans text-xs sm:text-sm font-bold mb-2.5" style={{ color: palette.accent }}>
+            <p className="font-sans text-xs sm:text-sm font-bold mb-2.5 min-w-0 break-words" style={{ color: palette.accent }}>
               {entry.institution}
             </p>
 
-            <p className="font-sans text-xs sm:text-sm text-[#383531] font-normal leading-relaxed mb-3.5">
+            <p className="font-sans text-xs sm:text-sm text-[#383531] font-normal leading-relaxed mb-3.5 min-w-0 break-words">
               {entry.description}
             </p>
 
@@ -266,35 +266,37 @@ export default function ExperienceSection() {
 
       {/* Barra de Controles: Abas de Categoria + Alternador de Ordem */}
       <div className="flex flex-col sm:flex-row items-center justify-between gap-3 mb-6 max-w-5xl mx-auto w-full">
-        {/* Abas de Categoria */}
-        <div className="flex flex-wrap justify-center sm:justify-start gap-1.5 sm:gap-2 w-full sm:w-auto">
-          {tabs.map((tab) => {
-            const isActive = activeTab === tab.id;
-            const Icon = tab.icon;
+        {/* Abas de Categoria com Scroll Horizontal no Mobile */}
+        <div className="w-full sm:w-auto overflow-x-auto no-scrollbar py-1">
+          <div className="flex flex-nowrap sm:flex-wrap justify-start gap-1.5 sm:gap-2 min-w-max sm:min-w-0">
+            {tabs.map((tab) => {
+              const isActive = activeTab === tab.id;
+              const Icon = tab.icon;
 
-            return (
-              <button
-                key={tab.id}
-                type="button"
-                onClick={() => setActiveTab(tab.id)}
-                className={`px-3 sm:px-4 py-2 min-h-[40px] rounded-full text-xs font-sans transition-all duration-300 cursor-pointer flex items-center gap-1.5 justify-center active:scale-95 ${
-                  isActive
-                    ? `${palette.activeBadge} shadow-xs font-semibold`
-                    : "bg-white border border-[#465B20]/25 text-[#383531] hover:bg-[#FAF8F5] hover:text-[#1C1A18] font-medium shadow-xs"
-                }`}
-              >
-                <Icon className={`w-3.5 h-3.5 ${isActive ? "text-[#F7F6F2]" : "text-[#465B20]"}`} />
-                <span>{tab.label}</span>
-              </button>
-            );
-          })}
+              return (
+                <button
+                  key={tab.id}
+                  type="button"
+                  onClick={() => setActiveTab(tab.id)}
+                  className={`px-3.5 sm:px-4 py-2 min-h-[44px] rounded-full text-xs font-sans transition-all duration-300 cursor-pointer flex items-center gap-1.5 justify-center whitespace-nowrap active:scale-95 ${
+                    isActive
+                      ? `${palette.activeBadge} shadow-xs font-semibold`
+                      : "bg-white border border-[#465B20]/25 text-[#383531] hover:bg-[#FAF8F5] hover:text-[#1C1A18] font-medium shadow-xs"
+                  }`}
+                >
+                  <Icon className={`w-3.5 h-3.5 ${isActive ? "text-[#F7F6F2]" : "text-[#465B20]"}`} />
+                  <span>{tab.label}</span>
+                </button>
+              );
+            })}
+          </div>
         </div>
 
         {/* Alternador de Ordenação */}
         <button
           type="button"
           onClick={() => setIsChronological((prev) => !prev)}
-          className="w-full sm:w-auto text-[11px] font-sans font-semibold px-4 py-2 min-h-[40px] rounded-full border border-[#465B20]/30 bg-white hover:bg-[#FAF8F5] text-[#2A3614] flex items-center justify-center gap-1.5 cursor-pointer transition-colors shadow-xs shrink-0 active:scale-95"
+          className="w-full sm:w-auto text-[11px] font-sans font-semibold px-4 py-2 min-h-[44px] rounded-full border border-[#465B20]/30 bg-white hover:bg-[#FAF8F5] text-[#2A3614] flex items-center justify-center gap-1.5 cursor-pointer transition-colors shadow-xs shrink-0 active:scale-95"
         >
           <ArrowUpDown className="w-3.5 h-3.5 text-[#465B20]" />
           <span>{isChronological ? "Mais Antigos Primeiro" : "Mais Recentes Primeiro"}</span>

@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback } from "react";
+import { useState, useMemo, useCallback, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import {
   X,
@@ -73,6 +73,17 @@ export default function SkillsSection() {
   const [activeFilter, setActiveFilter] = useState<FilterStatus>("TODAS");
   const [mobileActiveColumn, setMobileActiveColumn] = useState<SkillColumnId>("frontend");
 
+  // Referências para rolagem horizontal suave no Kanban mobile
+  const columnRefs = useRef<Record<string, HTMLDivElement | null>>({});
+
+  const handleSelectMobileColumn = (colId: SkillColumnId) => {
+    setMobileActiveColumn(colId);
+    const target = columnRefs.current[colId];
+    if (target) {
+      target.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
+    }
+  };
+
   // Estado das tecnologias SELECIONADAS para combinação (Set de IDs)
   const [selectedSkillIds, setSelectedSkillIds] = useState<Set<string>>(
     () => new Set(["react", "typescript", "nodejs", "postgresql", "rag"])
@@ -80,6 +91,21 @@ export default function SkillsSection() {
 
   // Modal de "Verso Técnico"
   const [inspectingSkill, setInspectingSkill] = useState<SkillItem | null>(null);
+
+  // Trava scroll do body quando a ficha técnica estiver aberta
+  useEffect(() => {
+    if (!inspectingSkill) return;
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setInspectingSkill(null);
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.body.style.overflow = prevOverflow;
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [inspectingSkill]);
 
   // Modal de Estudo de Caso (Deep Dive de Projeto)
   const [selectedProjectForModal, setSelectedProjectForModal] = useState<Project | null>(null);
@@ -493,7 +519,7 @@ export default function SkillsSection() {
             <button
               key={col.id}
               type="button"
-              onClick={() => setMobileActiveColumn(col.id)}
+              onClick={() => handleSelectMobileColumn(col.id)}
               className={`flex-1 py-2 px-1 min-h-[44px] rounded-xl text-[11px] font-sans font-semibold transition-all flex flex-col items-center justify-center text-center leading-tight active:scale-95 cursor-pointer ${
                 isSelected
                   ? "bg-[#465B20] text-[#F7F6F2] shadow-xs font-bold"
@@ -509,8 +535,10 @@ export default function SkillsSection() {
 
       {/* ==========================================================================
           QUADRO KANBAN DE COMPETÊNCIAS (4 COLUNAS INTERATIVAS)
+          No mobile: trilho com swipe horizontal fluido snap-x snap-mandatory
+          No desktop: grid com 4 colunas distribuídas
           ========================================================================== */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-6">
+      <div className="flex sm:grid sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-6 overflow-x-auto sm:overflow-x-visible snap-x snap-mandatory sm:snap-none no-scrollbar pb-2 px-1">
         {SKILLS_BOARD_COLUMNS.map((col) => {
           const Icon = COLUMN_ICONS[col.id];
           const filteredSkills =
@@ -521,9 +549,10 @@ export default function SkillsSection() {
           return (
             <div
               key={col.id}
-              className={`flex flex-col rounded-3xl bg-[#FAF8F5] border border-[#465B20]/25 p-3 sm:p-4 shadow-xs texture-paper ${
-                mobileActiveColumn !== col.id ? "hidden sm:flex" : "flex"
-              }`}
+              ref={(el) => {
+                columnRefs.current[col.id] = el;
+              }}
+              className="flex flex-col w-[85vw] max-w-[340px] sm:w-auto shrink-0 sm:shrink snap-center sm:snap-align-none rounded-3xl bg-[#FAF8F5] border border-[#465B20]/25 p-3 sm:p-4 shadow-xs texture-paper"
             >
               {/* Cabeçalho da Coluna Kanban */}
               <div className="flex items-center justify-between pb-2.5 border-b border-[#465B20]/20 mb-3">
@@ -663,14 +692,14 @@ export default function SkillsSection() {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.94, y: 20 }}
               transition={{ type: "spring", stiffness: 300, damping: 30 }}
-              className="relative w-full max-w-lg max-h-[90vh] overflow-y-auto no-scrollbar rounded-3xl bg-[#FAF8F5] border border-[#556B2F]/30 p-5 sm:p-8 shadow-2xl texture-paper z-10"
+              className="relative w-full max-w-lg max-h-[90dvh] pb-[calc(1.5rem+env(safe-area-inset-bottom))] overflow-y-auto no-scrollbar rounded-3xl bg-[#FAF8F5] border border-[#556B2F]/30 p-5 sm:p-8 shadow-2xl texture-paper z-10"
             >
 
               {/* Botão Fechar */}
               <button
                 type="button"
                 onClick={() => setInspectingSkill(null)}
-                className="absolute top-3.5 right-3.5 sm:top-4 sm:right-4 w-9 h-9 sm:w-8 sm:h-8 rounded-full bg-white hover:bg-[#465B20] hover:text-[#F7F6F2] text-[#1C1A18] border border-[#465B20]/30 flex items-center justify-center transition-colors cursor-pointer shadow-xs active:scale-95 z-20"
+                className="absolute top-3.5 right-3.5 sm:top-4 sm:right-4 w-10 h-10 min-w-[40px] min-h-[40px] rounded-full bg-white hover:bg-[#465B20] hover:text-[#F7F6F2] text-[#1C1A18] border border-[#465B20]/30 flex items-center justify-center transition-colors cursor-pointer shadow-xs active:scale-95 z-20"
                 aria-label="Fechar ficha técnica"
               >
                 <X className="w-4 h-4" />

@@ -95,12 +95,21 @@ export default function ProjectsSection() {
   const [isPausedManual, setIsPausedManual] = useState(false);
   const [isHoveredCard, setIsHoveredCard] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
 
   // Referência do trilho de rolagem contínua
   const scrollRef = useRef<HTMLDivElement>(null);
   const isMouseDownRef = useRef(false);
   const startXRef = useRef(0);
   const scrollLeftRef = useRef(0);
+
+  // Detecção de toque para otimizar swipe nativo sem interferência da brisa contínua
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const isTouch = "ontouchstart" in window || navigator.maxTouchPoints > 0;
+      setIsTouchDevice(isTouch);
+    }
+  }, []);
 
   // Filtragem dinâmica por categoria
   const filteredProjects = useMemo(() => {
@@ -129,6 +138,13 @@ export default function ProjectsSection() {
     const container = scrollRef.current;
     if (!container) return;
 
+    // Desativa auto-scroll em dispositivos móveis/touch ou quando preferência de movimento reduzido está ativa
+    const prefersReducedMotion =
+      typeof window !== "undefined" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if (isTouchDevice || prefersReducedMotion) return;
+
     let animationFrameId: number;
     const speed = 0.75; // velocidade contínua orgânica (brisa suave)
 
@@ -148,20 +164,34 @@ export default function ProjectsSection() {
 
     animationFrameId = requestAnimationFrame(step);
     return () => cancelAnimationFrame(animationFrameId);
-  }, [isPausedManual, isHoveredCard, isDragging, selectedProjectForModal]);
+  }, [isPausedManual, isHoveredCard, isDragging, selectedProjectForModal, isTouchDevice]);
+
+  // Cálculo dinâmico do passo de scroll (largura do card + gap real)
+  const getStepWidth = useCallback(() => {
+    if (!scrollRef.current) return 320;
+    const firstCard = scrollRef.current.querySelector<HTMLElement>('[data-project-card="true"]');
+    if (firstCard) {
+      const style = window.getComputedStyle(scrollRef.current);
+      const gap = parseFloat(style.columnGap || style.gap) || 16;
+      return firstCard.offsetWidth + gap;
+    }
+    return scrollRef.current.clientWidth * 0.85;
+  }, []);
 
   // Transições manuais 100% funcionais (botões Próximo / Anterior)
   const handleNext = useCallback(() => {
     if (scrollRef.current) {
-      scrollRef.current.scrollBy({ left: 390, behavior: "smooth" });
+      const step = getStepWidth();
+      scrollRef.current.scrollBy({ left: step, behavior: "smooth" });
     }
-  }, []);
+  }, [getStepWidth]);
 
   const handlePrev = useCallback(() => {
     if (scrollRef.current) {
-      scrollRef.current.scrollBy({ left: -390, behavior: "smooth" });
+      const step = getStepWidth();
+      scrollRef.current.scrollBy({ left: -step, behavior: "smooth" });
     }
-  }, []);
+  }, [getStepWidth]);
 
   // Atalhos de teclado (setas ← / →)
   useEffect(() => {
@@ -305,7 +335,7 @@ export default function ProjectsSection() {
           onMouseMove={handleMouseMove}
           onMouseUp={handleMouseUpOrLeave}
           onMouseLeave={handleMouseUpOrLeave}
-          className="flex gap-4 sm:gap-5 md:gap-6 overflow-x-auto no-scrollbar py-3 px-2 cursor-grab active:cursor-grabbing select-none"
+          className="flex gap-4 sm:gap-5 md:gap-6 overflow-x-auto no-scrollbar py-3 px-2 cursor-grab active:cursor-grabbing select-none snap-x snap-mandatory md:snap-none"
           style={{ WebkitOverflowScrolling: "touch" }}
         >
           {duplicatedProjects.map((project, idx) => {
@@ -319,10 +349,11 @@ export default function ProjectsSection() {
             return (
               <div
                 key={`${project.id}-card-${idx}`}
+                data-project-card="true"
                 onMouseEnter={() => setIsHoveredCard(true)}
                 onMouseLeave={() => setIsHoveredCard(false)}
                 onClick={() => setSelectedProjectForModal(project)}
-                className="relative w-[84vw] max-w-[325px] sm:w-[350px] md:w-[380px] h-[520px] sm:h-[530px] shrink-0 rounded-2xl sm:rounded-3xl overflow-hidden border-2 border-[#465B20]/30 hover:border-[#465B20]/60 bg-[#FAF8F5] texture-paper shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between p-4 sm:p-5 group cursor-pointer"
+                className="relative w-[86vw] max-w-[340px] sm:w-[350px] md:w-[380px] h-auto min-h-[490px] sm:min-h-[520px] shrink-0 snap-center md:snap-align-none rounded-2xl sm:rounded-3xl overflow-hidden border-2 border-[#465B20]/30 hover:border-[#465B20]/60 bg-[#FAF8F5] texture-paper shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between p-4 sm:p-5 group cursor-pointer"
               >
                 {/* Topo do Card: Tag de Categoria e Numeração */}
                 <div className="flex items-center justify-between z-10">
@@ -412,7 +443,7 @@ export default function ProjectsSection() {
                         e.stopPropagation();
                         setSelectedProjectForModal(project);
                       }}
-                      className="flex-1 py-2.5 px-3 min-h-[42px] rounded-full bg-[#465B20] hover:bg-[#344516] text-[#F7F6F2] font-sans font-semibold text-xs tracking-wider flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-xs active:scale-98"
+                      className="flex-1 py-2.5 px-3 min-h-[44px] rounded-full bg-[#465B20] hover:bg-[#344516] text-[#F7F6F2] font-sans font-semibold text-xs tracking-wider flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-xs active:scale-98"
                     >
                       <BookOpen className="w-3.5 h-3.5" />
                       <span>Ver Estudo de Caso</span>
@@ -424,7 +455,7 @@ export default function ProjectsSection() {
                         target="_blank"
                         rel="noreferrer"
                         onClick={(e) => e.stopPropagation()}
-                        className="w-10 h-10 min-w-[40px] rounded-full border border-[#465B20]/30 bg-white hover:bg-[#1C1A18] hover:text-[#F7F6F2] text-[#1C1A18] transition-all cursor-pointer shadow-2xs flex items-center justify-center active:scale-95"
+                        className="w-11 h-11 min-w-[44px] min-h-[44px] rounded-full border border-[#465B20]/30 bg-white hover:bg-[#1C1A18] hover:text-[#F7F6F2] text-[#1C1A18] transition-all cursor-pointer shadow-2xs flex items-center justify-center active:scale-95"
                         title="Repositório GitHub"
                       >
                         <Github className="w-3.5 h-3.5" />
@@ -437,7 +468,7 @@ export default function ProjectsSection() {
                         target="_blank"
                         rel="noreferrer"
                         onClick={(e) => e.stopPropagation()}
-                        className="w-10 h-10 min-w-[40px] rounded-full border border-[#465B20]/30 bg-white hover:bg-[#465B20] hover:text-[#F7F6F2] text-[#465B20] transition-all cursor-pointer shadow-2xs flex items-center justify-center active:scale-95"
+                        className="w-11 h-11 min-w-[44px] min-h-[44px] rounded-full border border-[#465B20]/30 bg-white hover:bg-[#465B20] hover:text-[#F7F6F2] text-[#465B20] transition-all cursor-pointer shadow-2xs flex items-center justify-center active:scale-95"
                         title="Acessar Aplicação"
                       >
                         <ExternalLink className="w-3.5 h-3.5" />

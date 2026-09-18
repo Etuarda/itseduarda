@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { ArrowUpRight, Menu, X, Sparkles } from "lucide-react";
+import { useState, useEffect } from "react";
+import { ArrowUpRight, Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { sectionIds, sectionLinks } from "@/data/navigation";
 import { useActiveSection } from "@/hooks/useActiveSection";
@@ -7,6 +7,23 @@ import { useActiveSection } from "@/hooks/useActiveSection";
 export default function Header() {
   const { activeSection, isScrolled } = useActiveSection(sectionIds);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  // Trava scroll do body de forma segura quando o drawer mobile estiver aberto
+  useEffect(() => {
+    if (!mobileMenuOpen) return;
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setMobileMenuOpen(false);
+    };
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.body.style.overflow = prevOverflow;
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [mobileMenuOpen]);
 
   const handleNavClick = (sectionId: string) => {
     setMobileMenuOpen(false);
@@ -18,7 +35,7 @@ export default function Header() {
 
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-50 w-full transition-all duration-300 pointer-events-none">
+      <header className="fixed top-0 left-0 right-0 z-[70] w-full transition-all duration-300 pointer-events-none">
         {/* Main Navigation Bar */}
         <div
           className={`w-full transition-all duration-300 pointer-events-auto ${
@@ -32,7 +49,7 @@ export default function Header() {
             <button
               type="button"
               onClick={() => setMobileMenuOpen(true)}
-              className="md:hidden flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/80 border border-[#465B20]/30 text-[#2A3614] hover:bg-white transition-all shadow-2xs cursor-pointer active:scale-95"
+              className="md:hidden flex items-center gap-2 px-3.5 py-2 min-h-[40px] rounded-full bg-white/80 border border-[#465B20]/30 text-[#2A3614] hover:bg-white transition-all shadow-2xs cursor-pointer active:scale-95"
               aria-label="Abrir menu de navegação"
             >
               <Menu className="w-4 h-4 text-[#465B20]" />
@@ -71,7 +88,7 @@ export default function Header() {
             {/* Único Botão de Ação de Contato */}
             <a
               href="#contato"
-              className="px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-full bg-[#465B20] hover:bg-[#2A3614] text-[#F7F6F2] font-sans font-semibold text-xs uppercase tracking-[0.12em] sm:tracking-[0.14em] transition-all flex items-center gap-1.5 shadow-xs cursor-pointer active:scale-95"
+              className="px-3.5 sm:px-4 py-2 min-h-[40px] rounded-full bg-[#465B20] hover:bg-[#2A3614] text-[#F7F6F2] font-sans font-semibold text-xs uppercase tracking-[0.12em] sm:tracking-[0.14em] transition-all flex items-center gap-1.5 shadow-xs cursor-pointer active:scale-95"
             >
               <span>Contato</span>
               <ArrowUpRight className="w-3.5 h-3.5" />
@@ -83,7 +100,7 @@ export default function Header() {
       {/* Drawer Editorial de Navegação Mobile */}
       <AnimatePresence>
         {mobileMenuOpen && (
-          <div className="fixed inset-0 z-50 md:hidden flex flex-col justify-end pointer-events-auto">
+          <div className="fixed inset-0 z-[80] md:hidden flex flex-col justify-end pointer-events-auto">
             {/* Backdrop */}
             <motion.div
               initial={{ opacity: 0 }}
@@ -100,7 +117,7 @@ export default function Header() {
               animate={{ y: 0 }}
               exit={{ y: "100%" }}
               transition={{ type: "spring", damping: 28, stiffness: 300 }}
-              className="relative w-full max-h-[85vh] bg-[#FAF8F5] border-t-2 border-[#465B20]/40 rounded-t-3xl shadow-2xl p-6 flex flex-col justify-between overflow-y-auto z-10 texture-paper"
+              className="relative w-full max-h-[85dvh] bg-[#FAF8F5] border-t-2 border-[#465B20]/40 rounded-t-3xl shadow-2xl p-5 sm:p-6 pb-[calc(1.5rem+env(safe-area-inset-bottom))] flex flex-col justify-between overflow-y-auto z-10 texture-paper"
             >
               {/* Topo do Menu */}
               <div className="flex items-center justify-between pb-4 border-b border-[#465B20]/20 mb-5">
@@ -113,7 +130,7 @@ export default function Header() {
                 <button
                   type="button"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="w-9 h-9 rounded-full bg-white border border-[#465B20]/25 flex items-center justify-center text-[#1C1A18] hover:bg-[#FAF8F5] transition-colors cursor-pointer shadow-2xs"
+                  className="w-10 h-10 min-w-[40px] min-h-[40px] rounded-full bg-white border border-[#465B20]/25 flex items-center justify-center text-[#1C1A18] hover:bg-[#FAF8F5] transition-colors cursor-pointer shadow-2xs active:scale-95"
                   aria-label="Fechar menu"
                 >
                   <X className="w-4 h-4" />

@@ -7,17 +7,18 @@ export default function HeroSection() {
   return (
     <section
       id="hero"
-      className="w-full min-h-screen lg:h-screen lg:max-h-screen relative bg-[#FAF8F5] texture-paper flex flex-col justify-between overflow-hidden px-4 sm:px-8 md:px-12 lg:px-16 pt-20 sm:pt-22 pb-5 scroll-mt-0"
+      className="w-full min-h-[100svh] h-auto relative bg-[#FAF8F5] texture-paper flex flex-col justify-between overflow-x-clip px-3.5 sm:px-8 md:px-12 lg:px-16 pt-16 sm:pt-20 lg:pt-22 pb-4 sm:pb-5 scroll-mt-0"
     >
-     
-
       {/* 2. O Grande Masthead Editorial (Nome em Destaque na Capa Sem Moldura) */}
-      <div className="w-full pt-2 sm:pt-3 pb-3 sm:pb-4 text-center border-b border-[#465B20]/15 select-none">
-        <h1 className="font-serif font-black text-2xl xs:text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl tracking-tight sm:tracking-[0.05em] lg:tracking-[0.08em] text-[#1C1A18] uppercase leading-none break-words">
+      <div className="w-full pt-1 sm:pt-3 pb-2.5 sm:pb-4 text-center border-b border-[#465B20]/15 select-none">
+        <h1
+          className="font-serif font-black text-[clamp(1.65rem,6.8vw,4.5rem)] lg:text-7xl xl:text-8xl tracking-tight sm:tracking-[0.05em] lg:tracking-[0.08em] text-[#1C1A18] uppercase leading-none break-words"
+          style={{ textWrap: "balance" }}
+        >
           Eduarda Silva Santos
         </h1>
 
-        <div className="flex flex-wrap items-center justify-center gap-1.5 sm:gap-4 mt-1.5 sm:mt-2.5 text-[9px] xs:text-[10px] sm:text-xs md:text-sm font-mono font-bold tracking-[0.14em] sm:tracking-[0.25em] text-[#465B20] uppercase">
+        <div className="flex flex-wrap items-center justify-center gap-1.5 sm:gap-3 mt-1.5 sm:mt-2.5 text-[9px] sm:text-xs md:text-sm font-mono font-bold tracking-[0.14em] sm:tracking-[0.25em] text-[#465B20] uppercase">
           <span>Dev Full-Stack</span>
           <span className="text-[#9E6761]">✦</span>
           <span>Engenharia de Dados</span>
@@ -26,25 +27,56 @@ export default function HeroSection() {
         </div>
       </div>
 
-      {/* 3. Corpo Principal da Capa: Composição Sem Moldura com Foto e Destaques */}
-      <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-center flex-1 my-auto py-3 sm:py-4">
-        {/* Coluna Esquerda: Manchetes de Capa & Seção Sobre (7 cols) */}
-        <div className="lg:col-span-7 flex flex-col justify-center gap-3 sm:gap-4">
+      {/* 3. Corpo Principal da Capa: Composição Sem Moldura com Foto (Primeiro no Mobile) e Destaques */}
+      <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 lg:gap-10 items-center flex-1 my-auto py-2 sm:py-4">
+        {/* Bloco da Foto da Capa: ORDEM 1 NO MOBILE (Aparece antes do texto), ORDEM 2 NO DESKTOP */}
+        <div className="order-1 lg:order-2 lg:col-span-5 relative flex flex-col justify-center items-center w-full my-1 sm:my-0">
+          <div className="relative w-full max-w-[min(88vw,340px)] sm:max-w-[400px] lg:max-w-[480px] rounded-2xl sm:rounded-3xl overflow-hidden shadow-xl sm:shadow-2xl group border-0 bg-[#FAF8F5] flex items-center justify-center">
+            <img
+              src={eduardaPhoto}
+              alt="Eduarda Silva Santos — Desenvolvedora Full Stack e Especialista em IA"
+              className="w-full h-auto max-h-[42svh] sm:max-h-[50svh] lg:max-h-none object-contain sm:object-cover object-center group-hover:scale-102 transition-transform duration-700 ease-out"
+            />
+          </div>
+
+          {/* Assinatura Editorial e Selos na Base da Foto (Sem cobrir a foto e sem extrapolar viewport) */}
+          <div className="w-full max-w-[min(88vw,340px)] sm:max-w-[400px] lg:max-w-[480px] mt-2 sm:mt-2.5 px-1 flex flex-wrap items-center justify-between gap-x-2 gap-y-1 text-xs select-none">
+            <span
+              className="text-2xl sm:text-3xl text-[#465B20] leading-none"
+              style={{ fontFamily: "'Great Vibes', cursive" }}
+            >
+              Eduarda Silva Santos
+            </span>
+            <div className="flex flex-wrap items-center gap-1 sm:gap-2 text-[9px] sm:text-[11px] font-mono text-[#383531] font-semibold">
+              <span>PUCRS</span>
+              <span className="text-[#9E6761]">✦</span>
+              <span>USP / FDTE</span>
+              <span className="text-[#9E6761]">✦</span>
+              <span>PUC-Rio</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Bloco Textual: ORDEM 2 NO MOBILE (Depois da Foto), ORDEM 1 NO DESKTOP (À Esquerda) */}
+        <div className="order-2 lg:order-1 lg:col-span-7 flex flex-col justify-center gap-3 sm:gap-4">
           {/* Manchete Principal de Capa */}
           <div className="flex flex-col">
             <div className="flex flex-wrap items-baseline gap-x-2 sm:gap-x-3 gap-y-1 mb-1">
-              <span className="font-serif font-light text-xl sm:text-3xl lg:text-4xl text-[#1C1A18] tracking-tight">
+              <span className="font-serif font-light text-[clamp(1.15rem,4vw,2.25rem)] text-[#1C1A18] tracking-tight leading-snug">
                 Desenvolvedora web usando
               </span>
               <span
-                className="text-2xl sm:text-4xl lg:text-5xl text-[#9E6761] leading-none select-none drop-shadow-xs"
+                className="text-[clamp(1.6rem,5.8vw,3rem)] text-[#9E6761] leading-none select-none drop-shadow-xs inline-block"
                 style={{ fontFamily: "'Great Vibes', cursive" }}
               >
                 dados e ia generativa aplicada.
               </span>
             </div>
 
-            <h2 className="font-serif font-bold text-base sm:text-lg lg:text-xl text-[#1C1A18] tracking-tight leading-snug">
+            <h2
+              className="font-serif font-bold text-sm sm:text-lg lg:text-xl text-[#1C1A18] tracking-tight leading-snug"
+              style={{ textWrap: "balance" }}
+            >
               Soluções que impactam{" "}
               <span className="italic font-light text-[#465B20]">
                pessoas.
@@ -116,17 +148,17 @@ export default function HeroSection() {
           </div>
 
           {/* Botões de Ação na Capa */}
-          <div className="flex flex-wrap items-center gap-2 sm:gap-2.5 pt-0.5 w-full sm:w-auto">
+          <div className="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-2 sm:gap-2.5 pt-1 w-full sm:w-auto">
             <a
               href="#projetos"
-              className="flex-1 sm:flex-none px-4 sm:px-6 py-2.5 sm:py-3 min-h-[44px] rounded-full bg-[#465B20] hover:bg-[#2A3614] text-[#F7F6F2] font-sans font-semibold text-xs uppercase tracking-[0.12em] sm:tracking-[0.14em] transition-all flex items-center justify-center gap-2 shadow-xs cursor-pointer active:scale-98"
+              className="w-full sm:w-auto px-5 sm:px-6 py-2.5 sm:py-3 min-h-[44px] rounded-full bg-[#465B20] hover:bg-[#2A3614] text-[#F7F6F2] font-sans font-semibold text-xs uppercase tracking-[0.12em] sm:tracking-[0.14em] transition-all flex items-center justify-center gap-2 shadow-xs cursor-pointer active:scale-98"
             >
               Explorar Projetos <ArrowRight className="w-3.5 h-3.5" />
             </a>
 
             <a
               href="#stacks"
-              className="flex-1 sm:flex-none px-3.5 sm:px-5 py-2.5 sm:py-3 min-h-[44px] rounded-full border border-[#465B20]/40 bg-white hover:bg-[#FAF8F5] text-[#1C1A18] font-sans font-semibold text-xs uppercase tracking-[0.10em] sm:tracking-[0.12em] transition-all flex items-center justify-center gap-2 cursor-pointer shadow-xs active:scale-98"
+              className="w-full sm:w-auto px-4 sm:px-5 py-2.5 sm:py-3 min-h-[44px] rounded-full border border-[#465B20]/40 bg-white hover:bg-[#FAF8F5] text-[#1C1A18] font-sans font-semibold text-xs uppercase tracking-[0.10em] sm:tracking-[0.12em] transition-all flex items-center justify-center gap-2 cursor-pointer shadow-xs active:scale-98"
             >
               Stacks & Arquitetura
             </a>
@@ -141,34 +173,6 @@ export default function HeroSection() {
             >
               <Download className="w-3.5 h-3.5 text-[#465B20]" /> Baixar CV
             </a>
-          </div>
-        </div>
-
-        {/* Coluna Direita: A FOTO NA CAPA (Toda Visível, Bem Enquadrada e Sem Moldura) (5 cols) */}
-        <div className="lg:col-span-5 relative flex flex-col justify-center items-center w-full">
-          <div className="relative w-full max-w-[300px] xs:max-w-[340px] sm:max-w-[420px] lg:max-w-[490px] aspect-square rounded-2xl sm:rounded-3xl overflow-hidden shadow-xl sm:shadow-2xl group border-0 bg-[#FAF8F5]">
-            <img
-              src={eduardaPhoto}
-              alt="Eduarda Silva Santos — Desenvolvedora Full Stack e Especialista em IA"
-              className="w-full h-full object-contain sm:object-cover object-center group-hover:scale-102 transition-transform duration-700 ease-out"
-            />
-          </div>
-
-          {/* Assinatura Editorial e Selos na Base da Foto (Sem cobrir a foto!) */}
-          <div className="w-full max-w-[300px] xs:max-w-[340px] sm:max-w-[420px] lg:max-w-[490px] mt-2.5 px-1 flex flex-wrap items-center justify-between gap-2 text-xs select-none">
-            <span
-              className="text-2xl sm:text-3xl text-[#465B20] leading-none"
-              style={{ fontFamily: "'Great Vibes', cursive" }}
-            >
-              Eduarda Silva Santos
-            </span>
-            <div className="flex items-center gap-1.5 sm:gap-2 text-[9px] sm:text-[11px] font-mono text-[#383531] font-semibold">
-              <span>PUCRS</span>
-              <span className="text-[#9E6761]">✦</span>
-              <span>USP / FDTE</span>
-              <span className="text-[#9E6761]">✦</span>
-              <span>PUC-Rio</span>
-            </div>
           </div>
         </div>
       </div>

@@ -6,9 +6,14 @@ export default function SplashIntro() {
   const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {
+    const prefersReducedMotion =
+      typeof window !== "undefined" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    const duration = prefersReducedMotion ? 400 : 1800;
     const timer = setTimeout(() => {
       setIsVisible(false);
-    }, 1800);
+    }, duration);
 
     return () => clearTimeout(timer);
   }, []);
@@ -18,7 +23,7 @@ export default function SplashIntro() {
       {isVisible && (
         <motion.div
           id="splash-container"
-          className="fixed inset-0 z-50 flex flex-col justify-center items-center bg-[#F7F6F2] select-none pointer-events-none"
+          className="fixed inset-0 z-[80] flex flex-col justify-center items-center bg-[#F7F6F2] select-none pointer-events-none min-h-[100dvh] h-[100dvh] w-full max-w-[100vw] overflow-hidden"
           initial={{ y: 0 }}
           exit={{
             y: "-100%",

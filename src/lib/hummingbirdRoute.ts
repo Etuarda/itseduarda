@@ -53,18 +53,18 @@ export const SECTION_IDS: SectionId[] = [
  */
 export const zoneClasses: Record<Zone, string> = {
   "left-top":
-    "left-[clamp(8px,2vw,24px)] top-[clamp(16px,5vw,48px)]",
+    "left-[clamp(8px,2vw,24px)] top-[clamp(72px,9vh,88px)]",
   "left-middle":
     "left-[clamp(8px,2vw,24px)] top-1/2 -translate-y-1/2",
   "left-bottom":
-    "left-[clamp(8px,2vw,24px)] bottom-[clamp(16px,5vw,48px)]",
+    "left-[clamp(8px,2vw,24px)] bottom-[calc(clamp(16px,4vh,40px)+env(safe-area-inset-bottom))]",
 
   "right-top":
-    "right-[clamp(8px,2vw,24px)] top-[clamp(16px,5vw,48px)]",
+    "right-[clamp(8px,2vw,24px)] top-[clamp(72px,9vh,88px)]",
   "right-middle":
     "right-[clamp(8px,2vw,24px)] top-1/2 -translate-y-1/2",
   "right-bottom":
-    "right-[clamp(8px,2vw,24px)] bottom-[clamp(16px,5vw,48px)]",
+    "right-[clamp(8px,2vw,24px)] bottom-[calc(clamp(16px,4vh,40px)+env(safe-area-inset-bottom))]",
 };
 
 /**

@@ -84,7 +84,7 @@ export default function ConnectingLineArt() {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
         preserveAspectRatio="none"
-        className="w-full h-full opacity-85 transition-opacity duration-1000"
+        className="w-full h-full opacity-40 sm:opacity-85 transition-opacity duration-1000"
       >
         <defs>
           {/* Gradiente natural da haste do galho único em Verde Oliva & Floresta */}

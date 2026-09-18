@@ -96,31 +96,42 @@ export default function SpecialtiesCarousel() {
       </div>
 
       {/* Carrossel em Acordeão (Accordion Carousel / Accordion Slider) */}
-      <div className="flex flex-col md:flex-row gap-2.5 sm:gap-3.5 w-full min-h-[460px] md:h-[530px]">
+      <div className="flex flex-col md:flex-row gap-3 md:gap-3.5 w-full h-auto md:h-[540px]">
         {stackPillars.map((pillar, index) => {
           const isExpanded = activePillar === index;
 
           return (
             <div
               key={pillar.id}
-              onClick={() => setActivePillar(index)}
-              onMouseEnter={() => setActivePillar(index)}
-              className={`relative rounded-2xl md:rounded-3xl border border-[#465B20]/30 overflow-hidden cursor-pointer transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] flex flex-col ${
+              className={`relative rounded-2xl md:rounded-3xl border border-[#465B20]/30 overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] flex flex-col ${
                 isExpanded
-                  ? "flex-[4.2] bg-[#FAF8F5] shadow-[0_15px_35px_-10px_rgba(70,91,32,0.18)] border-[#465B20]/50 texture-scanner"
-                  : "flex-1 bg-[#FAF8F5] hover:bg-white hover:border-[#465B20]/45"
+                  ? "w-full md:w-auto md:flex-[4.2] flex-none h-auto md:h-full bg-[#FAF8F5] shadow-[0_15px_35px_-10px_rgba(70,91,32,0.18)] border-[#465B20]/50 texture-scanner"
+                  : "w-full md:w-auto md:flex-1 flex-none h-[58px] sm:h-[62px] md:h-full bg-[#FAF8F5] hover:bg-white hover:border-[#465B20]/45"
               }`}
+              onMouseEnter={() => {
+                if (typeof window !== "undefined" && window.innerWidth >= 768 && window.matchMedia("(hover: hover)").matches) {
+                  setActivePillar(index);
+                }
+              }}
             >
-              {/* FACHADA RECOLHIDA (GOMO ESTREITO - DESKTOP & MOBILE) */}
+              {/* FACHADA RECOLHIDA (GOMO ESTREITO - DESKTOP & MOBILE BUTTON ACIONÁVEL) */}
               {!isExpanded && (
-                <div className="w-full h-full min-h-[52px] flex md:flex-col items-center justify-between p-3.5 sm:p-5 select-none relative overflow-hidden group active:bg-white/80">
+                <button
+                  type="button"
+                  id={`stack-trigger-${pillar.id}`}
+                  aria-expanded={false}
+                  aria-controls={`stack-panel-${pillar.id}`}
+                  onClick={() => setActivePillar(index)}
+                  className="w-full h-full min-h-[58px] sm:min-h-[62px] flex md:flex-col items-center justify-between p-3.5 sm:p-5 select-none relative overflow-hidden group cursor-pointer text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-[#465B20] active:bg-white/80"
+                >
                   {/* Fundo com foto ocupando toda a altura do card */}
                   <img
                     src={pillar.image}
-                    alt={pillar.shortTitle}
-                    className="absolute inset-0 w-full h-full object-cover opacity-25 grayscale group-hover:opacity-40 group-hover:scale-105 transition-all duration-500"
+                    alt=""
+                    aria-hidden="true"
+                    className="absolute inset-0 w-full h-full object-cover opacity-25 grayscale group-hover:opacity-40 group-hover:scale-105 transition-all duration-500 pointer-events-none"
                   />
-                  <div className="absolute inset-0 bg-[#FAF8F5]/80 group-hover:bg-[#FAF8F5]/70 transition-colors" />
+                  <div className="absolute inset-0 bg-[#FAF8F5]/80 group-hover:bg-[#FAF8F5]/70 transition-colors pointer-events-none" />
 
                   {/* Número no Topo */}
                   <div className="relative z-10 flex items-center gap-2 md:flex-col">
@@ -149,34 +160,36 @@ export default function SpecialtiesCarousel() {
                     <span className="text-[10px] font-sans font-semibold uppercase tracking-wider hidden md:block opacity-75">
                       Expandir
                     </span>
-                    <Maximize2 className="w-3.5 h-3.5 text-[#465B20] group-hover:scale-110 transition-transform" />
+                    <Maximize2 className="w-4 h-4 text-[#465B20] group-hover:scale-110 transition-transform" />
                   </div>
-                </div>
+                </button>
               )}
 
-              {/* CONTEÚDO EXPANDIDO (PAINEL ABERTO COM FOTO NA ALTURA DO CARD E DETALHES) */}
+              {/* CONTEÚDO EXPANDIDO (PAINEL ABERTO COM FOTO 100% VISÍVEL E FLUXO NATURAL) */}
               {isExpanded && (
                 <motion.div
+                  id={`stack-panel-${pillar.id}`}
+                  role="region"
+                  aria-labelledby={`stack-trigger-${pillar.id}`}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ duration: 0.35 }}
-                  className="w-full h-full flex flex-col lg:flex-row overflow-hidden relative"
+                  className="w-full h-auto md:h-full flex flex-col lg:flex-row overflow-hidden relative"
                 >
                   {/* Linha de feixe de luz de scanner animada */}
                   <div className="scanner-beam" />
 
-                  {/* Foto da Especialidade: Altura Completa do Card (h-full), Sem Moldura, 100% Enquadrada */}
-                  <div className="w-full lg:w-[42%] h-[200px] xs:h-[230px] sm:h-[280px] lg:h-full shrink-0 relative overflow-hidden group/img">
+                  {/* Foto da Especialidade: Imagem 100% Completa, Sem Cortes, Object-Contain no Mobile */}
+                  <div className="w-full lg:w-[42%] h-auto max-h-[55svh] lg:max-h-none lg:h-full shrink-0 relative overflow-hidden bg-[#FAF8F5] flex items-center justify-center p-2 sm:p-3 lg:p-0">
                     <img
                       src={pillar.image}
                       alt={pillar.fullTitle}
-                      className="w-full h-full object-cover object-center group-hover/img:scale-105 transition-transform duration-700"
+                      className="w-full h-auto max-h-[55svh] lg:h-full lg:max-h-none object-contain lg:object-cover object-center group-hover:scale-102 transition-transform duration-700"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent lg:hidden pointer-events-none" />
                   </div>
 
-                  {/* Especificações Técnicas e Conceitos (Coluna Direita) */}
-                  <div className="flex-1 p-4 sm:p-6 md:p-8 flex flex-col justify-between overflow-y-auto no-scrollbar relative z-10">
+                  {/* Especificações Técnicas e Conceitos (Coluna Direita - Cresce naturalmente no Mobile) */}
+                  <div className="flex-1 p-4 sm:p-6 md:p-8 flex flex-col justify-between md:overflow-y-auto no-scrollbar relative z-10">
                     <div>
                       {/* Tag e Número */}
                       <div className="flex items-center gap-2.5 mb-2">
@@ -236,16 +249,16 @@ export default function SpecialtiesCarousel() {
                       </div>
                     </div>
 
-                    {/* Rodapé do Painel Aberto */}
-                    <div className="mt-4 pt-2.5 border-t border-[#465B20]/20 flex items-center justify-between text-xs font-sans text-[#4E4A45]">
+                    {/* Rodapé do Painel Aberto com Wrap Seguro */}
+                    <div className="mt-4 pt-2.5 border-t border-[#465B20]/20 flex flex-wrap items-center justify-between gap-2.5 text-xs font-sans text-[#4E4A45]">
                       <a
                         href="#skills"
-                        className="inline-flex items-center gap-1 font-sans text-xs uppercase tracking-wider text-[#465B20] font-bold hover:text-[#2A3614] transition-colors"
+                        className="inline-flex items-center gap-1.5 font-sans text-xs uppercase tracking-wider text-[#465B20] font-bold hover:text-[#2A3614] transition-colors min-h-[44px]"
                       >
-                        Ver ferramentas no repositório <ArrowRight className="w-3 h-3" />
+                        Ver ferramentas no repositório <ArrowRight className="w-3.5 h-3.5" />
                       </a>
 
-                      <span className="font-handwriting text-sm text-[#465B20] font-semibold">
+                      <span className="font-handwriting text-sm sm:text-base text-[#465B20] font-semibold shrink-0">
                         Faixa {pillar.number} de 04
                       </span>
                     </div>

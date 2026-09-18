@@ -106,12 +106,12 @@ export default function FooterSection() {
               </div>
 
               {/* Botão de Cópia Rápida de E-mail */}
-              <div className="p-3.5 rounded-2xl bg-white border border-[#465B20]/25 mb-5 flex items-center justify-between gap-3 shadow-2xs">
+              <div className="p-3.5 rounded-2xl bg-white border border-[#465B20]/25 mb-5 flex flex-col min-[380px]:flex-row items-stretch min-[380px]:items-center justify-between gap-3 shadow-2xs">
                 <div className="flex items-center gap-2.5 overflow-hidden">
                   <div className="w-8 h-8 rounded-full bg-[#465B20]/15 flex items-center justify-center text-[#465B20] shrink-0">
                     <Mail className="w-4 h-4" />
                   </div>
-                  <div className="flex flex-col truncate">
+                  <div className="flex flex-col truncate min-w-0">
                     <span className="text-[10px] font-sans uppercase tracking-wider text-[#4E4A45] font-bold">
                       E-mail Corporativo:
                     </span>
@@ -124,10 +124,10 @@ export default function FooterSection() {
                 <button
                   type="button"
                   onClick={handleCopyEmail}
-                  className="px-3.5 py-2 min-h-[38px] rounded-full bg-[#465B20] hover:bg-[#2A3614] text-[#F7F6F2] font-sans text-xs font-semibold flex items-center gap-1.5 transition-all cursor-pointer shadow-xs shrink-0 active:scale-95"
+                  className="px-3.5 py-2.5 min-h-[44px] rounded-full bg-[#465B20] hover:bg-[#2A3614] text-[#F7F6F2] font-sans text-xs font-semibold flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-xs shrink-0 active:scale-95"
                   title="Copiar e-mail"
                 >
-                  <Copy className="w-3 h-3" /> Copiar
+                  <Copy className="w-3.5 h-3.5" /> Copiar
                 </button>
               </div>
 
@@ -137,7 +137,7 @@ export default function FooterSection() {
                   href="https://github.com/Etuarda"
                   target="_blank"
                   rel="noreferrer"
-                  className="w-10 h-10 rounded-full bg-white border border-[#465B20]/30 hover:bg-[#1C1A18] hover:text-[#F7F6F2] text-[#1C1A18] flex items-center justify-center transition-all cursor-pointer shadow-xs active:scale-95"
+                  className="w-11 h-11 min-w-[44px] min-h-[44px] rounded-full bg-white border border-[#465B20]/30 hover:bg-[#1C1A18] hover:text-[#F7F6F2] text-[#1C1A18] flex items-center justify-center transition-all cursor-pointer shadow-xs active:scale-95"
                   title="GitHub"
                 >
                   <Github className="w-4 h-4" />
@@ -147,7 +147,7 @@ export default function FooterSection() {
                   href="https://www.linkedin.com/in/itseduarda"
                   target="_blank"
                   rel="noreferrer"
-                  className="w-10 h-10 rounded-full bg-white border border-[#465B20]/30 hover:bg-[#1C1A18] hover:text-[#F7F6F2] text-[#1C1A18] flex items-center justify-center transition-all cursor-pointer shadow-xs active:scale-95"
+                  className="w-11 h-11 min-w-[44px] min-h-[44px] rounded-full bg-white border border-[#465B20]/30 hover:bg-[#1C1A18] hover:text-[#F7F6F2] text-[#1C1A18] flex items-center justify-center transition-all cursor-pointer shadow-xs active:scale-95"
                   title="LinkedIn"
                 >
                   <Linkedin className="w-4 h-4" />
@@ -155,7 +155,7 @@ export default function FooterSection() {
 
                 <a
                   href={`mailto:${corporateEmail}`}
-                  className="w-10 h-10 rounded-full bg-white border border-[#465B20]/30 hover:bg-[#1C1A18] hover:text-[#F7F6F2] text-[#1C1A18] flex items-center justify-center transition-all cursor-pointer shadow-xs active:scale-95"
+                  className="w-11 h-11 min-w-[44px] min-h-[44px] rounded-full bg-white border border-[#465B20]/30 hover:bg-[#1C1A18] hover:text-[#F7F6F2] text-[#1C1A18] flex items-center justify-center transition-all cursor-pointer shadow-xs active:scale-95"
                   title="Enviar E-mail"
                 >
                   <Mail className="w-4 h-4" />
@@ -166,7 +166,7 @@ export default function FooterSection() {
                   download="Eduarda- Curriculo-Full-Stack(6).pdf"
                   target="_blank"
                   rel="noreferrer"
-                  className="px-4 py-2.5 min-h-[42px] rounded-full border border-[#465B20]/35 bg-white hover:bg-[#FAF8F5] text-[#1C1A18] flex items-center gap-1.5 text-xs font-sans font-semibold transition-all shadow-xs cursor-pointer active:scale-95"
+                  className="px-4 py-2.5 min-h-[44px] rounded-full border border-[#465B20]/35 bg-white hover:bg-[#FAF8F5] text-[#1C1A18] flex items-center gap-1.5 text-xs font-sans font-semibold transition-all shadow-xs cursor-pointer active:scale-95"
                   title="Baixar Currículo em PDF"
                 >
                   <Download className="w-3.5 h-3.5 text-[#465B20]" />

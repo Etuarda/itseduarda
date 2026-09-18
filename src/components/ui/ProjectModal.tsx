@@ -16,13 +16,14 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
       if (e.key === "Escape") onClose();
     };
 
-    if (isOpen) {
-      document.body.style.overflow = "hidden";
-      window.addEventListener("keydown", handleKeyDown);
-    }
+    if (!isOpen) return;
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", handleKeyDown);
 
     return () => {
-      document.body.style.overflow = "unset";
+      document.body.style.overflow = previousOverflow;
       window.removeEventListener("keydown", handleKeyDown);
     };
   }, [isOpen, onClose]);
@@ -55,7 +56,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.96, y: 20 }}
             transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className="relative w-full max-w-4xl max-h-[92vh] sm:max-h-[90vh] bg-[#F7F6F2] border-t sm:border border-[#465B20]/35 rounded-t-3xl sm:rounded-3xl shadow-[0_25px_60px_-15px_rgba(28,26,24,0.35)] flex flex-col overflow-hidden z-10"
+            className="relative w-full max-w-4xl max-h-[92dvh] sm:max-h-[90dvh] bg-[#F7F6F2] border-t sm:border border-[#465B20]/35 rounded-t-3xl sm:rounded-3xl shadow-[0_25px_60px_-15px_rgba(28,26,24,0.35)] flex flex-col overflow-hidden z-10"
           >
             {/* Top Bar Editorial */}
             <div className="flex items-center justify-between px-4 sm:px-6 py-3 sm:py-4 border-b border-[#465B20]/20 bg-[#FAF8F5] shrink-0">
@@ -72,7 +73,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
               <button
                 type="button"
                 onClick={onClose}
-                className="w-9 h-9 sm:w-8 sm:h-8 rounded-full border border-[#465B20]/30 text-[#383531] hover:text-[#1C1A18] hover:border-[#465B20]/60 flex items-center justify-center transition-all cursor-pointer active:scale-95 shadow-2xs"
+                className="w-10 h-10 min-w-[40px] min-h-[40px] rounded-full border border-[#465B20]/30 text-[#383531] hover:text-[#1C1A18] hover:border-[#465B20]/60 flex items-center justify-center transition-all cursor-pointer active:scale-95 shadow-2xs"
                 aria-label="Fechar modal"
               >
                 <X className="w-4 h-4" />
@@ -215,7 +216,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
             </div>
 
             {/* Rodapé de Ações com Links Diretos */}
-            <div className="px-4 sm:px-6 py-3.5 sm:py-4 border-t border-[#465B20]/20 bg-[#FAF8F5] flex flex-col sm:flex-row items-center justify-between gap-3 shrink-0">
+            <div className="px-4 sm:px-6 py-3.5 sm:py-4 pb-[calc(1.2rem+env(safe-area-inset-bottom))] sm:pb-4 border-t border-[#465B20]/20 bg-[#FAF8F5] flex flex-col sm:flex-row items-center justify-between gap-3 shrink-0">
               <span className="font-sans text-[11px] text-[#4E4A45] font-medium text-center sm:text-left">
                 Código-fonte e arquitetura desenvolvidos por Eduarda Silva Santos
               </span>
@@ -226,7 +227,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                     href={project.githubUrl}
                     target="_blank"
                     rel="noreferrer"
-                    className="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 min-h-[42px] rounded-full border border-[#465B20]/35 bg-white text-[#1C1A18] hover:bg-[#1C1A18] hover:text-[#F7F6F2] transition-all text-xs font-sans font-semibold cursor-pointer shadow-xs active:scale-98"
+                    className="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 min-h-[44px] rounded-full border border-[#465B20]/35 bg-white text-[#1C1A18] hover:bg-[#1C1A18] hover:text-[#F7F6F2] transition-all text-xs font-sans font-semibold cursor-pointer shadow-xs active:scale-98"
                   >
                     <Github className="w-3.5 h-3.5" /> Ver no GitHub
                   </a>
@@ -237,7 +238,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                     href={project.demoUrl}
                     target="_blank"
                     rel="noreferrer"
-                    className="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 min-h-[42px] rounded-full bg-[#465B20] text-[#F7F6F2] hover:bg-[#2A3614] transition-all text-xs font-sans font-semibold cursor-pointer shadow-xs active:scale-98"
+                    className="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 min-h-[44px] rounded-full bg-[#465B20] text-[#F7F6F2] hover:bg-[#2A3614] transition-all text-xs font-sans font-semibold cursor-pointer shadow-xs active:scale-98"
                   >
                     <ExternalLink className="w-3.5 h-3.5" /> Acessar Aplicação
                   </a>

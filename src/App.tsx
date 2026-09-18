@@ -15,7 +15,7 @@ import { LaceDivider } from "@/components/ui/CssLace";
 
 export default function App() {
   return (
-    <div className="relative min-h-screen bg-[#F7F6F2] text-[#1C1A18] font-sans antialiased overflow-x-hidden selection:bg-[#465B20]/25 selection:text-[#1C1A18]">
+    <div className="relative min-h-[100svh] w-full max-w-full bg-[#F7F6F2] text-[#1C1A18] font-sans antialiased overflow-x-clip selection:bg-[#465B20]/25 selection:text-[#1C1A18]">
       {/* 1. Canvas Interativo de Fundo (Épico 2: Rede de Partículas Botânicas) */}
       <BotanicalCanvas />
 
