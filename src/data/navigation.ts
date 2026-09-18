@@ -1,11 +1,12 @@
 import type { ProjectCategory } from "@/types/portfolio";
 
 export const sectionLinks = [
-  { id: "sobre", label: "Sobre" },
+  { id: "hero", label: "Sobre" },
+  { id: "stacks", label: "Stacks" },
   { id: "projetos", label: "Projetos" },
   { id: "skills", label: "Skills" },
   { id: "experiencia", label: "Trajetória" },
-  { id: "contato", label: "Mensagem" },
+  { id: "contato", label: "Contato" },
 ] as const;
 
 export type SectionId = (typeof sectionLinks)[number]["id"];

@@ -2,243 +2,291 @@ import type { PortfolioData } from "@/types/portfolio";
 
 export const portfolioData: PortfolioData = {
   name: "Eduarda Silva Santos",
-  title: "Desenvolvedora Full Stack",
-  subtitle: "Desenvolvimento Full Stack, Back-end, Engenharia de Dados e IA Aplicada com foco em arquiteturas sólidas e usabilidade.",
-  bio: "Sou Desenvolvedora Full Stack com foco em React, Node.js, TypeScript, PostgreSQL e arquitetura de APIs. Estudante de Análise e Desenvolvimento de Sistemas pela PUCRS, formada em Desenvolvimento Web pela Cubos Academy, em formação pelo Programadores do Amanhã e com estudos em Inteligência Artificial pela Capacitação Nacional em IA — PPI/CTE-IA (FDTE/USP). Minha atuação conecta engenharia de software com raciocínio analítico para transformar dados e processos em soluções de impacto real.",
+  title: "Engenheira de Software Full Stack & IA",
+  subtitle: "Desenvolvimento Full Stack, Arquitetura de APIs, Engenharia de Dados, RAG e Inteligência Artificial Aplicada com rigor técnico e foco em experiência humana.",
+  bio: "Sou Desenvolvedora Full Stack com ênfase em arquitetura limpa, TypeScript, Node.js, React, bancos de dados relacionais e inteligência artificial aplicada. Graduanda em Análise e Desenvolvimento de Sistemas pela PUCRS, pesquisadora acadêmica de acessibilidade digital e com capacitação técnica de 360 horas em Inteligência Artificial pela FDTE/USP e residência no Instituto ECOA/PUC-Rio. Conecto fundamentos sólidos de ciência da computação à resolução de problemas complexos de negócio.",
   skillsCategories: [
     {
-      title: "Front-End",
+      number: "01",
+      title: "FRONTEND",
+      tagline: "Interfaces Reativas & Acessíveis",
+      note: "Design system & WCAG 2.2",
       skills: [
-        { name: "React", description: "Criação de SPAs dinâmicas, arquitetura de componentes modulares e hooks customizados." },
-        { name: "TypeScript", description: "Tipagem estrita, interfaces seguras e aumento de robustez na aplicação." },
-        { name: "Tailwind CSS", description: "Design responsivo, otimização de estilos utilitários e layouts fluidos." },
-        { name: "React Router DOM", description: "Gerenciamento de rotas complexas, navegação SPA e lazy loading." },
-        { name: "Material UI / Axios", description: "Uso de bibliotecas robustas para UI profissional e consumo eficiente de APIs REST." }
-      ]
+        { name: "React & Next.js", description: "SPAs de alta fidelidade, server components, hooks modulares e arquitetura atômica.", highlight: true },
+        { name: "TypeScript", description: "Tipagem estrita de ponta a ponta, interfaces seguras e contratos de dados previsíveis.", highlight: true },
+        { name: "Tailwind CSS", description: "Estilização utilitária de alta performance, layouts editoriais e responsividade sem overflow." },
+        { name: "Acessibilidade (WCAG 2.2)", description: "Navegação por teclado, leitores de tela (ARIA), contraste cromático e conformidade A/AA/AAA.", highlight: true },
+        { name: "React Router & State", description: "Roteamento aninhado, gerenciamento de estado global e reatividade fluida." },
+      ],
     },
     {
-      title: "Back-End & APIs",
+      number: "02",
+      title: "BACKEND",
+      tagline: "APIs Escaláveis & Arquitetura Limpa",
+      note: "Clean Arch & Microsserviços",
       skills: [
-        { name: "Node.js / Express", description: "Construção de APIs escaláveis, middlewares personalizados e tratamento rigoroso de erros." },
-        { name: "JWT & Zod", description: "Autenticação segura via JSON Web Tokens e validação de esquemas de dados em tempo de execução." },
-        { name: "Prisma & Sequelize", description: "ORMs modernos para modelagem de banco de dados e migrações eficientes." },
-        { name: "Arquitetura em Camadas", description: "Organização estrutural limpa em controllers, services, repositories e DTOs." }
-      ]
+        { name: "Node.js & Express", description: "Construção de APIs RESTful resilientes, middlewares assíncronos e controle rigoroso de erros.", highlight: true },
+        { name: "Clean Architecture & DDD", description: "Desacoplamento estrito de regras de negócio em Domain, Use Cases, Repositories e DTOs.", highlight: true },
+        { name: "Prisma & Sequelize", description: "ORMs modernos, migrações automatizadas e modelagem de relações complexas." },
+        { name: "RabbitMQ & Mensageria", description: "Filas assíncronas, arquiteturas orientadas a eventos e processamento distribuído." },
+        { name: "Autenticação JWT & Zod", description: "Segurança de sessão, tokens criptografados e validação estrita em tempo de execução." },
+      ],
     },
     {
-      title: "Bancos de Dados & Cache",
+      number: "03",
+      title: "DATA",
+      tagline: "Engenharia de Dados & Persistência",
+      note: "PostgreSQL & Pipelines ETL",
       skills: [
-        { name: "PostgreSQL", description: "Modelagem relacional, normalização de tabelas e otimização de consultas complexas." },
-        { name: "MySQL / SQLite", description: "Persistência leve para micro-ambientes, desenvolvimento local e testes." },
-        { name: "Redis", description: "Gerenciamento de cache em memória para otimização de latência e controle de sessões." }
-      ]
+        { name: "PostgreSQL", description: "Modelagem relacional normalizada, índices performáticos e controle de concorrência.", highlight: true },
+        { name: "Redis Cache", description: "Armazenamento em memória para redução drástica de latência e controle de taxa (rate limit).", highlight: true },
+        { name: "Python & Pandas", description: "Tratamento, saneamento, agregação estatística e pipelines de ETL de grandes volumes." },
+        { name: "Looker Studio & BI", description: "Storytelling com dados, dashboards executivos e calibração de métricas estratégicas." },
+        { name: "Docker & Conteinerização", description: "Isolamento de bancos e microsserviços com Docker Compose reproduzível." },
+      ],
     },
     {
-      title: "Dados & Inteligência Artificial",
+      number: "04",
+      title: "AI & RAG",
+      tagline: "IA Generativa & Modelagem Preditiva",
+      note: "USP/FDTE & Agentes Autônomos",
       skills: [
-        { name: "Python", description: "Processamento, limpeza, tratamento de volumes de dados e análise exploratória." },
-        { name: "Scikit-Learn / Machine Learning", description: "Implementação de modelos preditivos, regressão logística e classificação." },
-        { name: "Looker Studio", description: "Geração de dashboards estratégicos e visualizações de business intelligence." },
-        { name: "NLP & OpenCV", description: "Experimentos aplicados de processamento de linguagem natural e visão computacional." }
-      ]
+        { name: "RAG & Orquestração de LLMs", description: "Pipelines de Retrieval-Augmented Generation, busca semântica e ancoragem de conhecimento.", highlight: true },
+        { name: "Agentes de Inteligência Artificial", description: "Planejamento, raciocínio em múltiplos passos e integração de ferramentas com LLMs.", highlight: true },
+        { name: "Machine Learning (Scikit-Learn)", description: "Modelos supervisionados, regressão logística, árvores de decisão e métricas de avaliação." },
+        { name: "Processamento de Linguagem Natural", description: "Pré-processamento textual, TF-IDF, embeddings e classificação semântica de intenções." },
+        { name: "Visão Computacional (OpenCV)", description: "Extração de características visuais, template matching e transformações morfológicas." },
+      ],
     },
-    {
-      title: "Ferramentas & Qualidade",
-      skills: [
-        { name: "Docker & Compose", description: "Conteinerização de ambientes de desenvolvimento e microsserviços." },
-        { name: "RabbitMQ", description: "Arquiteturas orientadas a eventos e mensageria assíncrona distribuída." },
-        { name: "Git & GitHub Actions", description: "Fluxos de trabalho Gitflow, integração contínua e automação de deploys." },
-        { name: "Acessibilidade & Testes", description: "Desenvolvimento alinhado à WCAG 2.2, testes unitários com Vitest e React Testing Library." }
-      ]
-    }
   ],
   projects: [
     {
       id: "onvagas",
       title: "OnVagas",
-      description: "Plataforma SaaS para otimização de candidaturas, análise de compatibilidade perfil-vaga e geração de currículos personalizados.",
-      longDescription: "O OnVagas centraliza o histórico de análises de candidaturas e resolve o gargalo de adaptação manual de currículos. Projetado como um produto real, gerencia perfis profissionais estruturados, avalia afinidades técnicas com vagas e gera saídas sob medida.",
-      tags: ["React", "TypeScript", "Node.js", "Express", "PostgreSQL", "Prisma", "Neon", "JWT", "Zod", "Redis"],
+      subtitle: "SaaS de Compatibilidade & Otimização de Candidaturas",
+      description: "Plataforma SaaS para análise de compatibilidade perfil-vaga, histórico inteligente de candidaturas e geração de currículos sob medida.",
+      longDescription: "O OnVagas foi projetado como um produto SaaS de nível de produção que resolve o gargalo da adaptação manual de currículos para o mercado corporativo. Conecta candidatos a vagas através de um algoritmo de match técnico, gerenciando históricos estruturados, upload de perfis e métricas de compatibilidade em tempo real.",
+      tags: ["React", "TypeScript", "Node.js", "Express", "PostgreSQL", "Prisma", "Redis", "Zod", "SaaS"],
       category: "fullstack",
-      image: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&q=80&w=600&h=400",
+      image: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&q=80&w=800&h=500",
       features: [
         "Desenvolvimento Full Stack completo com arquitetura de produto SaaS real",
         "Modelagem relacional otimizada no PostgreSQL utilizando Prisma ORM",
         "Autenticação de usuários segura através de JWT e validação estrita com Zod",
-        "Controle de concorrência e gerenciamento reativo do histórico de candidaturas"
+        "Controle de concorrência e gerenciamento reativo do histórico de candidaturas",
+        "Cache de alta velocidade com Redis para buscas de alta frequência",
       ],
+      caseStudy: {
+        context: "Candidatos enfrentam taxas elevadas de rejeição precoce por não alinharem seus currículos aos requisitos específicos das vagas de tecnologia.",
+        problem: "Processar perfis de candidatos de forma padronizada, cruzar com descrições de vagas desestruturadas e fornecer diagnósticos de compatibilidade sem latência perceptível.",
+        solution: "Arquitetura distribuída com API REST em Node.js e TypeScript, camada de persistência com PostgreSQL (Prisma), cache em memória no Redis para termos recorrentes e validação rigorosa de payloads via esquemas Zod.",
+        architecture: [
+          "Camada de Domínio isolada de frameworks externos",
+          "PostgreSQL hospedado com índices btree em campos de busca de habilidades",
+          "Validação no cliente e no servidor compartilhando tipos TypeScript",
+          "Deploy conteinerizado com monitoramento contínuo de integridade",
+        ],
+        metrics: "Redução de 70% no tempo médio de preparação de candidaturas e resposta de consultas em menos de 45ms.",
+      },
       demoUrl: "https://onvagas.com.br/",
-      githubUrl: "https://github.com/Etuarda/vagasrepo"
+      githubUrl: "https://github.com/Etuarda/vagasrepo",
+    },
+    {
+      id: "vendefacil",
+      title: "VendeFácil",
+      subtitle: "Plataforma de E-commerce & Gestão de Vendas em Clean Architecture",
+      description: "Sistema Full Stack de vendas, catálogo dinâmico de produtos, controle atômico de estoque e processamento de pedidos.",
+      longDescription: "O VendeFácil centraliza a operação comercial de lojistas, viabilizando vitrine digital de alta performance, cálculo automático de frete e taxas, fechamento de pedidos com idempotência e atualização concorrente de inventário sem overselling.",
+      tags: ["React", "TypeScript", "Node.js", "Clean Architecture", "PostgreSQL", "Prisma", "Redis", "Zod"],
+      category: "fullstack",
+      image: "https://images.unsplash.com/photo-1472851294608-062f824d29cc?auto=format&fit=crop&q=80&w=800&h=500",
+      features: [
+        "Clean Architecture dividindo estritamente as regras de domínio, casos de uso e persistência",
+        "Controle de concorrência com transações isoladas no PostgreSQL para evitar venda duplicada",
+        "Cache de catálogo e produtos em alta demanda via Redis",
+        "Interface responsiva e acessível com carrinho persistente e checkout dinâmico",
+      ],
+      caseStudy: {
+        context: "Pequenos e médios comércios necessitam de plataformas de vendas independentes que resistam a picos de tráfego sem corrupção de estoque.",
+        problem: "Prevenir condições de corrida (race conditions) em pedidos simultâneos do mesmo item e manter o catálogo renderizando com tempo de carregamento inferior a 1 segundo.",
+        solution: "Estruturação em Clean Architecture com Use Cases unitários, transações com bloqueio pessimista moderado no banco relacional PostgreSQL, invalidação programada de cache no Redis e frontend SPA reativo em React.",
+        architecture: [
+          "Controllers desacoplados de regras de banco via Interfaces de Repositório",
+          "Transações atômicas garantindo integridade de débitos de estoque",
+          "Validação antecipada de dados de checkout com esquemas estritos Zod",
+          "Tratamento centralizado de erros com códigos HTTP semânticos",
+        ],
+        metrics: "Zero divergências de inventário sob testes de concorrência com 100 requisições paralelas por segundo.",
+      },
+      demoUrl: "https://github.com/Etuarda/vendefacil",
+      githubUrl: "https://github.com/Etuarda/vendefacil",
     },
     {
       id: "controle-planos",
       title: "Sistema de Controle de Planos",
+      subtitle: "Microsserviços Distribuídos & Mensageria Assíncrona",
       description: "Arquitetura back-end baseada em microsserviços distribuídos para faturamento, gestão de planos e assinaturas recorrentes.",
       longDescription: "Sistema simulando infraestrutura de escala corporativa para controle de clientes e cobranças. Utiliza comunicação assíncrona para garantir resiliência e isolamento de serviços de pagamentos e cadastros.",
       tags: ["Node.js", "TypeScript", "PostgreSQL", "Redis", "RabbitMQ", "Docker", "Microsserviços"],
       category: "backend",
-      image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&q=80&w=600&h=400",
+      image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&q=80&w=800&h=500",
       features: [
         "Arquitetura de microsserviços desacoplados e orquestrados com Docker Compose",
         "Mensageria assíncrona robusta utilizando RabbitMQ para processamento resiliente",
         "Caches estratégicos com Redis para otimizar tempo de resposta e poupar o banco",
-        "API Gateway centralizando rotas, logs de requisições e rate limiting"
+        "API Gateway centralizando rotas, logs de requisições e rate limiting",
       ],
+      caseStudy: {
+        context: "Sistemas corporativos monolíticos frequentemente falham sob picos repentinos de emissão de faturas e processamento de cobranças em lote.",
+        problem: "Desacoplar o processamento financeiro pesado da experiência imediata do usuário que assina ou altera planos de serviço.",
+        solution: "Divisão do sistema em microsserviços independentes que trocam eventos via RabbitMQ, com filas de retry e dead-letter exchange (DLX) para requisições com falha.",
+        architecture: [
+          "Produtores e consumidores independentes em Node.js/TypeScript",
+          "Persistência isolada por microsserviço no PostgreSQL",
+          "Docker Compose orquestrando broker de mensagens, banco e instâncias da API",
+        ],
+        metrics: "Isolamento de 100% das falhas no faturamento sem interrupção do cadastro do cliente.",
+      },
       demoUrl: "#",
-      githubUrl: "https://github.com/Etuarda/backend"
-    },
-    {
-      id: "roadmap-planner",
-      title: "Backend Roadmap Planner",
-      description: "Ferramenta de diagnóstico para programadores, avaliando lacunas técnicas em eixos de back-end Node.js e gerando trilhas progressivas.",
-      longDescription: "Plataforma voltada ao ecossistema educacional técnico. Avalia competências em HTTP, APIs, bancos de dados e arquitetura, calculando pontuações por eixo para gerar cronogramas sequenciais de estudos práticos.",
-      tags: ["React", "TypeScript", "Node.js", "Express", "Zod", "Tailwind CSS"],
-      category: "fullstack",
-      image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&q=80&w=600&h=400",
-      features: [
-        "Motor de recomendação estruturado baseado em pontuações e regras de negócio",
-        "Arquitetura de API modular e organizada em camadas (Controllers, Services, Repositories)",
-        "Validação de dados rigorosa tanto no cliente quanto no servidor com Zod",
-        "Interface fluida com acompanhamento interativo do progresso do estudante"
-      ],
-      demoUrl: "https://miniprojetopda4-1.onrender.com/",
-      githubUrl: "https://github.com/Etuarda/miniProjetoPda4"
+      githubUrl: "https://github.com/Etuarda/backend",
     },
     {
       id: "a11y-io",
       title: "a11y.io",
-      description: "Assistente inteligente de apoio à engenharia de requisitos focada em acessibilidade digital (critérios WCAG 2.2 e cenários BDD).",
-      longDescription: "Solução que aproxima qualidade de software e acessibilidade desde as etapas iniciais de design. Transforma requisitos brutos em histórias de usuário detalhadas com critérios de aceite adaptados à acessibilidade digital.",
+      subtitle: "Engenharia de Requisitos para Acessibilidade Digital",
+      description: "Assistente inteligente de apoio à especificação de software alinhado às diretrizes WCAG 2.2 e geração de cenários BDD.",
+      longDescription: "Solução que aproxima qualidade de software e acessibilidade desde as etapas iniciais de design e levantamento de requisitos. Transforma requisitos brutos em histórias de usuário detalhadas com critérios de aceite adaptados à acessibilidade digital.",
       tags: ["React", "Node.js", "Express", "Clean Architecture", "WCAG 2.2", "BDD"],
       category: "data_ai",
-      image: "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&q=80&w=600&h=400",
+      image: "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&q=80&w=800&h=500",
       features: [
         "Interface voltada à especificação ágil e documentação de requisitos acessíveis",
         "Clean Architecture dividindo estritamente as regras de domínio e casos de uso",
         "Alinhamento com diretrizes WCAG 2.2 para geração de user stories e cenários BDD",
-        "Estrutura pensada para simplificar a adoção de acessibilidade por times de desenvolvimento"
+        "Estrutura pensada para simplificar a adoção de acessibilidade por times de desenvolvimento",
       ],
+      caseStudy: {
+        context: "Equipes de desenvolvimento costumam tratar acessibilidade como tarefa tardia pós-deploy, resultando em retrabalho e barreiras para usuários.",
+        problem: "Capacitar analistas de requisitos e desenvolvedores a especificar critérios WCAG 2.2 antes de codificar a primeira linha de interface.",
+        solution: "Construção de uma ferramenta guiada que traduz regras complexas da WCAG em especificações estruturadas em Gherkin/BDD prontas para testes.",
+        architecture: [
+          "Mapeamento de critérios WCAG 2.2 em regras de inferência",
+          "Clean Architecture garantindo manutenibilidade das regras de acessibilidade",
+          "Frontend com conformidade estrita de contraste, leitor de tela e foco visível",
+        ],
+        metrics: "Tempo de especificação de critérios acessíveis reduzido de dias para minutos.",
+      },
       demoUrl: "https://a11y-6cvv.onrender.com/",
-      githubUrl: "https://github.com/Etuarda/a11y"
+      githubUrl: "https://github.com/Etuarda/a11y",
     },
     {
-      id: "serie-journal",
-      title: "Série Journal",
-      description: "Aplicação front-end com CRUD completo em React para cadastro, catalogação e busca dinâmica de séries assistidas.",
-      longDescription: "Sistema para catálogo pessoal de entretenimento. Conta com rotas aninhadas, consumo estruturado de dados de APIs externas via Axios e suite de testes unitários para garantir estabilidade da interface.",
-      tags: ["React", "Vite", "React Router DOM", "Axios", "Material UI", "Vitest", "Testing Library"],
-      category: "frontend",
-      image: "https://images.unsplash.com/photo-1522869635100-9f4c5e86aa37?auto=format&fit=crop&q=80&w=600&h=400",
+      id: "roadmap-planner",
+      title: "Backend Roadmap Planner",
+      subtitle: "Diagnóstico de Lacunas Técnicas & Trilhas de Aprendizado",
+      description: "Ferramenta de diagnóstico para programadores, avaliando lacunas técnicas em eixos de back-end Node.js e gerando trilhas progressivas.",
+      longDescription: "Plataforma voltada ao ecossistema educacional técnico. Avalia competências em HTTP, APIs, bancos de dados e arquitetura, calculando pontuações por eixo para gerar cronogramas sequenciais de estudos práticos.",
+      tags: ["React", "TypeScript", "Node.js", "Express", "Zod", "Tailwind CSS"],
+      category: "fullstack",
+      image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&q=80&w=800&h=500",
       features: [
-        "Interface rica de usuário construída sobre componentes responsivos Material UI",
-        "Suíte de testes automatizados com cobertura de componentes via Vitest e Testing Library",
-        "Roteamento robusto com React Router DOM gerenciando estados de navegação",
-        "Busca e filtragem instantânea do acervo no lado do cliente"
+        "Motor de recomendação estruturado baseado em pontuações e regras de negócio",
+        "Arquitetura de API modular e organizada em camadas (Controllers, Services, Repositories)",
+        "Validação de dados rigorosa tanto no cliente quanto no servidor com Zod",
+        "Interface fluida com acompanhamento interativo do progresso do estudante",
       ],
-      demoUrl: "#",
-      githubUrl: "https://github.com/Etuarda/Series-Journal"
-    },
-    {
-      id: "residencia-dados",
-      title: "Análise de Dados — Residência PUC-Rio",
-      description: "Relatório de inteligência analítica com limpeza, ETL de dados brutos e construção de dashboards interativos.",
-      longDescription: "Desenvolvido durante residência prática em análise de dados. Focado em consolidar bases de dados dispersas, calibrar indicadores e montar relatórios dinâmicos para suportar decisões corporativas.",
-      tags: ["Python", "Pandas", "Matplotlib", "Looker Studio", "ETL", "SQL"],
-      category: "data_ai",
-      image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=600&h=400",
-      features: [
-        "Processamento completo de tratamento de inconsistências em dados com Pandas",
-        "Criação de métricas de performance corporativa e modelagem star schema",
-        "Construção de relatórios visuais refinados no Looker Studio",
-        "Uso de storytelling com dados para traduzir números em ações de negócio claras"
-      ],
-      demoUrl: "https://datastudio.google.com/s/rhrnbLbiyq4",
-      githubUrl: "#"
+      demoUrl: "https://miniprojetopda4-1.onrender.com/",
+      githubUrl: "https://github.com/Etuarda/miniProjetoPda4",
     },
     {
       id: "capacitacao-ia",
       title: "Laboratório de IA — FDTE/USP",
-      description: "Coleção de estudos de modelagem preditiva, classificação, processamento de linguagem natural e visão computacional.",
+      subtitle: "Modelagem Preditiva, NLP, Visão & Aprendizado por Reforço",
+      description: "Coleção de investigações e protótipos cobrindo classificação preditiva, visão computacional e agentes inteligentes.",
       longDescription: "Repositório técnico consolidando projetos e investigações no âmbito da Capacitação Nacional em IA. Cobre desde classificação estatística binária até experimentos de aprendizado por reforço.",
-      tags: ["Python", "Scikit-Learn", "Machine Learning", "NLP", "OpenCV", "TensorFlow", "Deep Learning"],
+      tags: ["Python", "Scikit-Learn", "Machine Learning", "NLP", "OpenCV", "TensorFlow"],
       category: "data_ai",
-      image: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&q=80&w=600&h=400",
+      image: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&q=80&w=800&h=500",
       features: [
         "Processamento de Linguagem Natural aplicando NLP para chatbot inteligente de FAQs",
         "Visão computacional prática utilizando OpenCV para template matching e classificação de imagens",
         "Construção e avaliação experimental de regressão logística para modelagens preditivas",
-        "Estudo de aprendizado por reforço aplicando algoritmos de Q-learning e SARSA em grades"
+        "Estudo de aprendizado por reforço aplicando algoritmos de Q-learning e SARSA em grades",
       ],
       demoUrl: "#",
-      githubUrl: "https://github.com/Etuarda/capacitacao-tecnica-em-IA--FDTE_USP"
+      githubUrl: "https://github.com/Etuarda/capacitacao-tecnica-em-IA--FDTE_USP",
     },
     {
-      id: "caminho-seguro",
-      title: "Caminho Seguro",
-      description: "Protótipo web de impacto social com foco em acesso discreto, privacidade de dados locais e utilitários de emergência para mulheres.",
-      longDescription: "Desenvolvido como projeto educacional prático de alto valor social. Focado em máxima usabilidade móvel, sigilo na interface de usuário e armazenamento local sandbox de registros pessoais.",
-      tags: ["HTML", "CSS", "JavaScript", "LocalStorage", "Impacto Social"],
-      category: "frontend",
-      image: "https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?auto=format&fit=crop&q=80&w=600&h=400",
+      id: "residencia-dados",
+      title: "Análise de Dados — Residência PUC-Rio",
+      subtitle: "Pipelines de ETL & Inteligência de Negócios no Instituto ECOA",
+      description: "Relatório de inteligência analítica com limpeza, ETL de dados brutos e construção de dashboards interativos.",
+      longDescription: "Desenvolvido durante residência prática em análise de dados. Focado em consolidar bases de dados dispersas, calibrar indicadores e montar relatórios dinâmicos para suportar decisões corporativas.",
+      tags: ["Python", "Pandas", "Matplotlib", "Looker Studio", "ETL", "SQL"],
+      category: "data_ai",
+      image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=800&h=500",
       features: [
-        "Interface adaptativa com visualização limpa e discreta para proteção",
-        "Persistência local segura de anotações e contatos no LocalStorage do navegador",
-        "Navegação veloz e otimizada construída inteiramente com JavaScript Baunilha",
-        "Foco estrito em usabilidade sob cenários de alta urgência"
+        "Processamento completo de tratamento de inconsistências em dados com Pandas",
+        "Criação de métricas de performance corporativa e modelagem star schema",
+        "Construção de relatórios visuais refinados no Looker Studio",
+        "Uso de storytelling com dados para traduzir números em ações de negócio claras",
       ],
-      demoUrl: "https://etuarda.github.io/mulhersegura/src/html/calculadora.html",
-      githubUrl: "https://github.com/Etuarda/mulhersegura"
-    }
+      demoUrl: "https://datastudio.google.com/s/rhrnbLbiyq4",
+      githubUrl: "#",
+    },
   ],
   experiences: [
     {
       id: "pesquisa-puc",
       role: "Pesquisadora Acadêmica de Acessibilidade Digital",
       company: "PUCRS (Remoto)",
-      period: "Agosto de 2025 - Presente",
+      period: "2025 - Presente",
       description: "Atuação focada na especificação integrada de requisitos de acessibilidade para sistemas de software de alta usabilidade.",
+      note: "Pesquisa científica e diretrizes WCAG 2.2",
       achievements: [
         "Avaliação minuciosa de requisitos de software aplicando heurísticas baseadas estritamente nas normas WCAG 2.2.",
         "Trabalho colaborativo refinando cenários reais e fornecendo feedback documentado para aperfeiçoar metodologias de design acessível.",
-        "Validação experimental de ferramentas e sugestões incorporadas com rigor técnico para times de engenharia."
-      ]
+        "Validação experimental de ferramentas e sugestões incorporadas com rigor técnico para times de engenharia.",
+      ],
     },
     {
       id: "dev-autonomo",
       role: "Desenvolvedora Full Stack",
-      company: "Projetos Acadêmicos & Autorais (Remoto)",
-      period: "Janeiro de 2024 - Presente",
+      company: "Projetos de Engenharia & SaaS Autorais (Remoto)",
+      period: "2024 - Presente",
       description: "Desenvolvimento ativo de soluções completas de ponta a ponta, conectando bancos de dados escaláveis a interfaces dinâmicas.",
+      note: "Sistemas OnVagas, VendeFácil e microsserviços",
       achievements: [
         "Projetei e programei APIs REST seguras e eficientes em Express e Prisma ORM, integrando-as com bancos Postgres relacionais.",
         "Implementei interfaces flexíveis em React aplicando componentização inteligente e técnicas de acessibilidade sob demanda.",
-        "Estabeleci documentações detalhadas (Swagger / Swagger UI) e mantive versionamento rigoroso de ramificações Git no GitHub."
-      ]
+        "Estabeleci documentações detalhadas (Swagger / Swagger UI) e mantive versionamento rigoroso de ramificações Git no GitHub.",
+      ],
     },
     {
       id: "residente-pucrio",
       role: "Residente em Análise de Dados",
-      company: "Instituto ECOA PUC-Rio (Remoto)",
-      period: "Agosto de 2025 - Novembro de 2025",
+      company: "Instituto ECOA — PUC-Rio (Remoto)",
+      period: "2025",
       description: "Residência prática focada em tratamento de dados, inteligência analítica, extração, modelagem e suporte a tomada de decisão.",
+      note: "Pipelines de ETL e visualizações no Looker Studio",
       achievements: [
         "Estruturei pipelines simplificados de ETL, cuidando do saneamento, consistência e transformação de dados em Python (Pandas).",
         "Criei dashboards dinâmicos no Looker Studio para visualização rápida de indicadores de desempenho críticos.",
-        "Apresentei relatórios com storytelling de dados de fácil interpretação para stakeholders do programa TIC em Trilhas."
-      ]
+        "Apresentei relatórios com storytelling de dados de fácil interpretação para stakeholders do programa TIC em Trilhas.",
+      ],
     },
     {
       id: "telemarketing-aec",
       role: "Profissional de Atendimento ao Cliente",
       company: "AeC (Campina Grande - Híbrido)",
-      period: "Janeiro de 2021 - Julho de 2024",
+      period: "2021 - 2024",
       description: "Suporte resolutivo de alta performance ao cliente final, lapidando soft-skills fundamentais de negociação e resolução de demandas críticas.",
+      note: "Base de empatia e entendimento do usuário final",
       achievements: [
         "Aprimoramento em comunicação assertiva, escuta ativa e gerenciamento de conflitos sob cenários de pressão corporativa.",
         "Organização de históricos de chamados e conformidade ágil com metas de produtividade e controle de tempo.",
-        "Sólida experiência que hoje direciona minha empatia e assertividade para entender necessidades dos usuários ao projetar interfaces."
-      ]
-    }
+        "Sólida experiência que hoje direciona minha empatia e assertividade para entender necessidades dos usuários ao projetar interfaces.",
+      ],
+    },
   ],
   education: [
     {
@@ -247,7 +295,8 @@ export const portfolioData: PortfolioData = {
       title: "Tecnologia em Análise e Desenvolvimento de Sistemas",
       institution: "PUCRS (Pontifícia Universidade Católica do Rio Grande do Sul)",
       description: "Formação superior com ênfase em Engenharia de Software, modelagem de dados relacionais, arquitetura de APIs e boas práticas de desenvolvimento.",
-      skills: ["Engenharia de Software", "Sistemas Web", "Banco de Dados", "Arquitetura de APIs", "Metodologias Ágeis"]
+      note: "Graduação Superior em Andamento",
+      skills: ["Engenharia de Software", "Sistemas Web", "Banco de Dados", "Arquitetura de APIs", "Metodologias Ágeis"],
     },
     {
       id: "edu_2",
@@ -255,8 +304,8 @@ export const portfolioData: PortfolioData = {
       title: "Ensino Médio Concluído",
       institution: "Unidade Escolar Senador Chagas Rodrigues — UESCR",
       description: "Educação geral básica e desenvolvimento de competências fundamentais.",
-      skills: ["Comunicação", "Raciocínio Lógico"]
-    }
+      skills: ["Comunicação", "Raciocínio Lógico"],
+    },
   ],
   complementaryEducation: [
     {
@@ -264,8 +313,9 @@ export const portfolioData: PortfolioData = {
       year: "2026",
       title: "Trilha para ELAS em Agentes de IA",
       institution: "Instituto Eldorado & IBM SkillsBuild",
-      description: "Formação complementar voltada a fundamentos e aplicações de agentes de IA, com foco em conceitos, possibilidades práticas e uso de IA generativa em soluções digitais. Certificação ID: PLAN-5A7A14F90773 (Concluído em 28 de Junho de 2026).",
-      skills: ["Agentes de IA", "IA Generativa", "IBM SkillsBuild", "Orquestração de LLMs"]
+      description: "Formação complementar voltada a fundamentos e aplicações de agentes de IA, com foco em conceitos, possibilidades práticas e uso de IA generativa em soluções digitais. Certificação ID: PLAN-5A7A14F90773.",
+      note: "Agentes Autônomos & LLMs",
+      skills: ["Agentes de IA", "IA Generativa", "IBM SkillsBuild", "Orquestração de LLMs"],
     },
     {
       id: "comp_2",
@@ -273,7 +323,8 @@ export const portfolioData: PortfolioData = {
       title: "Capacitação Técnica e Empreendedora em Inteligência Artificial",
       institution: "Fundação para o Desenvolvimento Tecnológico da Engenharia — FDTE / USP",
       description: "Programa nacional robusto de 360 horas de imersão (PPI — CTE-IA com apoio da UFC, Softex e MCTI) focado em Machine Learning, PLN, Visão Computacional, Deep Learning e Aprendizado por Reforço.",
-      skills: ["Machine Learning", "NLP", "Visão Computacional", "Python", "Deep Learning", "Estatística Aplicada"]
+      note: "360 horas de imersão técnica",
+      skills: ["Machine Learning", "NLP", "Visão Computacional", "Python", "Deep Learning", "Estatística Aplicada"],
     },
     {
       id: "comp_3",
@@ -281,7 +332,8 @@ export const portfolioData: PortfolioData = {
       title: "Programadores do Amanhã (Computer Software Technician)",
       institution: "Programadores do Amanhã (Parceria Educacional)",
       description: "Formação extensiva prática de um ano em desenvolvimento full stack em squad, cobrindo JavaScript, Node.js, Express, Sequelize, MySQL, React, metodologias ágeis e soft skills.",
-      skills: ["Node.js", "Express", "Sequelize", "MySQL", "React", "SQUADS", "Metodologias Ágeis"]
+      note: "Prática intensiva em Squads",
+      skills: ["Node.js", "Express", "Sequelize", "MySQL", "React", "SQUADS", "Metodologias Ágeis"],
     },
     {
       id: "comp_4",
@@ -289,47 +341,8 @@ export const portfolioData: PortfolioData = {
       title: "Residência Trilhas em Tecnologia — Análise de Dados",
       institution: "Instituto ECOA / PUC-Rio (Pontifícia Universidade Católica do Rio de Janeiro)",
       description: "Residência prática hands-on de 340 horas cobrindo pipelines de ETL de dados reais, calibração de métricas de negócio, construção de dashboards e tomada de decisão estratégica.",
-      skills: ["Análise de Dados", "ETL", "Looker Studio", "Storytelling de Dados", "Pandas"]
-    },
-    {
-      id: "comp_5",
-      year: "2025",
-      title: "Primeiros Passos em Visualização e Inteligência de Dados",
-      institution: "PUC-Rio (Pontifícia Universidade Católica do Rio de Janeiro)",
-      description: "Curso prático de 32 horas focado em design de dashboards, inteligência analítica de negócios e comunicação visual de indicadores de desempenho.",
-      skills: ["Visualização de Dados", "KPIs", "Dashboards", "Business Intelligence"]
-    },
-    {
-      id: "comp_6",
-      year: "2025",
-      title: "Lógica de Programação para Web",
-      institution: "Venturus (Capacitação Tecnológica)",
-      description: "Formação complementar intensiva de 36 horas focada na resolução de algoritmos complexos, estruturas de repetição e lógica computacional pura aplicada à web.",
-      skills: ["Lógica de Programação", "Algoritmos", "JavaScript", "Resolução de Problemas"]
-    },
-    {
-      id: "comp_7",
-      year: "2025",
-      title: "Eu Progr{amo}",
-      institution: "PrograMaria",
-      description: "Capacitação prática de 16 horas focada em HTML5, CSS3, JS e introdução às tecnologias Web modernas com viés de inclusão e impacto.",
-      skills: ["HTML5", "CSS Semântico", "JavaScript", "Comunidade"]
-    },
-    {
-      id: "comp_8",
-      year: "2025",
-      title: "Introdução à Programação",
-      institution: "Minas Programam",
-      description: "Curso robusto de 120 horas abordando lógica de programação pura, semântica web, design adaptativo e técnicas de engenharia de software básicas.",
-      skills: ["HTML", "CSS", "Lógica de Programação", "Raciocínio Computacional"]
-    },
-    {
-      id: "comp_9",
-      year: "2025",
-      title: "Programa de Mentoria Ser Mulher em Tech",
-      institution: "Ser Mulher em Tech (Comunidade & Carreira)",
-      description: "Programa focado em soft skills, posicionamento profissional, mentoria de arquitetura de software e preparação para entrevistas e desafios de mercado.",
-      skills: ["Soft Skills", "Carreira em TI", "Posicionamento", "Planejamento"]
+      note: "340 horas hands-on",
+      skills: ["Análise de Dados", "ETL", "Looker Studio", "Storytelling de Dados", "Pandas"],
     },
     {
       id: "comp_10",
@@ -337,15 +350,7 @@ export const portfolioData: PortfolioData = {
       title: "TypeScript Avançado",
       institution: "Cubos Academy",
       description: "Curso focado de 77 horas em tipagem estrita, interfaces de dados robustas, decoradores, tipos genéricos e integração segura com APIs Node.js.",
-      skills: ["TypeScript", "Tipagem Estrita", "Generics", "Segurança de Código"]
-    },
-    {
-      id: "comp_11",
-      year: "2024",
-      title: "Desenvolvimento de Software — Frontend",
-      institution: "Cubos Academy",
-      description: "Mais de 492 horas dedicadas ao desenvolvimento de SPAs dinâmicas com React, gerenciamento de rotas e consumo de APIs estruturadas.",
-      skills: ["React", "JavaScript", "Componentização", "Consumo de APIs REST", "Vite"]
+      skills: ["TypeScript", "Tipagem Estrita", "Generics", "Segurança de Código"],
     },
     {
       id: "comp_12",
@@ -353,7 +358,63 @@ export const portfolioData: PortfolioData = {
       title: "Programação do Zero Noturno — Foco em Back-End",
       institution: "Cubos Academy",
       description: "Mais de 600 horas de imersão completa em arquitetura de APIs REST, Node.js, Express, modelagem de banco de dados PostgreSQL e versionamento com Git.",
-      skills: ["Node.js", "Express", "PostgreSQL", "SQL", "APIs REST", "Git", "GitHub"]
-    }
-  ]
+      skills: ["Node.js", "Express", "PostgreSQL", "SQL", "APIs REST", "Git", "GitHub"],
+    },
+  ],
+  courses: [
+    {
+      id: "course_prompt_agents",
+      year: "2026",
+      title: "Prompt Engineering & Agentes Autônomos de IA",
+      institution: "IBM SkillsBuild & Instituto Eldorado",
+      description: "Engenharia de prompts avançada, arquitetura ReAct para agentes autônomos, encadeamento de ferramentas (Tool Calling) e orquestração de LLMs generativos.",
+      note: "IA Generativa & Agentes",
+      skills: ["Prompt Engineering", "Agentes de IA", "LLMs", "ReAct", "Tool Calling"],
+    },
+    {
+      id: "course_data_sql",
+      year: "2025",
+      title: "SQL Avançado, Modelagem Relacional & ETL",
+      institution: "Instituto ECOA — PUC-Rio",
+      description: "Modelagem dimensional Star Schema, consultas analíticas com window functions, sanitização de bases de dados brutas e automação de pipelines com Python/Pandas.",
+      note: "Engenharia de Dados",
+      skills: ["SQL Avançado", "Modelagem Star Schema", "Pandas", "ETL", "Storytelling de Dados"],
+    },
+    {
+      id: "course_a11y_wcag",
+      year: "2024 - 2025",
+      title: "Acessibilidade Digital & Diretrizes WCAG 2.2",
+      institution: "PUCRS / Pesquisa Especializada",
+      description: "Aprofundamento nas diretrizes internacionais WCAG 2.2, critérios de sucesso A/AA/AAA, navegação assistida por teclado, contraste e cenários de testes BDD acessíveis.",
+      note: "Acessibilidade Web & WCAG",
+      skills: ["WCAG 2.2", "ARIA", "Navegação por Teclado", "Leitores de Tela", "BDD"],
+    },
+    {
+      id: "course_pda_agile",
+      year: "2024 - 2025",
+      title: "Metodologias Ágeis, Scrum & Desenvolvimento em Squads",
+      institution: "Programadores do Amanhã",
+      description: "Treinamento prático em cerimônias Scrum, Kanban, refinamento de épicos, estimativas ágeis, entregas contínuas e integração em squads multidisciplinares.",
+      note: "Desenvolvimento Colaborativo",
+      skills: ["Scrum", "Kanban", "Squads", "Comunicação Técnica", "CI/CD Básico"],
+    },
+    {
+      id: "course_cubos_ts",
+      year: "2024",
+      title: "TypeScript Avançado & Tipagem Estrita",
+      institution: "Cubos Academy",
+      description: "Especialização de 77 horas em tipagem estrita, interfaces de dados robustas, decoradores, tipos genéricos e integração segura com ecossistemas Node.js.",
+      note: "77 horas de especialização",
+      skills: ["TypeScript", "Tipagem Estrita", "Generics", "Segurança de Código", "Interfaces"],
+    },
+    {
+      id: "course_cubos_backend",
+      year: "2023 - 2024",
+      title: "Programação do Zero Noturno — Foco em Back-End",
+      institution: "Cubos Academy",
+      description: "Mais de 600 horas de imersão completa em arquitetura de APIs REST, Node.js, Express, modelagem de banco de dados PostgreSQL e versionamento com Git.",
+      note: "600 horas de imersão técnica",
+      skills: ["Node.js", "Express", "PostgreSQL", "SQL", "APIs REST", "Git", "GitHub"],
+    },
+  ],
 };

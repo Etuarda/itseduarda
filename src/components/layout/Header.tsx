@@ -1,5 +1,4 @@
-import { motion } from "motion/react";
-import { ArrowUpRight, Star } from "lucide-react";
+import { ArrowUpRight, Sparkles } from "lucide-react";
 import { sectionIds, sectionLinks } from "@/data/navigation";
 import { useActiveSection } from "@/hooks/useActiveSection";
 
@@ -7,65 +6,55 @@ export default function Header() {
   const { activeSection, isScrolled } = useActiveSection(sectionIds);
 
   return (
-    <motion.header
-      initial={{ y: -50, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ delay: 2.2, duration: 0.6 }}
-      className="sticky top-6 z-40 w-full px-4"
-    >
+    <header className="fixed top-0 left-0 right-0 z-50 w-full transition-all duration-300 pointer-events-none">
+      {/* Main Navigation Bar */}
       <div
-        id="navbar-bubble"
-        className={`mx-auto max-w-[700px] bg-[#1c0f0a] text-[#FAF6EE] shadow-lg rounded-full border border-[#FAF6EE]/10 flex items-center justify-between p-2 pl-6 pr-3 md:pr-4 transition-all duration-300 ${isScrolled ? "scale-[0.98] border-[#e27274]/20" : "scale-100"
-          }`}
+        className={`w-full transition-all duration-300 pointer-events-auto ${
+          isScrolled
+            ? "bg-[#F7F6F2]/60 backdrop-blur-md shadow-xs border-b border-[#465B20]/20 py-2.5 sm:py-3"
+            : "bg-transparent py-3.5 sm:py-4"
+        }`}
       >
-        <a
-          href="#sobre"
-          className="flex items-center gap-2 font-serif font-black text-xl tracking-tight text-[#FAF6EE] group"
-          aria-label="Ir para a seção sobre"
-        >
-          <motion.div
-            animate={{ rotate: [0, 10, -10, 0] }}
-            transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
-            className="text-[#e27274]"
+        <div className="max-w-7xl mx-auto px-4 md:px-8 flex items-center justify-between">
+          {/* Espaçador esquerdo invisível para manter equilíbrio editorial da navegação */}
+          <div className="hidden md:block w-8" />
+
+          {/* Navigation Links (Sem duplicar o contato) */}
+          <nav className="hidden md:flex items-center gap-6" aria-label="Navegação principal">
+            {sectionLinks
+              .filter((item) => item.id !== "contato")
+              .map((item) => {
+                const isActive = activeSection === item.id;
+
+                return (
+                  <a
+                    key={item.id}
+                    href={`#${item.id}`}
+                    className={`relative font-sans text-xs uppercase tracking-[0.15em] transition-colors py-1 ${
+                      isActive
+                        ? "text-[#465B20] font-bold"
+                        : "text-[#383531] hover:text-[#1C1A18] font-semibold"
+                    }`}
+                  >
+                    {item.label}
+                    {isActive && (
+                      <span className="absolute bottom-0 left-0 right-0 h-[1.5px] bg-[#465B20] rounded-full" />
+                    )}
+                  </a>
+                );
+              })}
+          </nav>
+
+          {/* Único Botão de Ação de Contato */}
+          <a
+            href="#contato"
+            className="px-4 py-2 rounded-full bg-[#465B20] hover:bg-[#2A3614] text-[#F7F6F2] font-sans font-semibold text-xs uppercase tracking-[0.14em] transition-all flex items-center gap-1.5 shadow-xs cursor-pointer"
           >
-            <Star className="w-5 h-5 fill-current" />
-          </motion.div>
-          <span className="group-hover:text-[#e27274] transition-colors font-semibold">Eduarda</span>
-        </a>
-
-        <nav className="hidden md:flex items-center gap-1" aria-label="Navegação principal">
-          {sectionLinks.map((item) => {
-            const isActive = activeSection === item.id;
-
-            return (
-              <a
-                key={item.id}
-                href={`#${item.id}`}
-                className="relative px-4 py-2 font-mono text-xs uppercase tracking-wider font-semibold transition-colors duration-200 hover:text-[#e27274] rounded-full"
-                aria-current={isActive ? "page" : undefined}
-              >
-                {isActive && (
-                  <motion.div
-                    layoutId="activePill"
-                    className="absolute inset-0 bg-[#e27274]/20 rounded-full border border-[#e27274]/30"
-                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                  />
-                )}
-                <span className={isActive ? "text-[#e27274]" : "text-[#FAF6EE]/80"}>
-                  {item.label}
-                </span>
-              </a>
-            );
-          })}
-        </nav>
-
-        <a
-          href="#contato"
-          className="bg-[#e27274] hover:bg-[#c25759] active:scale-95 text-[#FAF6EE] font-serif font-bold text-xs md:text-sm uppercase tracking-wider px-5 py-2.5 rounded-full transition-all duration-200 flex items-center gap-1.5 shadow-md border border-[#FAF6EE]/15"
-        >
-          <ArrowUpRight className="w-4 h-4" />
-        </a>
+            <span>Contato</span>
+            <ArrowUpRight className="w-3.5 h-3.5" />
+          </a>
+        </div>
       </div>
-    </motion.header>
+    </header>
   );
 }

@@ -1,182 +1,462 @@
-import { useMemo, useState } from "react";
-import { AnimatePresence, motion } from "motion/react";
-import { CheckCircle2, ExternalLink, FolderGit2, Github, Sparkles } from "lucide-react";
+import { useState, useEffect, useMemo, useRef, useCallback } from "react";
+import {
+  ChevronLeft,
+  ChevronRight,
+  ExternalLink,
+  Github,
+  BookOpen,
+  Layers,
+  Sparkles,
+  Database,
+  Cpu,
+  Leaf,
+  Flower2,
+  Sprout,
+  Wind,
+  Play,
+  Pause,
+  Lock,
+} from "lucide-react";
 import { portfolioData } from "@/data/portfolio";
-import { projectCategories, type ProjectFilter } from "@/data/navigation";
 import type { Project } from "@/types/portfolio";
-import { SectionHeading } from "@/components/ui/SectionHeading";
-import { TechBadge } from "@/components/ui/TechBadge";
+import ProjectModal from "@/components/ui/ProjectModal";
 
-function ProjectActions({ project, isExpanded, onToggle }: { project: Project; isExpanded: boolean; onToggle: () => void }) {
-  return (
-    <div className="flex items-center justify-between gap-4 mt-4 pt-4 border-t border-[#25150e]/10">
-      <button
-        type="button"
-        onClick={onToggle}
-        className="font-serif font-black text-xs uppercase tracking-wider text-[#e27274] hover:text-[#c25759] transition-colors cursor-pointer"
-        aria-expanded={isExpanded}
-      >
-        {isExpanded ? "✕ Fechar Inspeção" : "✦ Inspeção Completa"}
-      </button>
 
-      <div className="flex items-center gap-2">
-        <a
-          href={project.githubUrl ?? "#"}
-          target={project.githubUrl?.startsWith("http") ? "_blank" : undefined}
-          rel={project.githubUrl?.startsWith("http") ? "noreferrer" : undefined}
-          className="p-2.5 rounded-full bg-[#f5ede1] border border-[#25150e]/15 text-[#25150e] hover:bg-[#1c0f0a] hover:text-[#FAF6EE] transition-colors"
-          title="Código Fonte"
-          aria-label={`Abrir código fonte do projeto ${project.title}`}
-        >
-          <Github className="w-4 h-4" />
-        </a>
-        <a
-          href={project.demoUrl ?? "#"}
-          target={project.demoUrl?.startsWith("http") ? "_blank" : undefined}
-          rel={project.demoUrl?.startsWith("http") ? "noreferrer" : undefined}
-          className="px-4 py-2 bg-[#1c0f0a] hover:bg-[#c25759] text-[#FAF6EE] font-serif font-bold text-xs uppercase tracking-wider rounded-full flex items-center gap-1 shadow-sm"
-          title="Ver Demo Online"
-          aria-label={`Abrir demonstração do projeto ${project.title}`}
-        >
-          Abrir <ExternalLink className="w-3.5 h-3.5" />
-        </a>
-      </div>
-    </div>
-  );
+type CategoryFilter = "all" | "fullstack" | "backend" | "data_ai";
+
+interface CategoryOption {
+  id: CategoryFilter;
+  label: string;
+  icon: typeof Leaf;
 }
 
-function ProjectCard({ project, isExpanded, onToggle }: { project: Project; isExpanded: boolean; onToggle: () => void }) {
-  return (
-    <motion.article
-      layout
-      key={project.id}
-      initial={{ opacity: 0, y: 30 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, scale: 0.9 }}
-      transition={{ duration: 0.4 }}
-      className={`bg-[#fffdfa] rounded-[2rem] border-2 border-[#1c0f0a] overflow-hidden shadow-[6px_6px_0px_0px_#1c0f0a] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[8px_8px_0px_0px_#1c0f0a] transition-all flex flex-col justify-between ${
-        isExpanded ? "md:col-span-2 border-[#e27274]" : ""
-      }`}
-    >
-      <div className={`flex flex-col ${isExpanded ? "lg:flex-row" : ""}`}>
-        <div
-          className={`relative overflow-hidden bg-[#FAF6EE] border-b-2 border-[#1c0f0a] ${
-            isExpanded ? "lg:w-1/2 lg:border-b-0 lg:border-r-2" : "w-full"
-          }`}
-        >
-          <img
-            src={project.image}
-            alt={`Imagem representativa do projeto ${project.title}`}
-            referrerPolicy="no-referrer"
-            loading="lazy"
-            className="w-full h-56 md:h-64 object-cover filter saturate-75 contrast-110 hover:saturate-100 transition-all duration-300"
-          />
-          <div className="absolute top-4 left-4 bg-[#1c0f0a] text-[#FAF6EE] text-[9px] font-mono tracking-widest px-3 py-1.5 rounded-full uppercase border border-[#FAF6EE]/10">
-            {project.category}
-          </div>
-        </div>
+const CATEGORIES: CategoryOption[] = [
+  { id: "all", label: "Todos os Espécimes", icon: Sparkles },
+  { id: "fullstack", label: "Full-Stack & SaaS", icon: Leaf },
+  { id: "backend", label: "APIs & Microsserviços", icon: Sprout },
+  { id: "data_ai", label: "Dados & IA", icon: Flower2 },
+];
 
-        <div className="p-6 md:p-8 flex-1 flex flex-col justify-between">
-          <div>
-            <div className="flex items-center justify-between gap-2 mb-2">
-              <h3 className="font-serif font-black text-2xl text-[#1c0f0a] tracking-tight">
-                {project.title}
-              </h3>
-              <FolderGit2 className="w-5 h-5 text-[#e27274]" />
-            </div>
-
-            <div className="flex flex-wrap gap-1.5 mb-4">
-              {project.tags.map((tag) => (
-                <TechBadge key={tag}>{tag}</TechBadge>
-              ))}
-            </div>
-
-            <p className="font-sans text-sm text-[#25150e]/80 leading-relaxed mb-6">
-              {isExpanded ? project.longDescription : project.description}
-            </p>
-
-            {isExpanded && (
-              <div className="mb-6 bg-[#FAF6EE] border border-[#25150e]/10 p-4 rounded-2xl">
-                <h4 className="font-serif font-bold text-xs uppercase text-[#1c0f0a] tracking-wider mb-3 flex items-center gap-1.5">
-                  <Sparkles className="w-4 h-4 text-[#e27274] fill-current" /> Destaques Funcionais:
-                </h4>
-                <ul className="grid grid-cols-1 md:grid-cols-2 gap-2 text-xs text-[#25150e]/80">
-                  {project.features.map((feature) => (
-                    <li key={feature} className="flex items-start gap-1.5">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-[#e27274] shrink-0 mt-0.5" />
-                      <span>{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-          </div>
-
-          <ProjectActions project={project} isExpanded={isExpanded} onToggle={onToggle} />
-        </div>
-      </div>
-    </motion.article>
-  );
-}
+// Gatilhos de curiosidade botânica: O néctar de arquitetura que atrai o beija-flor em cada projeto
+const CURIOSITY_HOOKS: Record<
+  string,
+  { question: string; metricTag: string; secretTeaser: string; stampText: string }
+> = {
+  onvagas: {
+    question: "Como cruzar centenas de requisitos de vagas e perfis em menos de 45ms sem latência?",
+    metricTag: "Resposta < 45ms & -70% tempo",
+    secretTeaser: "Validação cruzada Zod compartilhada e índices btree no PostgreSQL.",
+    stampText: "LATÊNCIA & ESCALA",
+  },
+  vendefacil: {
+    question: "Como blindar o inventário contra compras simultâneas concorrentes sem travar o banco?",
+    metricTag: "0 divergências sob 100 req/s",
+    secretTeaser: "Clean Architecture com transações atômicas de bloqueio pessimista calibrado.",
+    stampText: "CONCORRÊNCIA ATÔMICA",
+  },
+  "controle-planos": {
+    question: "O que acontece quando o gateway de pagamento falha no meio de 10.000 cobranças recorrentes?",
+    metricTag: "100% resiliência via RabbitMQ",
+    secretTeaser: "Mensageria desacoplada com filas de retry e Dead-Letter Exchange (DLX).",
+    stampText: "MICROSSERVIÇOS RESILIENTES",
+  },
+  "a11y-io": {
+    question: "Como traduzir 50+ critérios da WCAG 2.2 em cenários BDD prontos para testes antes do primeiro código?",
+    metricTag: "Testes BDD em minutos",
+    secretTeaser: "Motor de inferência de acessibilidade digital com Clean Architecture pura.",
+    stampText: "ENGENHARIA DE ACESSIBILIDADE",
+  },
+  "roadmap-planner": {
+    question: "Como diagnosticar defasagens técnicas de um desenvolvedor e traçar a rota exata em 3 segundos?",
+    metricTag: "Scoring ponderado",
+    secretTeaser: "Algoritmo de scoring multicritério com arquitetura em 3 camadas modulares.",
+    stampText: "ALGORITMO DE RECOMENDAÇÃO",
+  },
+  "capacitacao-ia": {
+    question: "Como um agente autônomo de IA aprende a tomar decisões explorando um lab na USP?",
+    metricTag: "Q-Learning + NLP + Visão",
+    secretTeaser: "Convergência matemática de funções de recompensa e processamento multimodal.",
+    stampText: "INTELIGÊNCIA ARTIFICIAL USP",
+  },
+  "residencia-dados": {
+    question: "Como transformar bases de dados caóticas e dispersas em decisões corporativas estratégicas na PUC-Rio?",
+    metricTag: "Pipelines ETL + Star Schema",
+    secretTeaser: "Storytelling com dados limpos via Pandas e dashboards no Looker Studio.",
+    stampText: "DATA WAREHOUSE PUC-RIO",
+  },
+};
 
 export default function ProjectsSection() {
-  const [filter, setFilter] = useState<ProjectFilter>("all");
-  const [expandedProjectId, setExpandedProjectId] = useState<string | null>(null);
+  const [activeCategory, setActiveCategory] = useState<CategoryFilter>("all");
+  const [selectedProjectForModal, setSelectedProjectForModal] = useState<Project | null>(null);
 
+  // Estados de controle de movimento contínuo da brisa
+  const [isPausedManual, setIsPausedManual] = useState(false);
+  const [isHoveredCard, setIsHoveredCard] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
+
+  // Referência do trilho de rolagem contínua
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const isMouseDownRef = useRef(false);
+  const startXRef = useRef(0);
+  const scrollLeftRef = useRef(0);
+
+  // Filtragem dinâmica por categoria
   const filteredProjects = useMemo(() => {
-    if (filter === "all") return portfolioData.projects;
-    return portfolioData.projects.filter((project) => project.category === filter);
-  }, [filter]);
+    if (activeCategory === "all") return portfolioData.projects;
+    return portfolioData.projects.filter((p) => p.category === activeCategory);
+  }, [activeCategory]);
 
-  const handleToggleExpand = (id: string) => {
-    setExpandedProjectId((currentId) => (currentId === id ? null : id));
+  // Lista duplicada para loop infinito perfeito e ininterrupto
+  const duplicatedProjects = useMemo(() => {
+    if (filteredProjects.length === 0) return [];
+    // Duplicamos 3 vezes para garantir fluxo contínuo infinito sem gaps visuais
+    return [...filteredProjects, ...filteredProjects, ...filteredProjects];
+  }, [filteredProjects]);
+
+  // Troca de categoria com reset do trilho
+  const handleCategoryChange = (catId: CategoryFilter) => {
+    if (catId === activeCategory) return;
+    setActiveCategory(catId);
+    if (scrollRef.current) {
+      scrollRef.current.scrollLeft = 0;
+    }
+  };
+
+  // Movimento contínuo suave (60/120fps via requestAnimationFrame)
+  useEffect(() => {
+    const container = scrollRef.current;
+    if (!container) return;
+
+    let animationFrameId: number;
+    const speed = 0.75; // velocidade contínua orgânica (brisa suave)
+
+    const step = () => {
+      const isPaused = isPausedManual || isHoveredCard || isDragging || Boolean(selectedProjectForModal);
+      if (!isPaused && container) {
+        container.scrollLeft += speed;
+
+        // Loop infinito contínuo sem solavancos
+        const halfWidth = container.scrollWidth / 2;
+        if (container.scrollLeft >= halfWidth) {
+          container.scrollLeft -= halfWidth;
+        }
+      }
+      animationFrameId = requestAnimationFrame(step);
+    };
+
+    animationFrameId = requestAnimationFrame(step);
+    return () => cancelAnimationFrame(animationFrameId);
+  }, [isPausedManual, isHoveredCard, isDragging, selectedProjectForModal]);
+
+  // Transições manuais 100% funcionais (botões Próximo / Anterior)
+  const handleNext = useCallback(() => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollBy({ left: 390, behavior: "smooth" });
+    }
+  }, []);
+
+  const handlePrev = useCallback(() => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollBy({ left: -390, behavior: "smooth" });
+    }
+  }, []);
+
+  // Atalhos de teclado (setas ← / →)
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (selectedProjectForModal || document.activeElement?.tagName === "INPUT") return;
+      if (e.key === "ArrowLeft") handlePrev();
+      if (e.key === "ArrowRight") handleNext();
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [handlePrev, handleNext, selectedProjectForModal]);
+
+  // Drag & Swipe com mouse para transição livre
+  const handleMouseDown = (e: React.MouseEvent) => {
+    if (!scrollRef.current) return;
+    isMouseDownRef.current = true;
+    setIsDragging(true);
+    startXRef.current = e.pageX - scrollRef.current.offsetLeft;
+    scrollLeftRef.current = scrollRef.current.scrollLeft;
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isMouseDownRef.current || !scrollRef.current) return;
+    e.preventDefault();
+    const x = e.pageX - scrollRef.current.offsetLeft;
+    const walk = (x - startXRef.current) * 1.4;
+    scrollRef.current.scrollLeft = scrollLeftRef.current - walk;
+  };
+
+  const handleMouseUpOrLeave = () => {
+    if (isMouseDownRef.current) {
+      isMouseDownRef.current = false;
+      setIsDragging(false);
+    }
   };
 
   return (
-    <section id="projetos" className="w-full py-16 md:py-24 px-4 md:px-8 bg-[#f5ede1] border-y-2 border-[#1c0f0a] scroll-mt-20">
-      <div className="max-w-7xl mx-auto">
-        <SectionHeading
-          eyebrow="Showroom de Engenharia"
-          title="Sistemas & Soluções"
-          description="Projetos autorais desenvolvidos com atenção artesanal ao design e precisão cirúrgica na arquitetura de código. Clique em um card para inspecionar os detalhes técnicos."
-        />
+    <section id="projetos" className="w-full py-4 md:py-6 px-3 sm:px-6 md:px-8 max-w-7xl mx-auto scroll-mt-20 overflow-hidden">
+      {/* Cabeçalho Editorial */}
+      <div className="text-center max-w-2xl mx-auto mb-4 md:mb-6">
+        <h2 className="font-serif font-light text-2xl sm:text-3xl lg:text-4xl text-[#1C1A18] tracking-tight">
+          Projetos em{" "}
+          <span
+            className="text-3xl sm:text-4xl lg:text-5xl text-[#9E6761] select-none inline-block ml-1"
+            style={{ fontFamily: "'Great Vibes', cursive" }}
+          >
+            Produção
+          </span>
+        </h2>
+      </div>
 
-        <div className="flex flex-wrap justify-center gap-2 mb-12" aria-label="Filtros de projetos">
-          {projectCategories.map((category) => {
-            const isActive = filter === category.id;
+      {/* Seletor de Categorias */}
+      <div className="flex flex-col items-center justify-center gap-2 mb-4 md:mb-5">
+        <div className="inline-flex flex-wrap items-center justify-center p-1.5 rounded-full bg-[#FAF8F5] border border-[#465B20]/30 shadow-xs gap-1 sm:gap-2">
+          {CATEGORIES.map((cat) => {
+            const Icon = cat.icon;
+            const count =
+              cat.id === "all"
+                ? portfolioData.projects.length
+                : portfolioData.projects.filter((p) => p.category === cat.id).length;
+            const isSelected = activeCategory === cat.id;
 
             return (
               <button
-                key={category.id}
+                key={cat.id}
                 type="button"
-                onClick={() => setFilter(category.id)}
-                className={`px-6 py-3 rounded-full text-xs font-mono uppercase tracking-wider font-bold border-2 transition-all cursor-pointer flex items-center gap-2 ${
-                  isActive
-                    ? "bg-[#1c0f0a] border-[#1c0f0a] text-[#FAF6EE] shadow-md scale-105"
-                    : "bg-[#FAF6EE] border-[#25150e]/15 text-[#25150e]/75 hover:border-[#1c0f0a]/40"
+                onClick={() => handleCategoryChange(cat.id)}
+                className={`relative px-3 sm:px-4 py-1.5 rounded-full text-xs font-sans transition-all duration-300 cursor-pointer flex items-center gap-1.5 ${
+                  isSelected
+                    ? "bg-[#465B20] text-[#F7F6F2] font-semibold shadow-xs"
+                    : "text-[#383531] hover:text-[#1C1A18] hover:bg-[#465B20]/15 font-medium"
                 }`}
-                aria-pressed={isActive}
               >
-                <span className={`w-1.5 h-1.5 rounded-full ${isActive ? "bg-[#e27274]" : "bg-[#25150e]/30"}`} />
-                {category.label}
+                <Icon className={`w-3.5 h-3.5 ${isSelected ? "text-[#F7F6F2]" : "text-[#465B20]"}`} />
+                <span>{cat.label}</span>
+                <span
+                  className={`text-[10px] font-mono px-1.5 py-0.2 rounded-full ${
+                    isSelected ? "bg-white/25 text-[#F7F6F2]" : "bg-[#465B20]/15 text-[#2A3614] font-semibold"
+                  }`}
+                >
+                  {String(count).padStart(2, "0")}
+                </span>
               </button>
             );
           })}
         </div>
+      </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10">
-          <AnimatePresence mode="popLayout">
-            {filteredProjects.map((project) => (
-              <ProjectCard
-                key={project.id}
-                project={project}
-                isExpanded={expandedProjectId === project.id}
-                onToggle={() => handleToggleExpand(project.id)}
-              />
-            ))}
-          </AnimatePresence>
+      {/* Controles Florais de Navegação no Topo do Trilho */}
+      <div className="flex items-center justify-between gap-2 mb-2 px-2">
+        {/* Botão de Controle da Brisa Contínua */}
+        <button
+          type="button"
+          onClick={() => setIsPausedManual((prev) => !prev)}
+          className="px-3 py-1.5 rounded-full border border-[#465B20]/35 bg-[#FAF8F5] hover:bg-[#465B20] hover:text-[#F7F6F2] text-[#2A3614] text-xs font-sans font-semibold flex items-center gap-1.5 transition-all cursor-pointer shadow-xs"
+        >
+          {isPausedManual ? (
+            <>
+              <Play className="w-3 h-3 ml-0.5" />
+              <span>Retomar Brisa</span>
+            </>
+          ) : (
+            <>
+              <Pause className="w-3 h-3" />
+              <span>Pausar Brisa</span>
+            </>
+          )}
+        </button>
+
+        {/* Setas de Transição Imediata (Próximo / Anterior) */}
+        <div className="flex items-center gap-2">
+          <span className="text-[11px] font-mono text-[#2A3614] font-semibold hidden sm:inline">
+            Transição rápida:
+          </span>
+          <button
+            type="button"
+            onClick={handlePrev}
+            className="w-9 h-9 rounded-full border border-[#465B20]/35 bg-[#FAF8F5] hover:bg-[#465B20] hover:text-[#F7F6F2] text-[#1C1A18] flex items-center justify-center transition-all cursor-pointer shadow-xs active:scale-95"
+            aria-label="Transicionar prancha anterior"
+          >
+            <ChevronLeft className="w-4 h-4" />
+          </button>
+          <button
+            type="button"
+            onClick={handleNext}
+            className="w-9 h-9 rounded-full border border-[#465B20]/35 bg-[#FAF8F5] hover:bg-[#465B20] hover:text-[#F7F6F2] text-[#1C1A18] flex items-center justify-center transition-all cursor-pointer shadow-xs active:scale-95"
+            aria-label="Transicionar próxima prancha"
+          >
+            <ChevronRight className="w-4 h-4" />
+          </button>
         </div>
       </div>
+
+      {/* Trilho de Movimento Contínuo & Arrasto Livre */}
+      <div className="relative w-full py-2">
+        <div
+          ref={scrollRef}
+          onMouseDown={handleMouseDown}
+          onMouseMove={handleMouseMove}
+          onMouseUp={handleMouseUpOrLeave}
+          onMouseLeave={handleMouseUpOrLeave}
+          className="flex gap-4 sm:gap-5 md:gap-6 overflow-x-auto no-scrollbar py-3 px-2 cursor-grab active:cursor-grabbing select-none"
+          style={{ WebkitOverflowScrolling: "touch" }}
+        >
+          {duplicatedProjects.map((project, idx) => {
+            const hook = CURIOSITY_HOOKS[project.id] || {
+              question: "Como este software desabrochou uma solução de alta performance?",
+              metricTag: "Alta Performance & Clean Architecture",
+              secretTeaser: "Decisões de engenharia documentadas em detalhes.",
+              stampText: "ESTUDO DE CASO",
+            };
+
+            return (
+              <div
+                key={`${project.id}-card-${idx}`}
+                onMouseEnter={() => setIsHoveredCard(true)}
+                onMouseLeave={() => setIsHoveredCard(false)}
+                onClick={() => setSelectedProjectForModal(project)}
+                className="relative w-[305px] sm:w-[345px] md:w-[380px] h-[520px] sm:h-[540px] shrink-0 rounded-3xl overflow-hidden border border-[#465B20]/35 shadow-md hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between p-4 sm:p-5 group cursor-pointer"
+              >
+                {/* Foto da Aplicação Ocupando Toda a Altura do Card */}
+                <img
+                  src={project.image}
+                  alt={project.title}
+                  loading="lazy"
+                  className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
+                />
+
+                {/* Gradiente Editorial de Alto Contraste para Garantir Legibilidade e Elegância */}
+                <div className="absolute inset-0 bg-gradient-to-t from-[#141311] via-[#141311]/75 to-[#141311]/45 pointer-events-none" />
+
+                {/* Topo do Card: Tag de Categoria e Numeração */}
+                <div className="relative z-10 flex items-center justify-between">
+                  <div className="flex items-center gap-1.5 bg-[#FAF8F5]/95 backdrop-blur-md border border-[#465B20]/35 px-3 py-1 rounded-full text-[9px] font-sans text-[#2A3614] font-bold uppercase tracking-wider shadow-xs">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#465B20]" />
+                    {project.category.toUpperCase()}
+                  </div>
+
+                  <span className="font-mono text-xs font-bold text-[#F7F6F2] bg-black/60 backdrop-blur-md border border-white/20 px-2.5 py-0.5 rounded-full">
+                    #0{(idx % filteredProjects.length) + 1}
+                  </span>
+                </div>
+
+                {/* Base do Card: Título, Desafio Técnico, Tags e Ações */}
+                <div className="relative z-10 flex flex-col gap-2.5">
+                  {/* Título e Subtítulo */}
+                  <div>
+                    <h3 className="font-serif font-black text-xl sm:text-2xl text-[#F7F6F2] tracking-tight line-clamp-1 drop-shadow-sm">
+                      {project.title}
+                    </h3>
+                    {project.subtitle && (
+                      <p className="font-sans text-xs text-[#E8ECE0] font-medium line-clamp-1 mt-0.5">
+                        {project.subtitle}
+                      </p>
+                    )}
+                  </div>
+
+                  {/* Caixa de Desafio Técnico com Glassmorphism Editorial */}
+                  <div
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setSelectedProjectForModal(project);
+                    }}
+                    className="p-2.5 sm:p-3 rounded-2xl bg-black/55 backdrop-blur-md border border-white/20 hover:border-white/40 transition-colors group/hook"
+                  >
+                    <div className="flex items-center justify-between gap-1 mb-1">
+                      <span className="text-[9px] font-mono uppercase tracking-wider text-[#A3BF65] font-bold">
+                        Desafio Arquitetural
+                      </span>
+                      <span className="text-[9px] font-sans font-semibold text-[#F7F6F2] bg-white/20 px-2 py-0.5 rounded-full">
+                        Destaque
+                      </span>
+                    </div>
+
+                    <p className="font-serif italic text-xs text-[#F7F6F2] font-semibold leading-snug">
+                      "{hook.question}"
+                    </p>
+
+                    <div className="flex items-center justify-between gap-2 mt-2 pt-1.5 border-t border-white/15 text-[10px] font-sans text-[#E8ECE0]">
+                      <span className="font-semibold truncate text-[#D2DAC3]">{hook.metricTag}</span>
+                      <span className="font-sans font-bold text-xs text-[#A3BF65] shrink-0 group-hover/hook:translate-x-1 transition-transform">
+                        Ver detalhes ➜
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Tags Tecnológicas */}
+                  <div className="flex flex-wrap gap-1">
+                    {project.tags.slice(0, 3).map((tag) => (
+                      <span
+                        key={tag}
+                        className="text-[9px] font-mono px-2 py-0.5 rounded-md bg-black/45 backdrop-blur-xs border border-white/20 text-[#FAF8F5] font-medium shadow-2xs"
+                      >
+                        #{tag}
+                      </span>
+                    ))}
+                    {project.tags.length > 3 && (
+                      <span className="text-[9px] font-mono px-1.5 py-0.5 rounded-md text-[#A3BF65] font-semibold">
+                        +{project.tags.length - 3}
+                      </span>
+                    )}
+                  </div>
+
+                  {/* Botões de Ação na Base */}
+                  <div className="pt-2 border-t border-white/15 flex items-center gap-2">
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setSelectedProjectForModal(project);
+                      }}
+                      className="flex-1 py-2.5 px-3 rounded-full bg-[#465B20] hover:bg-[#344516] text-[#F7F6F2] font-sans font-semibold text-xs tracking-wider flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-sm active:scale-98"
+                    >
+                      <BookOpen className="w-3.5 h-3.5" />
+                      <span>Ver Estudo de Caso</span>
+                    </button>
+
+                    {project.githubUrl && project.githubUrl !== "#" && (
+                      <a
+                        href={project.githubUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        onClick={(e) => e.stopPropagation()}
+                        className="p-2.5 rounded-full border border-white/25 bg-black/45 backdrop-blur-xs hover:bg-white hover:text-[#1C1A18] text-[#F7F6F2] transition-all cursor-pointer shadow-xs"
+                        title="Repositório GitHub"
+                      >
+                        <Github className="w-3.5 h-3.5" />
+                      </a>
+                    )}
+
+                    {project.demoUrl && project.demoUrl !== "#" && (
+                      <a
+                        href={project.demoUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        onClick={(e) => e.stopPropagation()}
+                        className="p-2.5 rounded-full border border-white/25 bg-black/45 backdrop-blur-xs hover:bg-[#465B20] hover:text-[#F7F6F2] text-[#F7F6F2] transition-all cursor-pointer shadow-xs"
+                        title="Acessar Aplicação"
+                      >
+                        <ExternalLink className="w-3.5 h-3.5" />
+                      </a>
+                    )}
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Modal de Estudo de Caso (Deep Dive) */}
+      <ProjectModal
+        project={selectedProjectForModal}
+        isOpen={Boolean(selectedProjectForModal)}
+        onClose={() => setSelectedProjectForModal(null)}
+      />
     </section>
   );
 }
