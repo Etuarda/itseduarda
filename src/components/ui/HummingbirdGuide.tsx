@@ -384,7 +384,7 @@ export default function HummingbirdGuide({
               initial={{ opacity: 0, scale: 0.8, x: 10 }}
               animate={{ opacity: 1, scale: 1, x: 0 }}
               transition={{ delay: 1.1, duration: 0.4 }}
-              className="absolute right-full mr-3 w-56 sm:w-64 bg-[#FAF8F5] border border-[#465B20]/35 rounded-2xl p-3 shadow-[0_12px_32px_-6px_rgba(28,26,24,0.22)] text-[#1C1A18]"
+              className="absolute right-full mr-3 w-56 sm:w-64 max-w-[calc(100vw-4.5rem)] bg-[#FAF8F5] border border-[#465B20]/35 rounded-2xl p-3 shadow-[0_12px_32px_-6px_rgba(28,26,24,0.22)] text-[#1C1A18]"
             >
               <div className="flex items-center gap-1.5 pb-1 mb-1 border-b border-[#465B20]/20">
                 <Sparkles className="w-3 h-3 text-[#465B20]" />
@@ -463,7 +463,7 @@ export default function HummingbirdGuide({
                     x: isLeftSide ? -8 : 8,
                   }}
                   transition={{ duration: 0.26, ease: "easeOut" }}
-                  className={`absolute pointer-events-auto w-56 sm:w-64 md:w-72 bg-[#FAF8F5] border border-[#465B20]/40 rounded-2xl p-3 sm:p-3.5 shadow-[0_12px_32px_-6px_rgba(28,26,24,0.25)] text-[#1C1A18] z-50 ${
+                  className={`absolute pointer-events-auto w-56 sm:w-64 md:w-72 max-w-[calc(100vw-4.5rem)] bg-[#FAF8F5] border border-[#465B20]/40 rounded-2xl p-3 sm:p-3.5 shadow-[0_12px_32px_-6px_rgba(28,26,24,0.25)] text-[#1C1A18] z-50 ${
                     isLeftSide
                       ? "left-full ml-3"
                       : "right-full mr-3"

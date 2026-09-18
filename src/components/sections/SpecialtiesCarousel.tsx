@@ -96,7 +96,7 @@ export default function SpecialtiesCarousel() {
       </div>
 
       {/* Carrossel em Acordeão (Accordion Carousel / Accordion Slider) */}
-      <div className="flex flex-col md:flex-row gap-2.5 sm:gap-3.5 w-full min-h-[500px] md:h-[530px]">
+      <div className="flex flex-col md:flex-row gap-2.5 sm:gap-3.5 w-full min-h-[460px] md:h-[530px]">
         {stackPillars.map((pillar, index) => {
           const isExpanded = activePillar === index;
 
@@ -113,7 +113,7 @@ export default function SpecialtiesCarousel() {
             >
               {/* FACHADA RECOLHIDA (GOMO ESTREITO - DESKTOP & MOBILE) */}
               {!isExpanded && (
-                <div className="w-full h-full flex md:flex-col items-center justify-between p-3.5 sm:p-5 select-none relative overflow-hidden group">
+                <div className="w-full h-full min-h-[52px] flex md:flex-col items-center justify-between p-3.5 sm:p-5 select-none relative overflow-hidden group active:bg-white/80">
                   {/* Fundo com foto ocupando toda a altura do card */}
                   <img
                     src={pillar.image}
@@ -166,7 +166,7 @@ export default function SpecialtiesCarousel() {
                   <div className="scanner-beam" />
 
                   {/* Foto da Especialidade: Altura Completa do Card (h-full), Sem Moldura, 100% Enquadrada */}
-                  <div className="w-full lg:w-[42%] h-[260px] sm:h-[300px] lg:h-full shrink-0 relative overflow-hidden group/img">
+                  <div className="w-full lg:w-[42%] h-[200px] xs:h-[230px] sm:h-[280px] lg:h-full shrink-0 relative overflow-hidden group/img">
                     <img
                       src={pillar.image}
                       alt={pillar.fullTitle}
@@ -176,7 +176,7 @@ export default function SpecialtiesCarousel() {
                   </div>
 
                   {/* Especificações Técnicas e Conceitos (Coluna Direita) */}
-                  <div className="flex-1 p-5 sm:p-6 md:p-8 flex flex-col justify-between overflow-y-auto no-scrollbar relative z-10">
+                  <div className="flex-1 p-4 sm:p-6 md:p-8 flex flex-col justify-between overflow-y-auto no-scrollbar relative z-10">
                     <div>
                       {/* Tag e Número */}
                       <div className="flex items-center gap-2.5 mb-2">

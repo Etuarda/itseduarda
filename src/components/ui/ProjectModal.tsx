@@ -34,7 +34,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 md:p-8">
+        <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 md:p-6">
           {/* Backdrop Transparente Suave */}
           <motion.div
             initial={{ opacity: 0 }}
@@ -51,20 +51,20 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
             role="dialog"
             aria-modal="true"
             aria-labelledby="modal-title"
-            initial={{ opacity: 0, scale: 0.95, y: 15 }}
+            initial={{ opacity: 0, scale: 0.96, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.95, y: 15 }}
+            exit={{ opacity: 0, scale: 0.96, y: 20 }}
             transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className="relative w-full max-w-4xl max-h-[90vh] bg-[#F7F6F2] border border-[#465B20]/35 rounded-2xl sm:rounded-3xl shadow-[0_25px_60px_-15px_rgba(28,26,24,0.35)] flex flex-col overflow-hidden z-10"
+            className="relative w-full max-w-4xl max-h-[92vh] sm:max-h-[90vh] bg-[#F7F6F2] border-t sm:border border-[#465B20]/35 rounded-t-3xl sm:rounded-3xl shadow-[0_25px_60px_-15px_rgba(28,26,24,0.35)] flex flex-col overflow-hidden z-10"
           >
             {/* Top Bar Editorial */}
-            <div className="flex items-center justify-between px-6 py-4 border-b border-[#465B20]/20 bg-[#FAF8F5]">
-              <div className="flex items-center gap-2.5">
-                <span className="font-handwriting text-xl text-[#465B20] font-bold">
+            <div className="flex items-center justify-between px-4 sm:px-6 py-3 sm:py-4 border-b border-[#465B20]/20 bg-[#FAF8F5] shrink-0">
+              <div className="flex items-center gap-2 sm:gap-2.5">
+                <span className="font-handwriting text-lg sm:text-xl text-[#465B20] font-bold">
                   Dossiê Arquitetural
                 </span>
                 <span className="text-[#4E4A45] text-xs">✦</span>
-                <span className="text-[10px] uppercase tracking-[0.18em] text-[#383531] font-bold font-sans">
+                <span className="text-[9px] sm:text-[10px] uppercase tracking-[0.18em] text-[#383531] font-bold font-sans">
                   Estudo de Caso Técnico
                 </span>
               </div>
@@ -72,7 +72,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
               <button
                 type="button"
                 onClick={onClose}
-                className="w-8 h-8 rounded-full border border-[#465B20]/30 text-[#383531] hover:text-[#1C1A18] hover:border-[#465B20]/60 flex items-center justify-center transition-all cursor-pointer"
+                className="w-9 h-9 sm:w-8 sm:h-8 rounded-full border border-[#465B20]/30 text-[#383531] hover:text-[#1C1A18] hover:border-[#465B20]/60 flex items-center justify-center transition-all cursor-pointer active:scale-95 shadow-2xs"
                 aria-label="Fechar modal"
               >
                 <X className="w-4 h-4" />
@@ -80,7 +80,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
             </div>
 
             {/* Corpo com Scroll Isolado */}
-            <div className="overflow-y-auto p-6 sm:p-8 flex flex-col gap-6 no-scrollbar">
+            <div className="overflow-y-auto p-4 sm:p-6 md:p-8 flex flex-col gap-5 sm:gap-6 no-scrollbar">
               {/* Cabeçalho do Projeto */}
               <div className="flex flex-col gap-2">
                 <div className="flex flex-wrap items-center gap-2">
@@ -101,7 +101,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
 
                 <h3
                   id="modal-title"
-                  className="text-4xl sm:text-6xl text-[#1C1A18] tracking-tight mt-1 leading-none select-none drop-shadow-2xs"
+                  className="text-3xl sm:text-5xl md:text-6xl text-[#1C1A18] tracking-tight mt-1 leading-none select-none drop-shadow-2xs"
                   style={{ fontFamily: "'Great Vibes', cursive" }}
                 >
                   {project.title}
@@ -215,18 +215,18 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
             </div>
 
             {/* Rodapé de Ações com Links Diretos */}
-            <div className="px-6 py-4 border-t border-[#465B20]/20 bg-[#FAF8F5] flex flex-wrap items-center justify-between gap-3">
-              <span className="font-sans text-[11px] text-[#4E4A45] font-medium">
+            <div className="px-4 sm:px-6 py-3.5 sm:py-4 border-t border-[#465B20]/20 bg-[#FAF8F5] flex flex-col sm:flex-row items-center justify-between gap-3 shrink-0">
+              <span className="font-sans text-[11px] text-[#4E4A45] font-medium text-center sm:text-left">
                 Código-fonte e arquitetura desenvolvidos por Eduarda Silva Santos
               </span>
 
-              <div className="flex items-center gap-2.5">
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-2.5 w-full sm:w-auto">
                 {project.githubUrl && project.githubUrl !== "#" && (
                   <a
                     href={project.githubUrl}
                     target="_blank"
                     rel="noreferrer"
-                    className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full border border-[#465B20]/35 bg-white text-[#1C1A18] hover:bg-[#1C1A18] hover:text-[#F7F6F2] transition-all text-xs font-sans font-semibold cursor-pointer shadow-xs"
+                    className="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 min-h-[42px] rounded-full border border-[#465B20]/35 bg-white text-[#1C1A18] hover:bg-[#1C1A18] hover:text-[#F7F6F2] transition-all text-xs font-sans font-semibold cursor-pointer shadow-xs active:scale-98"
                   >
                     <Github className="w-3.5 h-3.5" /> Ver no GitHub
                   </a>
@@ -237,7 +237,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                     href={project.demoUrl}
                     target="_blank"
                     rel="noreferrer"
-                    className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#465B20] text-[#F7F6F2] hover:bg-[#2A3614] transition-all text-xs font-sans font-semibold cursor-pointer shadow-xs"
+                    className="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 min-h-[42px] rounded-full bg-[#465B20] text-[#F7F6F2] hover:bg-[#2A3614] transition-all text-xs font-sans font-semibold cursor-pointer shadow-xs active:scale-98"
                   >
                     <ExternalLink className="w-3.5 h-3.5" /> Acessar Aplicação
                   </a>

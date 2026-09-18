@@ -486,7 +486,7 @@ export default function SkillsSection() {
       </div>
 
       {/* Seletor Mobile de Colunas (visível apenas em telas pequenas) */}
-      <div className="flex sm:hidden items-center justify-center gap-1.5 mb-3">
+      <div className="flex sm:hidden items-center justify-center gap-1.5 mb-3 p-1 rounded-2xl bg-[#FAF8F5] border border-[#465B20]/25 shadow-2xs">
         {SKILLS_BOARD_COLUMNS.map((col) => {
           const isSelected = mobileActiveColumn === col.id;
           return (
@@ -494,13 +494,14 @@ export default function SkillsSection() {
               key={col.id}
               type="button"
               onClick={() => setMobileActiveColumn(col.id)}
-              className={`flex-1 py-1.5 px-1.5 rounded-xl text-xs font-sans font-medium transition-all ${
+              className={`flex-1 py-2 px-1 min-h-[44px] rounded-xl text-[11px] font-sans font-semibold transition-all flex flex-col items-center justify-center text-center leading-tight active:scale-95 cursor-pointer ${
                 isSelected
-                  ? "bg-[#556B2F] text-[#F7F6F2] shadow-xs"
-                  : "bg-white border border-[#465B20]/25 text-[#4E4A45]"
+                  ? "bg-[#465B20] text-[#F7F6F2] shadow-xs font-bold"
+                  : "bg-white/80 text-[#383531] hover:bg-white border border-[#465B20]/15"
               }`}
             >
-              {col.number} {col.title}
+              <span className="font-mono text-[9px] opacity-85">{col.number}</span>
+              <span className="truncate w-full">{col.title}</span>
             </button>
           );
         })}
@@ -662,14 +663,14 @@ export default function SkillsSection() {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.94, y: 20 }}
               transition={{ type: "spring", stiffness: 300, damping: 30 }}
-              className="relative w-full max-w-lg rounded-3xl bg-[#FAF8F5] border border-[#556B2F]/30 p-6 sm:p-8 shadow-2xl texture-paper z-10 overflow-hidden"
+              className="relative w-full max-w-lg max-h-[90vh] overflow-y-auto no-scrollbar rounded-3xl bg-[#FAF8F5] border border-[#556B2F]/30 p-5 sm:p-8 shadow-2xl texture-paper z-10"
             >
 
               {/* Botão Fechar */}
               <button
                 type="button"
                 onClick={() => setInspectingSkill(null)}
-                className="absolute top-4 right-4 p-2 rounded-full bg-white hover:bg-[#465B20] hover:text-[#F7F6F2] text-[#1C1A18] border border-[#465B20]/30 transition-colors cursor-pointer shadow-xs"
+                className="absolute top-3.5 right-3.5 sm:top-4 sm:right-4 w-9 h-9 sm:w-8 sm:h-8 rounded-full bg-white hover:bg-[#465B20] hover:text-[#F7F6F2] text-[#1C1A18] border border-[#465B20]/30 flex items-center justify-center transition-colors cursor-pointer shadow-xs active:scale-95 z-20"
                 aria-label="Fechar ficha técnica"
               >
                 <X className="w-4 h-4" />

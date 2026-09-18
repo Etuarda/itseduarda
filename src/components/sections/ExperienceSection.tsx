@@ -265,9 +265,9 @@ export default function ExperienceSection() {
       </div>
 
       {/* Barra de Controles: Abas de Categoria + Alternador de Ordem */}
-      <div className="flex flex-col sm:flex-row items-center justify-between gap-3 mb-6 max-w-5xl mx-auto">
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-3 mb-6 max-w-5xl mx-auto w-full">
         {/* Abas de Categoria */}
-        <div className="flex flex-wrap justify-center sm:justify-start gap-1.5 sm:gap-2">
+        <div className="flex flex-wrap justify-center sm:justify-start gap-1.5 sm:gap-2 w-full sm:w-auto">
           {tabs.map((tab) => {
             const isActive = activeTab === tab.id;
             const Icon = tab.icon;
@@ -277,7 +277,7 @@ export default function ExperienceSection() {
                 key={tab.id}
                 type="button"
                 onClick={() => setActiveTab(tab.id)}
-                className={`px-3.5 sm:px-4 py-2 rounded-full text-xs font-sans transition-all duration-300 cursor-pointer flex items-center gap-1.5 justify-center ${
+                className={`px-3 sm:px-4 py-2 min-h-[40px] rounded-full text-xs font-sans transition-all duration-300 cursor-pointer flex items-center gap-1.5 justify-center active:scale-95 ${
                   isActive
                     ? `${palette.activeBadge} shadow-xs font-semibold`
                     : "bg-white border border-[#465B20]/25 text-[#383531] hover:bg-[#FAF8F5] hover:text-[#1C1A18] font-medium shadow-xs"
@@ -294,7 +294,7 @@ export default function ExperienceSection() {
         <button
           type="button"
           onClick={() => setIsChronological((prev) => !prev)}
-          className="text-[11px] font-sans font-semibold px-3.5 py-1.5 rounded-full border border-[#465B20]/30 bg-white hover:bg-[#FAF8F5] text-[#2A3614] flex items-center gap-1.5 cursor-pointer transition-colors shadow-xs shrink-0"
+          className="w-full sm:w-auto text-[11px] font-sans font-semibold px-4 py-2 min-h-[40px] rounded-full border border-[#465B20]/30 bg-white hover:bg-[#FAF8F5] text-[#2A3614] flex items-center justify-center gap-1.5 cursor-pointer transition-colors shadow-xs shrink-0 active:scale-95"
         >
           <ArrowUpDown className="w-3.5 h-3.5 text-[#465B20]" />
           <span>{isChronological ? "Mais Antigos Primeiro" : "Mais Recentes Primeiro"}</span>

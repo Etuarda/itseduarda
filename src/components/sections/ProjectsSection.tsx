@@ -213,40 +213,42 @@ export default function ProjectsSection() {
         </h2>
       </div>
 
-      {/* Seletor de Categorias */}
-      <div className="flex flex-col items-center justify-center gap-2 mb-4 md:mb-5">
-        <div className="inline-flex flex-wrap items-center justify-center p-1.5 rounded-full bg-[#FAF8F5] border border-[#465B20]/30 shadow-xs gap-1 sm:gap-2">
-          {CATEGORIES.map((cat) => {
-            const Icon = cat.icon;
-            const count =
-              cat.id === "all"
-                ? portfolioData.projects.length
-                : portfolioData.projects.filter((p) => p.category === cat.id).length;
-            const isSelected = activeCategory === cat.id;
+      {/* Seletor de Categorias com Scroll Suave no Mobile */}
+      <div className="w-full flex items-center justify-center mb-4 md:mb-5">
+        <div className="max-w-full overflow-x-auto no-scrollbar py-1 px-1">
+          <div className="inline-flex items-center p-1.5 rounded-full bg-[#FAF8F5] border border-[#465B20]/30 shadow-xs gap-1 sm:gap-2">
+            {CATEGORIES.map((cat) => {
+              const Icon = cat.icon;
+              const count =
+                cat.id === "all"
+                  ? portfolioData.projects.length
+                  : portfolioData.projects.filter((p) => p.category === cat.id).length;
+              const isSelected = activeCategory === cat.id;
 
-            return (
-              <button
-                key={cat.id}
-                type="button"
-                onClick={() => handleCategoryChange(cat.id)}
-                className={`relative px-3 sm:px-4 py-1.5 rounded-full text-xs font-sans transition-all duration-300 cursor-pointer flex items-center gap-1.5 ${
-                  isSelected
-                    ? "bg-[#465B20] text-[#F7F6F2] font-semibold shadow-xs"
-                    : "text-[#383531] hover:text-[#1C1A18] hover:bg-[#465B20]/15 font-medium"
-                }`}
-              >
-                <Icon className={`w-3.5 h-3.5 ${isSelected ? "text-[#F7F6F2]" : "text-[#465B20]"}`} />
-                <span>{cat.label}</span>
-                <span
-                  className={`text-[10px] font-mono px-1.5 py-0.2 rounded-full ${
-                    isSelected ? "bg-white/25 text-[#F7F6F2]" : "bg-[#465B20]/15 text-[#2A3614] font-semibold"
+              return (
+                <button
+                  key={cat.id}
+                  type="button"
+                  onClick={() => handleCategoryChange(cat.id)}
+                  className={`relative px-3 sm:px-4 py-1.5 min-h-[38px] rounded-full text-xs font-sans transition-all duration-300 cursor-pointer flex items-center gap-1.5 whitespace-nowrap active:scale-95 ${
+                    isSelected
+                      ? "bg-[#465B20] text-[#F7F6F2] font-semibold shadow-xs"
+                      : "text-[#383531] hover:text-[#1C1A18] hover:bg-[#465B20]/15 font-medium"
                   }`}
                 >
-                  {String(count).padStart(2, "0")}
-                </span>
-              </button>
-            );
-          })}
+                  <Icon className={`w-3.5 h-3.5 ${isSelected ? "text-[#F7F6F2]" : "text-[#465B20]"}`} />
+                  <span>{cat.label}</span>
+                  <span
+                    className={`text-[10px] font-mono px-1.5 py-0.2 rounded-full ${
+                      isSelected ? "bg-white/25 text-[#F7F6F2]" : "bg-[#465B20]/15 text-[#2A3614] font-semibold"
+                    }`}
+                  >
+                    {String(count).padStart(2, "0")}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
         </div>
       </div>
 
@@ -256,16 +258,16 @@ export default function ProjectsSection() {
         <button
           type="button"
           onClick={() => setIsPausedManual((prev) => !prev)}
-          className="px-3 py-1.5 rounded-full border border-[#465B20]/35 bg-[#FAF8F5] hover:bg-[#465B20] hover:text-[#F7F6F2] text-[#2A3614] text-xs font-sans font-semibold flex items-center gap-1.5 transition-all cursor-pointer shadow-xs"
+          className="px-3.5 py-2 min-h-[38px] rounded-full border border-[#465B20]/35 bg-[#FAF8F5] hover:bg-[#465B20] hover:text-[#F7F6F2] text-[#2A3614] text-xs font-sans font-semibold flex items-center gap-1.5 transition-all cursor-pointer shadow-xs active:scale-95"
         >
           {isPausedManual ? (
             <>
-              <Play className="w-3 h-3 ml-0.5" />
+              <Play className="w-3.5 h-3.5 ml-0.5" />
               <span>Retomar Brisa</span>
             </>
           ) : (
             <>
-              <Pause className="w-3 h-3" />
+              <Pause className="w-3.5 h-3.5" />
               <span>Pausar Brisa</span>
             </>
           )}
@@ -279,7 +281,7 @@ export default function ProjectsSection() {
           <button
             type="button"
             onClick={handlePrev}
-            className="w-9 h-9 rounded-full border border-[#465B20]/35 bg-[#FAF8F5] hover:bg-[#465B20] hover:text-[#F7F6F2] text-[#1C1A18] flex items-center justify-center transition-all cursor-pointer shadow-xs active:scale-95"
+            className="w-10 h-10 rounded-full border border-[#465B20]/35 bg-[#FAF8F5] hover:bg-[#465B20] hover:text-[#F7F6F2] text-[#1C1A18] flex items-center justify-center transition-all cursor-pointer shadow-xs active:scale-95"
             aria-label="Transicionar prancha anterior"
           >
             <ChevronLeft className="w-4 h-4" />
@@ -287,7 +289,7 @@ export default function ProjectsSection() {
           <button
             type="button"
             onClick={handleNext}
-            className="w-9 h-9 rounded-full border border-[#465B20]/35 bg-[#FAF8F5] hover:bg-[#465B20] hover:text-[#F7F6F2] text-[#1C1A18] flex items-center justify-center transition-all cursor-pointer shadow-xs active:scale-95"
+            className="w-10 h-10 rounded-full border border-[#465B20]/35 bg-[#FAF8F5] hover:bg-[#465B20] hover:text-[#F7F6F2] text-[#1C1A18] flex items-center justify-center transition-all cursor-pointer shadow-xs active:scale-95"
             aria-label="Transicionar próxima prancha"
           >
             <ChevronRight className="w-4 h-4" />
@@ -320,7 +322,7 @@ export default function ProjectsSection() {
                 onMouseEnter={() => setIsHoveredCard(true)}
                 onMouseLeave={() => setIsHoveredCard(false)}
                 onClick={() => setSelectedProjectForModal(project)}
-                className="relative w-[310px] sm:w-[350px] md:w-[380px] h-[530px] shrink-0 rounded-3xl overflow-hidden border-2 border-[#465B20]/30 hover:border-[#465B20]/60 bg-[#FAF8F5] texture-paper shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between p-4 sm:p-5 group cursor-pointer"
+                className="relative w-[84vw] max-w-[325px] sm:w-[350px] md:w-[380px] h-[520px] sm:h-[530px] shrink-0 rounded-2xl sm:rounded-3xl overflow-hidden border-2 border-[#465B20]/30 hover:border-[#465B20]/60 bg-[#FAF8F5] texture-paper shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between p-4 sm:p-5 group cursor-pointer"
               >
                 {/* Topo do Card: Tag de Categoria e Numeração */}
                 <div className="flex items-center justify-between z-10">
@@ -335,7 +337,7 @@ export default function ProjectsSection() {
                 </div>
 
                 {/* Área de Arte & Desenhos Representativos do Projeto */}
-                <div className="w-full h-44 sm:h-48 my-2 rounded-2xl overflow-hidden border border-[#465B20]/20 shadow-2xs relative group-hover:scale-[1.02] transition-transform duration-500 shrink-0">
+                <div className="w-full h-40 sm:h-48 my-2 rounded-2xl overflow-hidden border border-[#465B20]/20 shadow-2xs relative group-hover:scale-[1.02] transition-transform duration-500 shrink-0">
                   <ProjectArtwork projectId={project.id} category={project.category} />
                 </div>
 
@@ -410,7 +412,7 @@ export default function ProjectsSection() {
                         e.stopPropagation();
                         setSelectedProjectForModal(project);
                       }}
-                      className="flex-1 py-2 px-3 rounded-full bg-[#465B20] hover:bg-[#344516] text-[#F7F6F2] font-sans font-semibold text-xs tracking-wider flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-xs active:scale-98"
+                      className="flex-1 py-2.5 px-3 min-h-[42px] rounded-full bg-[#465B20] hover:bg-[#344516] text-[#F7F6F2] font-sans font-semibold text-xs tracking-wider flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-xs active:scale-98"
                     >
                       <BookOpen className="w-3.5 h-3.5" />
                       <span>Ver Estudo de Caso</span>
@@ -422,7 +424,7 @@ export default function ProjectsSection() {
                         target="_blank"
                         rel="noreferrer"
                         onClick={(e) => e.stopPropagation()}
-                        className="p-2 rounded-full border border-[#465B20]/30 bg-white hover:bg-[#1C1A18] hover:text-[#F7F6F2] text-[#1C1A18] transition-all cursor-pointer shadow-2xs"
+                        className="w-10 h-10 min-w-[40px] rounded-full border border-[#465B20]/30 bg-white hover:bg-[#1C1A18] hover:text-[#F7F6F2] text-[#1C1A18] transition-all cursor-pointer shadow-2xs flex items-center justify-center active:scale-95"
                         title="Repositório GitHub"
                       >
                         <Github className="w-3.5 h-3.5" />
@@ -435,7 +437,7 @@ export default function ProjectsSection() {
                         target="_blank"
                         rel="noreferrer"
                         onClick={(e) => e.stopPropagation()}
-                        className="p-2 rounded-full border border-[#465B20]/30 bg-white hover:bg-[#465B20] hover:text-[#F7F6F2] text-[#465B20] transition-all cursor-pointer shadow-2xs"
+                        className="w-10 h-10 min-w-[40px] rounded-full border border-[#465B20]/30 bg-white hover:bg-[#465B20] hover:text-[#F7F6F2] text-[#465B20] transition-all cursor-pointer shadow-2xs flex items-center justify-center active:scale-95"
                         title="Acessar Aplicação"
                       >
                         <ExternalLink className="w-3.5 h-3.5" />

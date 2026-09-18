@@ -83,7 +83,7 @@ export default function FooterSection() {
       <div className="max-w-7xl mx-auto px-4 md:px-8 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 items-stretch">
           {/* Coluna Esquerda: Informações e Contato Direto com Textura Papel */}
-          <div className="botanical-card texture-paper rounded-3xl p-6 sm:p-8 md:p-9 relative shadow-xs flex flex-col justify-between border border-[#465B20]/25 bg-[#FAF8F5] h-full">
+          <div className="botanical-card texture-paper rounded-3xl p-5 sm:p-8 md:p-9 relative shadow-xs flex flex-col justify-between border border-[#465B20]/25 bg-[#FAF8F5] h-full">
             <div>
               <h2 className="font-serif font-light text-3xl sm:text-4xl text-[#1C1A18] tracking-tight mb-2">
                 Vamos{" "}
@@ -124,7 +124,7 @@ export default function FooterSection() {
                 <button
                   type="button"
                   onClick={handleCopyEmail}
-                  className="px-3 py-1.5 rounded-full bg-[#465B20] hover:bg-[#2A3614] text-[#F7F6F2] font-sans text-xs font-semibold flex items-center gap-1.5 transition-all cursor-pointer shadow-xs shrink-0"
+                  className="px-3.5 py-2 min-h-[38px] rounded-full bg-[#465B20] hover:bg-[#2A3614] text-[#F7F6F2] font-sans text-xs font-semibold flex items-center gap-1.5 transition-all cursor-pointer shadow-xs shrink-0 active:scale-95"
                   title="Copiar e-mail"
                 >
                   <Copy className="w-3 h-3" /> Copiar
@@ -137,7 +137,7 @@ export default function FooterSection() {
                   href="https://github.com/Etuarda"
                   target="_blank"
                   rel="noreferrer"
-                  className="w-10 h-10 rounded-full bg-white border border-[#465B20]/30 hover:bg-[#1C1A18] hover:text-[#F7F6F2] text-[#1C1A18] flex items-center justify-center transition-all cursor-pointer shadow-xs"
+                  className="w-10 h-10 rounded-full bg-white border border-[#465B20]/30 hover:bg-[#1C1A18] hover:text-[#F7F6F2] text-[#1C1A18] flex items-center justify-center transition-all cursor-pointer shadow-xs active:scale-95"
                   title="GitHub"
                 >
                   <Github className="w-4 h-4" />
@@ -147,7 +147,7 @@ export default function FooterSection() {
                   href="https://www.linkedin.com/in/itseduarda"
                   target="_blank"
                   rel="noreferrer"
-                  className="w-10 h-10 rounded-full bg-white border border-[#465B20]/30 hover:bg-[#1C1A18] hover:text-[#F7F6F2] text-[#1C1A18] flex items-center justify-center transition-all cursor-pointer shadow-xs"
+                  className="w-10 h-10 rounded-full bg-white border border-[#465B20]/30 hover:bg-[#1C1A18] hover:text-[#F7F6F2] text-[#1C1A18] flex items-center justify-center transition-all cursor-pointer shadow-xs active:scale-95"
                   title="LinkedIn"
                 >
                   <Linkedin className="w-4 h-4" />
@@ -155,7 +155,7 @@ export default function FooterSection() {
 
                 <a
                   href={`mailto:${corporateEmail}`}
-                  className="w-10 h-10 rounded-full bg-white border border-[#465B20]/30 hover:bg-[#1C1A18] hover:text-[#F7F6F2] text-[#1C1A18] flex items-center justify-center transition-all cursor-pointer shadow-xs"
+                  className="w-10 h-10 rounded-full bg-white border border-[#465B20]/30 hover:bg-[#1C1A18] hover:text-[#F7F6F2] text-[#1C1A18] flex items-center justify-center transition-all cursor-pointer shadow-xs active:scale-95"
                   title="Enviar E-mail"
                 >
                   <Mail className="w-4 h-4" />
@@ -166,7 +166,7 @@ export default function FooterSection() {
                   download="Eduarda- Curriculo-Full-Stack(6).pdf"
                   target="_blank"
                   rel="noreferrer"
-                  className="px-4 py-2.5 rounded-full border border-[#465B20]/35 bg-white hover:bg-[#FAF8F5] text-[#1C1A18] flex items-center gap-1.5 text-xs font-sans font-semibold transition-all shadow-xs cursor-pointer"
+                  className="px-4 py-2.5 min-h-[42px] rounded-full border border-[#465B20]/35 bg-white hover:bg-[#FAF8F5] text-[#1C1A18] flex items-center gap-1.5 text-xs font-sans font-semibold transition-all shadow-xs cursor-pointer active:scale-95"
                   title="Baixar Currículo em PDF"
                 >
                   <Download className="w-3.5 h-3.5 text-[#465B20]" />
@@ -185,7 +185,7 @@ export default function FooterSection() {
           </div>
 
           {/* Coluna Direita: Cartão de Contato com Formulario */}
-          <div className="texture-brushed-olive rounded-3xl p-6 sm:p-8 md:p-9 shadow-[0_20px_50px_-15px_rgba(58,68,35,0.45)] relative border border-[#728464]/35 overflow-hidden flex flex-col justify-between h-full">
+          <div className="texture-brushed-olive rounded-3xl p-5 sm:p-8 md:p-9 shadow-[0_20px_50px_-15px_rgba(58,68,35,0.45)] relative border border-[#728464]/35 overflow-hidden flex flex-col justify-between h-full">
             <div>
               {/* Cabeçalho */}
               <div className="text-center mb-5 border-b border-[#F7F6F2]/15 pb-4 relative z-10">
@@ -213,7 +213,7 @@ export default function FooterSection() {
                       value={name}
                       onChange={(e) => setName(e.target.value)}
                       placeholder="Ex: Ana Silva"
-                      className="w-full bg-black/20 border border-white/20 focus:border-white/70 focus:bg-black/35 rounded-xl px-3.5 py-2.5 font-sans text-xs text-white placeholder:text-white/40 outline-none transition-colors"
+                      className="w-full bg-black/20 border border-white/20 focus:border-white/70 focus:bg-black/35 rounded-xl px-3.5 py-2.5 font-sans text-base sm:text-xs text-white placeholder:text-white/40 outline-none transition-colors"
                     />
                   </div>
 
@@ -228,7 +228,7 @@ export default function FooterSection() {
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="seuemail@empresa.com"
-                      className="w-full bg-black/20 border border-white/20 focus:border-white/70 focus:bg-black/35 rounded-xl px-3.5 py-2.5 font-sans text-xs text-white placeholder:text-white/40 outline-none transition-colors"
+                      className="w-full bg-black/20 border border-white/20 focus:border-white/70 focus:bg-black/35 rounded-xl px-3.5 py-2.5 font-sans text-base sm:text-xs text-white placeholder:text-white/40 outline-none transition-colors"
                     />
                   </div>
                 </div>
@@ -244,13 +244,13 @@ export default function FooterSection() {
                     value={text}
                     onChange={(e) => setText(e.target.value)}
                     placeholder="Olá Eduarda! Vimos seus projetos e temos uma oportunidade com foco em..."
-                    className="w-full bg-black/20 border border-white/20 focus:border-white/70 focus:bg-black/35 rounded-xl p-3 font-sans text-xs text-white placeholder:text-white/40 outline-none transition-colors resize-none"
+                    className="w-full bg-black/20 border border-white/20 focus:border-white/70 focus:bg-black/35 rounded-xl p-3 font-sans text-base sm:text-xs text-white placeholder:text-white/40 outline-none transition-colors resize-none"
                   />
                 </div>
 
                 <button
                   type="submit"
-                  className="w-full bg-[#FAF8F5] hover:bg-white text-[#1C1A18] font-sans font-bold text-xs uppercase tracking-[0.18em] py-3 rounded-full transition-all duration-300 active:scale-98 shadow-md flex items-center justify-center gap-2 cursor-pointer mt-1"
+                  className="w-full min-h-[46px] bg-[#FAF8F5] hover:bg-white text-[#1C1A18] font-sans font-bold text-xs uppercase tracking-[0.18em] py-3 rounded-full transition-all duration-300 active:scale-98 shadow-md flex items-center justify-center gap-2 cursor-pointer mt-1"
                 >
                   Enviar Mensagem <Send className="w-3.5 h-3.5 text-[#465B20]" />
                 </button>
