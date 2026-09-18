@@ -220,8 +220,8 @@ export default function SkillsSection() {
       <div id="competencias" className="absolute -top-20" />
 
       {/* Cabeçalho Editorial */}
-      <div className="text-center max-w-3xl mx-auto mb-4 md:mb-5">
-        <h2 className="font-serif font-light text-2xl sm:text-3xl lg:text-4xl text-[#1C1A18] tracking-tight">
+      <div className="text-center max-w-3xl mx-auto mb-4 md:mb-5 relative z-20">
+        <h2 className="font-serif font-light text-2xl sm:text-3xl lg:text-4xl text-[#1C1A18] tracking-tight inline-block bg-[#F7F6F2] px-6 py-1 rounded-full">
           Repositório de{" "}
           <span
             className="text-3xl sm:text-4xl lg:text-5xl text-[#9E6761] select-none inline-block ml-1"

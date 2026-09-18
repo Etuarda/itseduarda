@@ -200,8 +200,8 @@ export default function ProjectsSection() {
   return (
     <section id="projetos" className="w-full py-4 md:py-6 px-3 sm:px-6 md:px-8 max-w-7xl mx-auto scroll-mt-20 overflow-hidden">
       {/* Cabeçalho Editorial */}
-      <div className="text-center max-w-2xl mx-auto mb-4 md:mb-6">
-        <h2 className="font-serif font-light text-2xl sm:text-3xl lg:text-4xl text-[#1C1A18] tracking-tight">
+      <div className="text-center max-w-2xl mx-auto mb-4 md:mb-6 relative z-20">
+        <h2 className="font-serif font-light text-2xl sm:text-3xl lg:text-4xl text-[#1C1A18] tracking-tight inline-block bg-[#F7F6F2] px-6 py-1 rounded-full">
           Projetos em{" "}
           <span
             className="text-3xl sm:text-4xl lg:text-5xl text-[#9E6761] select-none inline-block ml-1"
