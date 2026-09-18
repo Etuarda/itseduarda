@@ -16,15 +16,6 @@ type Particle = {
   alpha: number;
 };
 
-type WindLine = {
-  y: number;
-  speed: number;
-  amplitude: number;
-  wavelength: number;
-  phase: number;
-  alpha: number;
-};
-
 export default function BotanicalCanvas() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
@@ -85,13 +76,6 @@ export default function BotanicalCanvas() {
       });
     }
 
-    // Linhas de vento ondulantes (Breeze lines) bem visíveis
-    const windLines: WindLine[] = [
-      { y: height * 0.22, speed: 0.8, amplitude: 18, wavelength: 260, phase: 0, alpha: 0.30 },
-      { y: height * 0.52, speed: 1.1, amplitude: 24, wavelength: 320, phase: 2, alpha: 0.26 },
-      { y: height * 0.82, speed: 0.9, amplitude: 20, wavelength: 290, phase: 4, alpha: 0.32 },
-    ];
-
     // Posição do cursor do mouse/toque
     const mouse = {
       x: -9999,
@@ -113,9 +97,6 @@ export default function BotanicalCanvas() {
       if (!canvas) return;
       width = canvas.width = window.innerWidth;
       height = canvas.height = window.innerHeight;
-      windLines[0].y = height * 0.22;
-      windLines[1].y = height * 0.52;
-      windLines[2].y = height * 0.82;
     };
 
     window.addEventListener("mousemove", handleMouseMove, { passive: true });
@@ -129,22 +110,7 @@ export default function BotanicalCanvas() {
       time += 0.015;
       ctx.clearRect(0, 0, width, height);
 
-      // 1. DESENHA LINHAS DE VENTO (BREEZE STREAMLINES)
-      ctx.lineWidth = 1.4;
-      for (const wind of windLines) {
-        wind.phase += wind.speed * 0.012;
-        ctx.beginPath();
-        ctx.strokeStyle = `rgba(85, 107, 47, ${wind.alpha})`;
-
-        for (let x = 0; x < width; x += 15) {
-          const y = wind.y + Math.sin(x / wind.wavelength + wind.phase) * wind.amplitude;
-          if (x === 0) ctx.moveTo(x, y);
-          else ctx.lineTo(x, y);
-        }
-        ctx.stroke();
-      }
-
-      // 2. ATUALIZA E DESENHA PARTÍCULAS
+      // ATUALIZA E DESENHA PARTÍCULAS ORGÂNICAS INTERATIVAS
       for (let i = 0; i < particles.length; i++) {
         const p = particles[i];
 

@@ -1,6 +1,5 @@
 import { ArrowDown, ArrowRight, Download, Sparkles, Layers, Cpu, Database, BrainCircuit } from "lucide-react";
 import eduardaPhoto from "@/components/assets/Eduardadev.png";
-import { WavyUnderline } from "@/components/ui/HandDrawnElements";
 
 export default function HeroSection() {
   const resumeUrl = "/Eduarda- Curriculo-Full-Stack(6).pdf";
@@ -47,9 +46,8 @@ export default function HeroSection() {
 
             <h2 className="font-serif font-bold text-base sm:text-lg lg:text-xl text-[#1C1A18] tracking-tight leading-snug">
               Soluções que impactam{" "}
-              <span className="italic font-light text-[#465B20] relative inline-block">
+              <span className="italic font-light text-[#465B20]">
                pessoas.
-                <WavyUnderline color="#9E6761" strokeWidth={2.4} className="mt-1 w-full" />
               </span>
             </h2>
           </div>
