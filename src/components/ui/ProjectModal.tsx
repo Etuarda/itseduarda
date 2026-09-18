@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { X, ExternalLink, Github, CheckCircle2, Layers, Cpu, BarChart3, AlertCircle } from "lucide-react";
 import type { Project } from "@/types/portfolio";
+import ProjectArtwork from "@/components/ui/ProjectArtwork";
 
 type ProjectModalProps = {
   project: Project | null;
@@ -98,32 +99,31 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                   </div>
                 </div>
 
-                <h3 id="modal-title" className="font-serif font-black text-2xl sm:text-4xl text-[#1C1A18] tracking-tight mt-1">
+                <h3
+                  id="modal-title"
+                  className="text-4xl sm:text-6xl text-[#1C1A18] tracking-tight mt-1 leading-none select-none drop-shadow-2xs"
+                  style={{ fontFamily: "'Great Vibes', cursive" }}
+                >
                   {project.title}
                 </h3>
                 {project.subtitle && (
-                  <p className="font-sans italic text-sm text-[#465B20] font-semibold">
+                  <p className="font-sans italic text-xs sm:text-sm text-[#465B20] font-semibold mt-1">
                     {project.subtitle}
                   </p>
                 )}
-                <p className="font-sans text-xs sm:text-sm text-[#383531] leading-relaxed mt-1 font-normal">
+                <p className="font-sans text-xs sm:text-sm text-[#383531] leading-relaxed mt-1.5 font-normal">
                   {project.longDescription}
                 </p>
               </div>
 
-              {/* Preview Visual */}
-              <div className="relative w-full h-56 sm:h-72 rounded-xl overflow-hidden border border-[#556B2F]/20 shadow-xs">
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#2B2927]/60 via-transparent to-transparent" />
-                <div className="absolute bottom-3 left-4 right-4 flex justify-between items-center text-white text-xs font-sans">
-                  <span className="font-handwriting text-lg drop-shadow">
+              {/* Preview Visual com Cores, Formas e Desenhos Representativos (Sem Imagens Fotográficas) */}
+              <div className="relative w-full h-56 sm:h-72 rounded-2xl overflow-hidden border border-[#465B20]/25 shadow-xs bg-[#FAF8F5]">
+                <ProjectArtwork projectId={project.id} category={project.category} variant="modal" />
+                <div className="absolute bottom-3 left-4 right-4 flex justify-between items-center text-[#2A3614] text-xs font-sans px-3 py-1.5 rounded-full bg-white/90 backdrop-blur-md border border-[#465B20]/20 shadow-2xs">
+                  <span className="font-handwriting text-lg text-[#465B20]">
                     Arquitetura em Produção
                   </span>
-                  <span className="text-[11px] opacity-90 drop-shadow">
+                  <span className="text-[11px] font-mono font-bold text-[#465B20]">
                     Eduarda Silva Santos
                   </span>
                 </div>

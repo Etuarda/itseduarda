@@ -20,6 +20,7 @@ import {
 import { portfolioData } from "@/data/portfolio";
 import type { Project } from "@/types/portfolio";
 import ProjectModal from "@/components/ui/ProjectModal";
+import ProjectArtwork from "@/components/ui/ProjectArtwork";
 
 
 type CategoryFilter = "all" | "fullstack" | "backend" | "data_ai";
@@ -319,69 +320,66 @@ export default function ProjectsSection() {
                 onMouseEnter={() => setIsHoveredCard(true)}
                 onMouseLeave={() => setIsHoveredCard(false)}
                 onClick={() => setSelectedProjectForModal(project)}
-                className="relative w-[305px] sm:w-[345px] md:w-[380px] h-[520px] sm:h-[540px] shrink-0 rounded-3xl overflow-hidden border border-[#465B20]/35 shadow-md hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between p-4 sm:p-5 group cursor-pointer"
+                className="relative w-[310px] sm:w-[350px] md:w-[380px] h-[530px] shrink-0 rounded-3xl overflow-hidden border-2 border-[#465B20]/30 hover:border-[#465B20]/60 bg-[#FAF8F5] texture-paper shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between p-4 sm:p-5 group cursor-pointer"
               >
-                {/* Foto da Aplicação Ocupando Toda a Altura do Card */}
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  loading="lazy"
-                  className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
-                />
-
-                {/* Gradiente Editorial de Alto Contraste para Garantir Legibilidade e Elegância */}
-                <div className="absolute inset-0 bg-gradient-to-t from-[#141311] via-[#141311]/75 to-[#141311]/45 pointer-events-none" />
-
                 {/* Topo do Card: Tag de Categoria e Numeração */}
-                <div className="relative z-10 flex items-center justify-between">
-                  <div className="flex items-center gap-1.5 bg-[#FAF8F5]/95 backdrop-blur-md border border-[#465B20]/35 px-3 py-1 rounded-full text-[9px] font-sans text-[#2A3614] font-bold uppercase tracking-wider shadow-xs">
+                <div className="flex items-center justify-between z-10">
+                  <div className="flex items-center gap-1.5 bg-white border border-[#465B20]/30 px-3 py-1 rounded-full text-[9px] font-sans text-[#2A3614] font-bold uppercase tracking-wider shadow-2xs">
                     <span className="w-1.5 h-1.5 rounded-full bg-[#465B20]" />
                     {project.category.toUpperCase()}
                   </div>
 
-                  <span className="font-mono text-xs font-bold text-[#F7F6F2] bg-black/60 backdrop-blur-md border border-white/20 px-2.5 py-0.5 rounded-full">
+                  <span className="font-mono text-xs font-bold text-[#465B20] bg-white border border-[#465B20]/25 px-2.5 py-0.5 rounded-full shadow-2xs">
                     #0{(idx % filteredProjects.length) + 1}
                   </span>
                 </div>
 
-                {/* Base do Card: Título, Desafio Técnico, Tags e Ações */}
-                <div className="relative z-10 flex flex-col gap-2.5">
-                  {/* Título e Subtítulo */}
-                  <div>
-                    <h3 className="font-serif font-black text-xl sm:text-2xl text-[#F7F6F2] tracking-tight line-clamp-1 drop-shadow-sm">
+                {/* Área de Arte & Desenhos Representativos do Projeto */}
+                <div className="w-full h-44 sm:h-48 my-2 rounded-2xl overflow-hidden border border-[#465B20]/20 shadow-2xs relative group-hover:scale-[1.02] transition-transform duration-500 shrink-0">
+                  <ProjectArtwork projectId={project.id} category={project.category} />
+                </div>
+
+                {/* Informações Editoriais: Nome Cursivo, Subtítulo, Desafio & Tags */}
+                <div className="flex flex-col gap-2 z-10 flex-1 justify-between">
+                  {/* Título em Fonte Cursiva e Subtítulo */}
+                  <div className="flex flex-col">
+                    <h3
+                      className="text-3xl sm:text-4xl text-[#1C1A18] tracking-normal leading-none group-hover:text-[#465B20] transition-colors select-none line-clamp-1 drop-shadow-2xs"
+                      style={{ fontFamily: "'Great Vibes', cursive" }}
+                    >
                       {project.title}
                     </h3>
                     {project.subtitle && (
-                      <p className="font-sans text-xs text-[#E8ECE0] font-medium line-clamp-1 mt-0.5">
+                      <p className="font-sans text-[11px] sm:text-xs text-[#556B2F] font-bold line-clamp-1 mt-1">
                         {project.subtitle}
                       </p>
                     )}
                   </div>
 
-                  {/* Caixa de Desafio Técnico com Glassmorphism Editorial */}
+                  {/* Caixa de Desafio Técnico */}
                   <div
                     onClick={(e) => {
                       e.stopPropagation();
                       setSelectedProjectForModal(project);
                     }}
-                    className="p-2.5 sm:p-3 rounded-2xl bg-black/55 backdrop-blur-md border border-white/20 hover:border-white/40 transition-colors group/hook"
+                    className="p-2 sm:p-2.5 rounded-xl bg-white border border-[#465B20]/20 hover:border-[#465B20]/45 transition-colors group/hook shadow-2xs"
                   >
                     <div className="flex items-center justify-between gap-1 mb-1">
-                      <span className="text-[9px] font-mono uppercase tracking-wider text-[#A3BF65] font-bold">
-                        Desafio Arquitetural
+                      <span className="text-[9px] font-mono uppercase tracking-wider text-[#465B20] font-bold">
+                        // DESAFIO TÉCNICO
                       </span>
-                      <span className="text-[9px] font-sans font-semibold text-[#F7F6F2] bg-white/20 px-2 py-0.5 rounded-full">
+                      <span className="text-[9px] font-sans font-semibold text-[#2A3614] bg-[#465B20]/15 border border-[#465B20]/25 px-2 py-0.2 rounded-full">
                         Destaque
                       </span>
                     </div>
 
-                    <p className="font-serif italic text-xs text-[#F7F6F2] font-semibold leading-snug">
+                    <p className="font-serif italic text-xs text-[#1C1A18] font-semibold leading-snug line-clamp-2">
                       "{hook.question}"
                     </p>
 
-                    <div className="flex items-center justify-between gap-2 mt-2 pt-1.5 border-t border-white/15 text-[10px] font-sans text-[#E8ECE0]">
-                      <span className="font-semibold truncate text-[#D2DAC3]">{hook.metricTag}</span>
-                      <span className="font-sans font-bold text-xs text-[#A3BF65] shrink-0 group-hover/hook:translate-x-1 transition-transform">
+                    <div className="flex items-center justify-between gap-2 mt-1.5 pt-1 border-t border-[#465B20]/15 text-[10px] font-sans text-[#383531]">
+                      <span className="font-semibold truncate text-[#465B20]">{hook.metricTag}</span>
+                      <span className="font-sans font-bold text-xs text-[#9E6761] shrink-0 group-hover/hook:translate-x-1 transition-transform">
                         Ver detalhes ➜
                       </span>
                     </div>
@@ -392,27 +390,27 @@ export default function ProjectsSection() {
                     {project.tags.slice(0, 3).map((tag) => (
                       <span
                         key={tag}
-                        className="text-[9px] font-mono px-2 py-0.5 rounded-md bg-black/45 backdrop-blur-xs border border-white/20 text-[#FAF8F5] font-medium shadow-2xs"
+                        className="text-[9px] font-mono px-2 py-0.5 rounded-md bg-white border border-[#465B20]/25 text-[#2A3614] font-semibold shadow-2xs"
                       >
                         #{tag}
                       </span>
                     ))}
                     {project.tags.length > 3 && (
-                      <span className="text-[9px] font-mono px-1.5 py-0.5 rounded-md text-[#A3BF65] font-semibold">
+                      <span className="text-[9px] font-mono px-1.5 py-0.5 rounded-md text-[#465B20] font-bold">
                         +{project.tags.length - 3}
                       </span>
                     )}
                   </div>
 
                   {/* Botões de Ação na Base */}
-                  <div className="pt-2 border-t border-white/15 flex items-center gap-2">
+                  <div className="pt-2 border-t border-[#465B20]/20 flex items-center gap-2">
                     <button
                       type="button"
                       onClick={(e) => {
                         e.stopPropagation();
                         setSelectedProjectForModal(project);
                       }}
-                      className="flex-1 py-2.5 px-3 rounded-full bg-[#465B20] hover:bg-[#344516] text-[#F7F6F2] font-sans font-semibold text-xs tracking-wider flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-sm active:scale-98"
+                      className="flex-1 py-2 px-3 rounded-full bg-[#465B20] hover:bg-[#344516] text-[#F7F6F2] font-sans font-semibold text-xs tracking-wider flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-xs active:scale-98"
                     >
                       <BookOpen className="w-3.5 h-3.5" />
                       <span>Ver Estudo de Caso</span>
@@ -424,7 +422,7 @@ export default function ProjectsSection() {
                         target="_blank"
                         rel="noreferrer"
                         onClick={(e) => e.stopPropagation()}
-                        className="p-2.5 rounded-full border border-white/25 bg-black/45 backdrop-blur-xs hover:bg-white hover:text-[#1C1A18] text-[#F7F6F2] transition-all cursor-pointer shadow-xs"
+                        className="p-2 rounded-full border border-[#465B20]/30 bg-white hover:bg-[#1C1A18] hover:text-[#F7F6F2] text-[#1C1A18] transition-all cursor-pointer shadow-2xs"
                         title="Repositório GitHub"
                       >
                         <Github className="w-3.5 h-3.5" />
@@ -437,7 +435,7 @@ export default function ProjectsSection() {
                         target="_blank"
                         rel="noreferrer"
                         onClick={(e) => e.stopPropagation()}
-                        className="p-2.5 rounded-full border border-white/25 bg-black/45 backdrop-blur-xs hover:bg-[#465B20] hover:text-[#F7F6F2] text-[#F7F6F2] transition-all cursor-pointer shadow-xs"
+                        className="p-2 rounded-full border border-[#465B20]/30 bg-white hover:bg-[#465B20] hover:text-[#F7F6F2] text-[#465B20] transition-all cursor-pointer shadow-2xs"
                         title="Acessar Aplicação"
                       >
                         <ExternalLink className="w-3.5 h-3.5" />
