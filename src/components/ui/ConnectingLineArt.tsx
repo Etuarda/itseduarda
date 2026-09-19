@@ -87,15 +87,18 @@ export default function ConnectingLineArt() {
         className="w-full h-full opacity-20 sm:opacity-28 transition-opacity duration-1000"
       >
         <defs>
-          {/* Gradiente sutil da haste do galho único como gravura botânica delicada */}
+          {/* Gradiente sutil da haste do galho único com adaptação cromática para seções claras e escuras */}
           <linearGradient id="single-branch-grad" x1="0" y1="0" x2="0" y2="4200" gradientUnits="userSpaceOnUse">
-            <stop offset="0%" stopColor="#465B20" stopOpacity="0.25" />
-            <stop offset="18%" stopColor="#556B2F" stopOpacity="0.35" />
-            <stop offset="38%" stopColor="#3A4A1C" stopOpacity="0.40" />
-            <stop offset="58%" stopColor="#465B20" stopOpacity="0.35" />
-            <stop offset="78%" stopColor="#556B2F" stopOpacity="0.40" />
+            <stop offset="0%" stopColor="#465B20" stopOpacity="0.28" />
+            <stop offset="20%" stopColor="#556B2F" stopOpacity="0.35" />
+            {/* Altura da Seção de Projetos (Fundo Escuro): Iluminação dourada/marfim sutil */}
+            <stop offset="40%" stopColor="#C5D9A5" stopOpacity="0.45" />
+            <stop offset="52%" stopColor="#E2D6BE" stopOpacity="0.50" />
+            <stop offset="62%" stopColor="#C5D9A5" stopOpacity="0.45" />
+            {/* Retorno para as seções claras: Verde Oliva elegante */}
+            <stop offset="78%" stopColor="#556B2F" stopOpacity="0.38" />
             <stop offset="92%" stopColor="#3A4A1C" stopOpacity="0.35" />
-            <stop offset="100%" stopColor="#465B20" stopOpacity="0.25" />
+            <stop offset="100%" stopColor="#465B20" stopOpacity="0.28" />
           </linearGradient>
 
           {/* Filtro sutil para textura orgânica de aquarela botânica */}

@@ -56,7 +56,7 @@ export default function AboutSection() {
             </div>
 
             {/* Lead com abertura editorial */}
-            <div className="border-l-2 border-[#465B20] pl-5 sm:pl-6 py-2 mb-8 bg-[#FAF8F5]/80 rounded-r-lg">
+            <div className="border-l-2 border-[#465B20] pl-5 sm:pl-6 py-2 mb-8 bg-[#FAF8F5]/80">
               <p className="font-serif text-base sm:text-lg text-[#1C1A18] leading-relaxed italic">
                 “Meu trabalho não começa pela ferramenta. Procuro entender o contexto, as pessoas envolvidas, as regras do negócio e o que realmente precisa melhorar antes de escrever a primeira linha de código.”
               </p>

@@ -246,10 +246,10 @@ export default function SkillsSection() {
       <div id="competencias" className="absolute -top-20" />
 
       {/* Cabeçalho Editorial (Seções 18 & 64 do Guia Mestre) */}
-      <div className="text-center max-w-3xl mx-auto mb-6 sm:mb-8 relative z-20">
+      <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-10 relative z-20">
         <div className="inline-flex items-center mb-2 px-3.5 py-1 rounded-full bg-white border border-[#465B20]/30 shadow-2xs">
           <span className="font-mono text-[10px] sm:text-xs uppercase tracking-[0.20em] text-[#2A3614] font-bold">
-            REPERTÓRIO TÉCNICO
+            COMPÊNDIO TÉCNICO • DISCIPLINA & MATURIDADE
           </span>
         </div>
 
@@ -264,50 +264,189 @@ export default function SkillsSection() {
           className="font-sans text-xs sm:text-sm md:text-base text-[#383531] mt-3 leading-relaxed max-w-2xl mx-auto"
           style={{ textWrap: "balance" }}
         >
-          Meu objetivo não é aumentar uma lista de tecnologias. Procuro entender quando utilizar cada ferramenta, quais problemas ela resolve e quais trade-offs introduz.
+          Não organizo tecnologias como uma lista genérica de palavras-chave. Cada competência abaixo possui nível de maturidade técnica, contexto de uso documentado e evidências em projetos reais.
         </p>
       </div>
 
-      {/* Barra de Filtros */}
-      <div className="flex flex-wrap items-center justify-center gap-1.5 sm:gap-2 mb-4 md:mb-5">
-        {(["TODAS", "PRODUÇÃO", "PROJETO", "PESQUISA", "EXPLORANDO"] as FilterStatus[]).map((st) => {
-          const isSelected = activeFilter === st;
-          return (
+      {/* Barra de Filtros Editoriais & Stacks Predefinidas */}
+      <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-6 pb-4 border-b border-[#465B20]/20">
+        {/* Filtro por Nível de Maturidade */}
+        <div className="flex flex-wrap items-center gap-1 sm:gap-1.5">
+          <span className="font-mono text-[10px] uppercase tracking-wider text-[#4E4A45] mr-1 font-semibold hidden sm:inline">
+            Maturidade:
+          </span>
+          {(["TODAS", "PRODUÇÃO", "PROJETO", "PESQUISA", "EXPLORANDO"] as FilterStatus[]).map((st) => {
+            const isSelected = activeFilter === st;
+            return (
+              <button
+                key={st}
+                type="button"
+                onClick={() => setActiveFilter(st)}
+                className={`px-3 py-1 text-xs font-sans tracking-wide transition-all cursor-pointer border-b-2 ${
+                  isSelected
+                    ? "border-[#465B20] text-[#2A3614] font-bold"
+                    : "border-transparent text-[#4E4A45] hover:text-[#1C1A18] hover:border-[#465B20]/40"
+                }`}
+              >
+                {st}
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Stacks Rápidas de Referência */}
+        <div className="flex flex-wrap items-center gap-1.5">
+          <span className="font-mono text-[10px] uppercase tracking-wider text-[#4E4A45] mr-1 font-semibold hidden sm:inline">
+            Composições:
+          </span>
+          {PRESET_STACKS.map((preset) => (
             <button
-              key={st}
+              key={preset.name}
               type="button"
-              onClick={() => setActiveFilter(st)}
-              className={`px-3 py-1 sm:px-4 sm:py-1.5 rounded-full text-xs font-sans uppercase tracking-wider transition-all duration-200 cursor-pointer ${
-                isSelected
-                  ? "bg-[#465B20] text-[#F7F6F2] font-semibold shadow-xs"
-                  : "bg-[#FAF8F5] border border-[#465B20]/25 text-[#383531] hover:text-[#1C1A18] hover:bg-white font-medium"
-              }`}
+              onClick={() => handleApplyPreset(preset)}
+              className="px-2.5 py-1 text-[11px] font-sans text-[#2A3614] bg-white/80 border border-[#465B20]/25 hover:bg-[#465B20] hover:text-[#F7F6F2] transition-all cursor-pointer shadow-2xs font-medium"
             >
-              {st}
+              {preset.name}
             </button>
-          );
-        })}
+          ))}
+        </div>
       </div>
 
-      {/* ARCHITECTURE PLAYGROUND */}
-      <div className="relative rounded-3xl bg-[#FAF8F5] border-2 border-[#465B20]/35 p-4 sm:p-6 md:p-7 shadow-md texture-paper mb-6 md:mb-8">
+      {/* ==========================================================================
+          O COMPÊNDIO EDITORIAL (4 DISCIPLINAS TÉCNICAS EM PRANCHAS DE CATÁLOGO)
+          Eliminação de cards arredondados genéricos. Estrutura pura de imprensa cultural.
+          ========================================================================== */}
+      <div className="w-full border-t border-b border-[#465B20]/25 bg-white/60 backdrop-blur-xs mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 divide-y md:divide-y-0 md:divide-x divide-[#465B20]/20">
+          {SKILLS_BOARD_COLUMNS.map((col) => {
+            const Icon = COLUMN_ICONS[col.id];
+            const filteredSkills =
+              activeFilter === "TODAS"
+                ? col.skills
+                : col.skills.filter((s) => s.status === activeFilter);
 
-        {/* Topo do Playground: Título & Status da Combinação */}
+            return (
+              <div key={col.id} className="flex flex-col">
+                {/* Cabeçalho Editorial da Disciplina */}
+                <div className="p-4 sm:p-5 border-b border-[#465B20]/20 bg-[#FAF8F5]/90">
+                  <div className="flex items-baseline justify-between mb-1.5">
+                    <div className="flex items-center gap-2">
+                      <span className="font-serif font-black text-2xl text-[#465B20]">
+                        {col.number}
+                      </span>
+                      <h3 className="font-serif font-bold text-base text-[#1C1A18] tracking-tight">
+                        {col.title}
+                      </h3>
+                    </div>
+                    <span className="font-mono text-[10px] text-[#465B20] font-bold">
+                      [{filteredSkills.length}]
+                    </span>
+                  </div>
+                  <p className="font-sans text-[11px] text-[#4E4A45] italic">
+                    {col.tagline}
+                  </p>
+                </div>
+
+                {/* Lista de Espécimes Técnicos da Coluna */}
+                <div className="flex flex-col divide-y divide-[#465B20]/10">
+                  {filteredSkills.map((skill) => {
+                    const isSelected = selectedSkillIds.has(skill.id);
+                    const statusStyle = STATUS_STYLES[skill.status];
+
+                    return (
+                      <article
+                        key={skill.id}
+                        onClick={() => handleToggleSkill(skill)}
+                        className={`p-3.5 sm:p-4 transition-all duration-200 cursor-pointer flex flex-col justify-between group relative ${
+                          isSelected
+                            ? "bg-[#F1F5E8] border-l-2 border-l-[#465B20]"
+                            : "hover:bg-white/80 border-l-2 border-l-transparent"
+                        }`}
+                      >
+                        <div>
+                          {/* Metadados: Código & Status Pill */}
+                          <div className="flex items-center justify-between mb-1">
+                            <span className="font-mono text-[9px] text-[#4E4A45] font-semibold">
+                              #{skill.code}
+                            </span>
+                            <span
+                              className={`inline-flex items-center gap-1 text-[8px] font-mono px-2 py-0.5 border font-bold uppercase ${statusStyle.bg} ${statusStyle.border} ${statusStyle.text}`}
+                            >
+                              <span className={`w-1.5 h-1.5 rounded-full ${statusStyle.dot}`} />
+                              {skill.status}
+                            </span>
+                          </div>
+
+                          {/* Nome da Tecnologia */}
+                          <h4 className="font-serif font-bold text-base text-[#1C1A18] group-hover:text-[#465B20] transition-colors leading-tight">
+                            {skill.name}
+                          </h4>
+
+                          {/* Tag de Contexto de Aplicação */}
+                          <span className="font-sans text-[9px] uppercase font-bold text-[#465B20] block mt-0.5 tracking-wider">
+                            {skill.shortTag}
+                          </span>
+
+                          {/* Descrição Concisa */}
+                          <p className="font-sans text-[11px] text-[#383531] font-normal leading-relaxed mt-1.5 line-clamp-2">
+                            {skill.description}
+                          </p>
+                        </div>
+
+                        {/* Ações Integradas */}
+                        <div className="flex items-center justify-between pt-2.5 mt-2 border-t border-[#465B20]/10 text-[10px] font-sans">
+                          <button
+                            type="button"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setInspectingSkill(skill);
+                            }}
+                            className="text-[#465B20] hover:text-[#1C1A18] font-semibold flex items-center gap-1 hover:underline cursor-pointer"
+                          >
+                            <Eye className="w-3 h-3" />
+                            <span>Ficha técnica</span>
+                          </button>
+
+                          <span className="font-mono text-[9px] text-[#4E4A45] font-medium">
+                            {isSelected ? "● Combinada" : "○ Selecionar"}
+                          </span>
+                        </div>
+                      </article>
+                    );
+                  })}
+
+                  {filteredSkills.length === 0 && (
+                    <div className="p-8 text-center text-xs text-[#4E4A45] italic font-sans">
+                      Nenhuma tecnologia com status "{activeFilter}" nesta disciplina.
+                    </div>
+                  )}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* ==========================================================================
+          BANCADA TÉCNICA: SÍNTESE ARQUITETURAL & PROJETOS CONECTADOS
+          Prancha arquitetural sem cards arredondados genéricos.
+          ========================================================================== */}
+      <div className="border border-[#465B20]/25 bg-[#FAF8F5]/90 p-4 sm:p-6 mb-8">
         <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-[#465B20]/20 mb-4">
           <div className="flex items-center gap-2">
-            <span className="p-1.5 rounded-lg bg-[#465B20] text-[#F7F6F2]">
+            <span className="p-1.5 bg-[#465B20] text-[#F7F6F2]">
               <Sparkles className="w-4 h-4" />
             </span>
             <div>
               <div className="flex items-center gap-2">
-                <h3 className="font-serif font-black text-xl sm:text-2xl text-[#1C1A18] tracking-tight">
-                  Architecture Playground
+                <h3 className="font-serif font-bold text-lg sm:text-xl text-[#1C1A18] tracking-tight">
+                  Bancada de Combinação Técnica
                 </h3>
-                <span className="text-[11px] font-mono font-bold px-2.5 py-0.5 rounded-full bg-[#465B20] text-[#F7F6F2] shadow-xs">
+                <span className="text-[10px] font-mono font-bold px-2 py-0.5 bg-[#465B20]/15 text-[#2A3614] border border-[#465B20]/30">
                   {selectedSkillIds.size} selecionadas
                 </span>
               </div>
-              <p className="font-sans text-xs text-[#2A3614] mt-0.5 font-semibold">
+              <p className="font-sans text-xs text-[#2A3614] font-medium mt-0.5">
                 {architectureDiagnosis}
               </p>
             </div>
@@ -316,179 +455,29 @@ export default function SkillsSection() {
           <button
             type="button"
             onClick={handleClearAll}
-            className="px-3 py-1.5 rounded-full border border-[#465B20]/30 bg-white hover:bg-[#FAF8F5] text-[#383531] hover:text-[#1C1A18] text-xs font-sans font-medium flex items-center gap-1.5 transition-colors cursor-pointer shadow-xs"
-            title="Desmarcar todas as tecnologias"
+            className="px-3 py-1 border border-[#465B20]/30 bg-white hover:bg-[#FAF8F5] text-[#383531] hover:text-[#1C1A18] text-xs font-sans font-medium flex items-center gap-1.5 transition-colors cursor-pointer shadow-2xs"
           >
             <RotateCcw className="w-3 h-3 text-[#465B20]" />
-            <span>Limpar Seleção</span>
+            <span>Limpar seleção</span>
           </button>
         </div>
 
-        {/* 4 Blocos de Camadas com Tecnologias Selecionadas */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 mb-4">
-          {/* Camada 1: Frontend */}
-          <div className="p-3 rounded-2xl bg-white border border-[#465B20]/30 flex flex-col justify-between shadow-xs min-h-[105px]">
-            <div className="flex items-center justify-between text-[10px] font-mono text-[#2A3614] font-bold pb-1 border-b border-[#465B20]/15 mb-2">
-              <span className="flex items-center gap-1">
-                <Layers className="w-3 h-3 text-[#465B20]" />
-                <span>01 FRONTEND</span>
-              </span>
-              <span className="text-[#465B20] font-bold">{selectedByColumn.frontend.length}</span>
-            </div>
-
-            <div className="flex flex-wrap gap-1.5">
-              {selectedByColumn.frontend.map((s) => (
-                <span
-                  key={s.id}
-                  className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-[#465B20]/15 border border-[#465B20]/35 text-[#2A3614] text-xs font-sans font-semibold"
-                >
-                  <span>{s.name}</span>
-                  <button
-                    type="button"
-                    onClick={() => handleRemoveSkill(s.id)}
-                    className="hover:text-red-700 cursor-pointer ml-0.5"
-                    title="Remover"
-                  >
-                    <X className="w-3 h-3" />
-                  </button>
-                </span>
-              ))}
-
-              {selectedByColumn.frontend.length === 0 && (
-                <span className="text-xs text-[#4E4A45] italic py-1 font-medium">
-                  + Clique nos cards da coluna 01
-                </span>
-              )}
-            </div>
-          </div>
-
-          {/* Camada 2: Backend */}
-          <div className="p-3 rounded-2xl bg-white border border-[#465B20]/30 flex flex-col justify-between shadow-xs min-h-[105px]">
-            <div className="flex items-center justify-between text-[10px] font-mono text-[#2A3614] font-bold pb-1 border-b border-[#465B20]/15 mb-2">
-              <span className="flex items-center gap-1">
-                <Cpu className="w-3 h-3 text-[#465B20]" />
-                <span>02 BACKEND & APIS</span>
-              </span>
-              <span className="text-[#465B20] font-bold">{selectedByColumn.backend.length}</span>
-            </div>
-
-            <div className="flex flex-wrap gap-1.5">
-              {selectedByColumn.backend.map((s) => (
-                <span
-                  key={s.id}
-                  className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-[#465B20]/15 border border-[#465B20]/35 text-[#2A3614] text-xs font-sans font-semibold"
-                >
-                  <span>{s.name}</span>
-                  <button
-                    type="button"
-                    onClick={() => handleRemoveSkill(s.id)}
-                    className="hover:text-red-700 cursor-pointer ml-0.5"
-                    title="Remover"
-                  >
-                    <X className="w-3 h-3" />
-                  </button>
-                </span>
-              ))}
-
-              {selectedByColumn.backend.length === 0 && (
-                <span className="text-xs text-[#4E4A45] italic py-1 font-medium">
-                  + Clique nos cards da coluna 02
-                </span>
-              )}
-            </div>
-          </div>
-
-          {/* Camada 3: Data */}
-          <div className="p-3 rounded-2xl bg-white border border-[#465B20]/30 flex flex-col justify-between shadow-xs min-h-[105px]">
-            <div className="flex items-center justify-between text-[10px] font-mono text-[#2A3614] font-bold pb-1 border-b border-[#465B20]/15 mb-2">
-              <span className="flex items-center gap-1">
-                <Database className="w-3 h-3 text-[#465B20]" />
-                <span>03 DATA & PERSISTÊNCIA</span>
-              </span>
-              <span className="text-[#465B20] font-bold">{selectedByColumn.data.length}</span>
-            </div>
-
-            <div className="flex flex-wrap gap-1.5">
-              {selectedByColumn.data.map((s) => (
-                <span
-                  key={s.id}
-                  className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-[#465B20]/15 border border-[#465B20]/35 text-[#2A3614] text-xs font-sans font-semibold"
-                >
-                  <span>{s.name}</span>
-                  <button
-                    type="button"
-                    onClick={() => handleRemoveSkill(s.id)}
-                    className="hover:text-red-700 cursor-pointer ml-0.5"
-                    title="Remover"
-                  >
-                    <X className="w-3 h-3" />
-                  </button>
-                </span>
-              ))}
-
-              {selectedByColumn.data.length === 0 && (
-                <span className="text-xs text-[#4E4A45] italic py-1 font-medium">
-                  + Clique nos cards da coluna 03
-                </span>
-              )}
-            </div>
-          </div>
-
-          {/* Camada 4: AI & RAG */}
-          <div className="p-3 rounded-2xl bg-white border border-[#465B20]/30 flex flex-col justify-between shadow-xs min-h-[105px]">
-            <div className="flex items-center justify-between text-[10px] font-mono text-[#2A3614] font-bold pb-1 border-b border-[#465B20]/15 mb-2">
-              <span className="flex items-center gap-1">
-                <BrainCircuit className="w-3 h-3 text-[#9E6761]" />
-                <span>04 AI & RAG</span>
-              </span>
-              <span className="text-[#9E6761] font-bold">{selectedByColumn.ai.length}</span>
-            </div>
-
-            <div className="flex flex-wrap gap-1.5">
-              {selectedByColumn.ai.map((s) => (
-                <span
-                  key={s.id}
-                  className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-[#9E6761]/20 border border-[#9E6761]/45 text-[#2E221E] text-xs font-sans font-semibold"
-                >
-                  <span>{s.name}</span>
-                  <button
-                    type="button"
-                    onClick={() => handleRemoveSkill(s.id)}
-                    className="hover:text-red-700 cursor-pointer ml-0.5"
-                    title="Remover"
-                  >
-                    <X className="w-3 h-3" />
-                  </button>
-                </span>
-              ))}
-
-              {selectedByColumn.ai.length === 0 && (
-                <span className="text-xs text-[#4E4A45] italic py-1 font-medium">
-                  + Clique nos cards da coluna 04
-                </span>
-              )}
-            </div>
-          </div>
-        </div>
-
-        {/* Projetos do Portfólio Correspondentes à Combinação Atual */}
-        <div className="p-3.5 sm:p-4 rounded-2xl bg-white border border-[#465B20]/25 flex flex-col gap-2.5 shadow-2xs">
-          <div className="flex flex-wrap items-center justify-between gap-2">
-            <span className="text-[11px] font-mono font-bold text-[#2A3614] uppercase tracking-wider">
-              Projetos compatíveis com esta combinação ({matchingProjects.length}):
-            </span>
-          </div>
+        {/* Projetos Correspondentes */}
+        <div className="pt-2">
+          <span className="text-[10px] font-mono font-bold text-[#2A3614] uppercase tracking-wider block mb-2">
+            Estudos de caso que comprovam essa combinação ({matchingProjects.length}):
+          </span>
 
           <div className="flex flex-wrap items-center gap-2">
-            {matchingProjects.slice(0, 4).map(({ project, score, matchedSkills }) => (
+            {matchingProjects.slice(0, 4).map(({ project, score }) => (
               <button
                 key={project.id}
                 type="button"
                 onClick={() => setSelectedProjectForModal(project)}
-                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#465B20] hover:bg-[#2A3614] text-[#F7F6F2] text-xs font-sans font-semibold transition-all shadow-xs cursor-pointer hover:scale-[1.02]"
+                className="inline-flex items-center gap-2 px-3 py-1.5 bg-[#465B20] hover:bg-[#2A3614] text-[#F7F6F2] text-xs font-sans font-semibold transition-all shadow-xs cursor-pointer active:scale-98"
               >
-                <CheckCircle2 className="w-3.5 h-3.5 text-[#E6DAC8]" />
-                <span className="font-semibold">{project.title}</span>
+                <CheckCircle2 className="w-3.5 h-3.5 text-[#C5D9A5]" />
+                <span>{project.title}</span>
                 <span className="text-[10px] opacity-85 font-mono">
                   ({score} techs em comum)
                 </span>
@@ -496,190 +485,12 @@ export default function SkillsSection() {
             ))}
 
             {matchingProjects.length === 0 && (
-              <span className="text-xs text-[#8C8780] italic py-1">
-                Nenhum projeto encontrado com a combinação atual. Experimente selecionar React, Node.js ou PostgreSQL!
+              <span className="text-xs text-[#4E4A45] italic py-1">
+                Nenhum projeto específico encontrado com a combinação atual. Experimente selecionar React, Node.js ou PostgreSQL!
               </span>
             )}
           </div>
         </div>
-
-        {/* Presets de Combinações Reais de Projetos */}
-        <div className="mt-3.5 pt-3 border-t border-[#556B2F]/15 flex flex-wrap items-center gap-1.5 sm:gap-2">
-          <span className="text-[10px] font-sans font-bold uppercase tracking-wider text-[#8C8780] mr-1">
-            Combinar Stacks Prontas:
-          </span>
-          {PRESET_STACKS.map((preset) => (
-            <button
-              key={preset.name}
-              type="button"
-              onClick={() => handleApplyPreset(preset)}
-              className="px-2.5 py-1 rounded-full bg-white border border-[#465B20]/30 hover:bg-[#465B20] hover:text-[#F7F6F2] text-[#2A3614] text-[11px] font-sans transition-all cursor-pointer shadow-xs font-medium"
-            >
-              {preset.name}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      {/* Seletor Mobile de Colunas (visível apenas em telas pequenas) */}
-      <div className="flex sm:hidden items-center justify-center gap-1.5 mb-3 p-1 rounded-2xl bg-[#FAF8F5] border border-[#465B20]/25 shadow-2xs">
-        {SKILLS_BOARD_COLUMNS.map((col) => {
-          const isSelected = mobileActiveColumn === col.id;
-          return (
-            <button
-              key={col.id}
-              type="button"
-              onClick={() => handleSelectMobileColumn(col.id)}
-              className={`flex-1 py-2 px-1 min-h-[44px] rounded-xl text-[11px] font-sans font-semibold transition-all flex flex-col items-center justify-center text-center leading-tight active:scale-95 cursor-pointer ${
-                isSelected
-                  ? "bg-[#465B20] text-[#F7F6F2] shadow-xs font-bold"
-                  : "bg-white/80 text-[#383531] hover:bg-white border border-[#465B20]/15"
-              }`}
-            >
-              <span className="font-mono text-[9px] opacity-85">{col.number}</span>
-              <span className="truncate w-full">{col.title}</span>
-            </button>
-          );
-        })}
-      </div>
-
-      {/* ==========================================================================
-          QUADRO KANBAN DE COMPETÊNCIAS (4 COLUNAS INTERATIVAS)
-          No mobile: trilho com swipe horizontal fluido snap-x snap-mandatory
-          No desktop: grid com 4 colunas distribuídas
-          ========================================================================== */}
-      <div className="flex sm:grid sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-6 overflow-x-auto sm:overflow-x-visible snap-x snap-mandatory sm:snap-none no-scrollbar pb-2 px-1">
-        {SKILLS_BOARD_COLUMNS.map((col) => {
-          const Icon = COLUMN_ICONS[col.id];
-          const filteredSkills =
-            activeFilter === "TODAS"
-              ? col.skills
-              : col.skills.filter((s) => s.status === activeFilter);
-
-          return (
-            <div
-              key={col.id}
-              ref={(el) => {
-                columnRefs.current[col.id] = el;
-              }}
-              className="flex flex-col w-[85vw] max-w-[340px] sm:w-auto shrink-0 sm:shrink snap-center sm:snap-align-none rounded-3xl bg-[#FAF8F5] border border-[#465B20]/25 p-3 sm:p-4 shadow-xs texture-paper"
-            >
-              {/* Cabeçalho da Coluna Kanban */}
-              <div className="flex items-center justify-between pb-2.5 border-b border-[#465B20]/20 mb-3">
-                <div className="flex items-center gap-2">
-                  <div className="p-1.5 rounded-lg bg-white border border-[#465B20]/25 text-[#465B20] shadow-2xs">
-                    <Icon className="w-3.5 h-3.5" />
-                  </div>
-                  <div>
-                    <div className="flex items-center gap-1.5">
-                      <span className="font-serif font-black text-xs text-[#465B20]">
-                        {col.number}
-                      </span>
-                      <h3 className="font-serif font-bold text-sm text-[#1C1A18] tracking-tight">
-                        {col.title}
-                      </h3>
-                    </div>
-                    <p className="font-sans text-[10px] text-[#383531] font-medium line-clamp-1">
-                      {col.tagline}
-                    </p>
-                  </div>
-                </div>
-                <span className="text-[10px] font-mono font-bold text-[#2A3614] bg-white px-2 py-0.5 rounded-full border border-[#465B20]/20 shadow-2xs">
-                  {filteredSkills.length}
-                </span>
-              </div>
-
-              {/* Lista de Cards da Coluna com Seleção Direta */}
-              <div className="flex flex-col gap-2.5 min-h-[280px]">
-                {filteredSkills.map((skill) => {
-                  const isSelected = selectedSkillIds.has(skill.id);
-                  const statusStyle = STATUS_STYLES[skill.status];
-
-                  return (
-                    <div
-                      key={skill.id}
-                      onClick={() => handleToggleSkill(skill)}
-                      className={`group p-3 sm:p-3.5 rounded-2xl transition-all duration-200 cursor-pointer flex flex-col justify-between relative ${
-                        isSelected
-                          ? "bg-[#F1F5E8] border-2 border-[#465B20] shadow-md ring-2 ring-[#465B20]/20 -translate-y-0.5"
-                          : "bg-white border border-[#465B20]/20 hover:border-[#465B20]/50 shadow-xs hover:shadow-sm"
-                      }`}
-                    >
-                      <div>
-                        {/* Linha Superior: Código, Status & Botão de Seleção */}
-                        <div className="flex items-center justify-between mb-1.5">
-                          <div className="flex items-center gap-1.5">
-                            <span className="font-mono text-[9px] text-[#4E4A45] font-semibold">
-                              {skill.code}
-                            </span>
-                            <span
-                              className={`inline-flex items-center gap-1 text-[8px] font-mono px-2 py-0.2 rounded-full border font-bold uppercase ${statusStyle.bg} ${statusStyle.border} ${statusStyle.text}`}
-                            >
-                              <span className={`w-1.5 h-1.5 rounded-full ${statusStyle.dot}`} />
-                              {skill.status}
-                            </span>
-                          </div>
-
-                          {/* Badge de Seleção Ativa */}
-                          {isSelected ? (
-                            <span className="inline-flex items-center gap-1 text-[9px] font-mono px-2 py-0.5 rounded-full bg-[#465B20] text-[#F7F6F2] font-bold shadow-xs">
-                              <Check className="w-2.5 h-2.5" /> Combinada
-                            </span>
-                          ) : (
-                            <span className="inline-flex items-center gap-0.5 text-[9px] font-mono px-2 py-0.5 rounded-full bg-[#465B20]/15 text-[#2A3614] font-semibold opacity-85 group-hover:opacity-100 transition-opacity">
-                              <Plus className="w-2.5 h-2.5" /> Selecionar
-                            </span>
-                          )}
-                        </div>
-
-                        {/* Nome da Tecnologia */}
-                        <h4
-                          className={`font-serif font-bold text-base leading-tight transition-colors ${
-                            isSelected ? "text-[#2A3614]" : "text-[#1C1A18] group-hover:text-[#465B20]"
-                          }`}
-                        >
-                          {skill.name}
-                        </h4>
-
-                        {/* Tag de Contexto */}
-                        <span className="font-sans text-[10px] uppercase font-bold text-[#465B20] block mt-0.5 tracking-wider">
-                          {skill.shortTag}
-                        </span>
-
-                        {/* Descrição Concisa */}
-                        <p className="font-sans text-[11px] text-[#383531] font-normal leading-relaxed mt-1 line-clamp-2">
-                          {skill.description}
-                        </p>
-                      </div>
-
-                      {/* Rodapé do Card: Ação de Ficha Técnica */}
-                      <div className="flex items-center justify-between pt-2 mt-2 border-t border-[#465B20]/15 text-[10px] font-sans">
-                        <button
-                          type="button"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            setInspectingSkill(skill);
-                          }}
-                          className="text-[#465B20] hover:text-[#1C1A18] font-semibold flex items-center gap-1 hover:underline cursor-pointer"
-                          title="Ver evidências e projetos de aplicação"
-                        >
-                          <Eye className="w-3 h-3" />
-                          <span>Ficha técnica</span>
-                        </button>
-                      </div>
-                    </div>
-                  );
-                })}
-
-                {filteredSkills.length === 0 && (
-                  <div className="flex flex-col items-center justify-center p-6 text-center text-[11px] text-[#4E4A45] font-sans italic border border-dashed border-[#465B20]/30 rounded-2xl">
-                    <span>Nenhuma tecnologia com status "{activeFilter}" nesta coluna.</span>
-                  </div>
-                )}
-              </div>
-            </div>
-          );
-        })}
       </div>
 
       {/* ==========================================================================
@@ -702,7 +513,7 @@ export default function SkillsSection() {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.94, y: 20 }}
               transition={{ type: "spring", stiffness: 300, damping: 30 }}
-              className="relative w-full max-w-lg max-h-[90dvh] pb-[calc(1.5rem+env(safe-area-inset-bottom))] overflow-y-auto no-scrollbar rounded-3xl bg-[#FAF8F5] border border-[#556B2F]/30 p-5 sm:p-8 shadow-2xl texture-paper z-10"
+              className="relative w-full max-w-lg max-h-[90dvh] pb-[calc(1.5rem+env(safe-area-inset-bottom))] overflow-y-auto no-scrollbar border border-[#465B20]/40 bg-[#FAF8F5] p-6 sm:p-8 shadow-2xl z-10"
             >
 
               {/* Botão Fechar */}
@@ -779,7 +590,7 @@ export default function SkillsSection() {
                     {inspectingSkill.applications.map((app, i) => (
                       <li
                         key={i}
-                        className="flex items-start gap-2 p-2 rounded-xl bg-white border border-[#465B20]/20 shadow-2xs"
+                        className="flex items-start gap-2.5 p-2.5 bg-white/80 border-l-2 border-[#465B20] border-t border-r border-b border-[#465B20]/15"
                       >
                         <CheckCircle2 className="w-3.5 h-3.5 text-[#465B20] shrink-0 mt-0.5" />
                         <span>{app}</span>

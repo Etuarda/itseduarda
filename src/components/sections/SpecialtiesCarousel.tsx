@@ -164,8 +164,8 @@ export default function SpecialtiesCarousel() {
 
       {/* Controles do Carrossel de Stacks (Navegação Rápida & Gestos) */}
       <div className="flex flex-wrap items-center justify-between gap-3 mb-4 sm:mb-5 max-w-5xl mx-auto px-1">
-        {/* Pills de Seleção Rápida */}
-        <div className="flex items-center gap-1.5 sm:gap-2 overflow-x-auto no-scrollbar py-1">
+        {/* Abas Editoriais de Seleção Rápida */}
+        <div className="flex items-center gap-1 sm:gap-2 overflow-x-auto no-scrollbar py-1">
           {stackPillars.map((pillar, idx) => {
             const isActive = activePillar === idx;
             return (
@@ -176,10 +176,10 @@ export default function SpecialtiesCarousel() {
                   pauseTemporarily(6000);
                   setActivePillar(idx);
                 }}
-                className={`px-3 py-1.5 rounded-full text-xs font-sans font-semibold transition-all cursor-pointer flex items-center gap-1.5 ${
+                className={`px-3 py-1.5 text-xs font-sans font-semibold transition-all cursor-pointer flex items-center gap-1.5 border-b-2 ${
                   isActive
-                    ? "bg-[#465B20] text-[#F7F6F2] shadow-xs"
-                    : "bg-[#FAF8F5] border border-[#465B20]/25 text-[#4E4A45] hover:border-[#465B20]/45 hover:text-[#1C1A18]"
+                    ? "border-[#465B20] text-[#2A3614] bg-white/70 shadow-2xs"
+                    : "border-transparent text-[#4E4A45] hover:border-[#465B20]/30 hover:text-[#1C1A18]"
                 }`}
                 aria-label={`Ver especialidade ${pillar.shortTitle}`}
               >
@@ -198,7 +198,7 @@ export default function SpecialtiesCarousel() {
           <button
             type="button"
             onClick={goToPrev}
-            className="w-8 h-8 rounded-full border border-[#465B20]/30 bg-[#FAF8F5] hover:bg-[#465B20] hover:text-[#F7F6F2] text-[#1C1A18] flex items-center justify-center transition-all cursor-pointer shadow-2xs active:scale-95"
+            className="w-8 h-8 border border-[#465B20]/30 bg-[#FAF8F5] hover:bg-[#465B20] hover:text-[#F7F6F2] text-[#1C1A18] flex items-center justify-center transition-all cursor-pointer shadow-2xs active:scale-95"
             aria-label="Especialidade anterior"
           >
             <ChevronLeft className="w-4 h-4" />
@@ -206,7 +206,7 @@ export default function SpecialtiesCarousel() {
           <button
             type="button"
             onClick={goToNext}
-            className="w-8 h-8 rounded-full border border-[#465B20]/30 bg-[#FAF8F5] hover:bg-[#465B20] hover:text-[#F7F6F2] text-[#1C1A18] flex items-center justify-center transition-all cursor-pointer shadow-2xs active:scale-95"
+            className="w-8 h-8 border border-[#465B20]/30 bg-[#FAF8F5] hover:bg-[#465B20] hover:text-[#F7F6F2] text-[#1C1A18] flex items-center justify-center transition-all cursor-pointer shadow-2xs active:scale-95"
             aria-label="Próxima especialidade"
           >
             <ChevronRight className="w-4 h-4" />
@@ -214,7 +214,7 @@ export default function SpecialtiesCarousel() {
         </div>
       </div>
 
-      {/* Carrossel em Acordeão */}
+      {/* Carrossel em Acordeão / Pranchas de Ateliê */}
       <div
         className="flex flex-col md:flex-row gap-3 md:gap-3.5 w-full h-auto md:h-[560px]"
         onTouchStart={handleTouchStart}
@@ -229,7 +229,7 @@ export default function SpecialtiesCarousel() {
           return (
             <div
               key={pillar.id}
-              className={`relative rounded-2xl md:rounded-3xl border border-[#465B20]/30 overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] flex flex-col ${
+              className={`relative border border-[#465B20]/30 overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] flex flex-col ${
                 isExpanded
                   ? "w-full md:w-auto md:flex-[4.2] flex-none h-auto md:h-full bg-[#FAF8F5] shadow-[0_15px_35px_-10px_rgba(70,91,32,0.18)] border-[#465B20]/50 texture-scanner"
                   : "w-full md:w-auto md:flex-1 flex-none h-[58px] sm:h-[62px] md:h-full bg-[#FAF8F5] hover:bg-white hover:border-[#465B20]/45"

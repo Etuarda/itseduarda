@@ -229,7 +229,7 @@ export default function ExperienceSection() {
           </div>
 
           {/* Lead Editorial de Matéria com Capitular */}
-          <div className="border-l-2 border-[#465B20] pl-5 sm:pl-6 py-2.5 bg-[#FAF8F5]/80 rounded-r-lg">
+          <div className="border-l-2 border-[#465B20] pl-5 sm:pl-6 py-2.5 bg-[#FAF8F5]/80">
             <p className="font-serif text-base sm:text-lg md:text-xl text-[#1C1A18] leading-relaxed italic">
               <span className="font-serif font-bold text-3xl sm:text-4xl text-[#465B20] float-left mr-2.5 leading-none mt-1">H</span>
               oje, essas experiências se encontram na forma como desenvolvo software: com mais clareza de problema, responsabilidade técnica e atenção ao que acontece depois da primeira entrega.

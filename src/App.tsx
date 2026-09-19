@@ -31,59 +31,76 @@ export default function App() {
       <SplashIntro />
       <Header />
 
-      {/* 5. Fluxo Principal de Seções Editoriais */}
+      {/* 5. Fluxo Principal de Seções Editoriais com Atmosferas Táteis Contínuas */}
       <motion.main
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.8, duration: 0.5 }}
         className="relative z-10 w-full flex flex-col"
       >
-        {/* Seção 1: Hero & Manifesto Editorial */}
-        <SectionReveal>
-          <HeroSection />
-        </SectionReveal>
+        {/* Seção 1: Hero & Capa Editorial (Alabastro Imperial & Linho Fino) */}
+        <div className="w-full texture-ivory-linen transition-colors duration-700">
+          <SectionReveal>
+            <HeroSection />
+          </SectionReveal>
+          <div className="h-12 sm:h-16 w-full transition-to-parchment pointer-events-none select-none" />
+        </div>
 
-        <LaceDivider />
+        {/* Seção 2: Sobre & Como Eu Penso (Pergaminho Quente Táctil) */}
+        <div className="w-full texture-warm-parchment transition-colors duration-700">
+          <LaceDivider title="Capítulo I • Filosofia" />
+          <SectionReveal>
+            <AboutSection />
+          </SectionReveal>
+          <div className="h-12 sm:h-16 w-full transition-to-atelier pointer-events-none select-none" />
+        </div>
 
-        {/* Seção 2: Sobre & Como Eu Penso & Significado do Beija-Flor */}
-        <SectionReveal>
-          <AboutSection />
-        </SectionReveal>
+        {/* Seção 3: Stacks & Base Técnica (Ateliê de Engenharia) */}
+        <div className="w-full texture-atelier-paper transition-colors duration-700">
+          <LaceDivider title="Capítulo II • Disciplinas" />
+          <SectionReveal>
+            <SpecialtiesCarousel />
+          </SectionReveal>
+          {/* Transição monumental para a atmosfera escura de Projetos */}
+          <div className="h-16 sm:h-24 w-full transition-to-forest pointer-events-none select-none" />
+        </div>
 
-        <LaceDivider />
+        {/* Seção 4: Projetos & Estudos de Caso (O Grande Contraste: Verde Oliva Floresta Veludado) */}
+        <div className="w-full texture-forest-velvet transition-colors duration-700 relative">
+          <LaceDivider title="Capítulo III • Estudos de Caso" className="opacity-60" />
+          <SectionReveal>
+            <ProjectsSection />
+          </SectionReveal>
+          {/* Transição luminosa de volta para o papel de estúdio */}
+          <div className="h-16 sm:h-24 w-full transition-from-forest pointer-events-none select-none" />
+        </div>
 
-        {/* Seção 3: Stacks & Base Técnica */}
-        <SectionReveal>
-          <SpecialtiesCarousel />
-        </SectionReveal>
+        {/* Seção 5: Método de Trabalho & Previsibilidade (Papel de Estúdio Editorial) */}
+        <div className="w-full texture-studio-pure transition-colors duration-700">
+          <LaceDivider title="Capítulo IV • Processo" />
+          <SectionReveal>
+            <MethodSection />
+          </SectionReveal>
+          <div className="h-12 sm:h-16 w-full transition-to-gazette pointer-events-none select-none" />
+        </div>
 
-        <LaceDivider />
+        {/* Seção 6: Competências Técnicas (Compêndio & Gazeta Cultural) */}
+        <div className="w-full texture-gazette-index transition-colors duration-700">
+          <LaceDivider title="Capítulo V • Compêndio" />
+          <SectionReveal>
+            <SkillsSection />
+          </SectionReveal>
+          <div className="h-12 sm:h-16 w-full transition-to-folio pointer-events-none select-none" />
+        </div>
 
-        {/* Seção 4: Projetos & Estudos de Caso */}
-        <SectionReveal>
-          <ProjectsSection />
-        </SectionReveal>
-
-        <LaceDivider />
-
-        {/* Seção 5: Método de Trabalho & Evidências de Prática */}
-        <SectionReveal>
-          <MethodSection />
-        </SectionReveal>
-
-        <LaceDivider />
-
-        {/* Seção 6: Competências Técnicas */}
-        <SectionReveal>
-          <SkillsSection />
-        </SectionReveal>
-
-        <LaceDivider />
-
-        {/* Seção 7: Trajetória & Formação */}
-        <SectionReveal>
-          <ExperienceSection />
-        </SectionReveal>
+        {/* Seção 7: Trajetória & Formação (Arquivo Monográfico) */}
+        <div className="w-full texture-archival-folio transition-colors duration-700">
+          <LaceDivider title="Capítulo VI • Trajetória" />
+          <SectionReveal>
+            <ExperienceSection />
+          </SectionReveal>
+          <div className="h-14 sm:h-20 w-full transition-to-night pointer-events-none select-none" />
+        </div>
       </motion.main>
 
       {/* 6. Rodapé com Contato Direto e Toast Notification */}
