@@ -49,12 +49,10 @@ export default function SplashIntro() {
               }}
               className="flex flex-col items-center"
             >
-              <div className="flex items-center gap-2 mb-2 px-3 py-1 rounded-full bg-white border border-[#465B20]/30 shadow-xs">
-                <span className="text-[#465B20] text-xs">✦</span>
-                <span className="font-serif-display text-[10px] sm:text-[11px] uppercase tracking-[0.22em] text-[#2A3614] font-bold">
-                  Portfólio de Desenvolvimento & IA
+              <div className="inline-flex items-center mb-2 px-3.5 py-1 rounded-full bg-white border border-[#465B20]/30 shadow-xs">
+                <span className="font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.20em] text-[#2A3614] font-bold">
+                  PORTFÓLIO DE DESENVOLVIMENTO & IA
                 </span>
-                <span className="text-[#9E6761] text-xs">✦</span>
               </div>
 
               <h1 className="font-serif font-black text-3xl sm:text-5xl text-[#1C1A18] tracking-tight">
@@ -64,8 +62,8 @@ export default function SplashIntro() {
                 Full Stack • Back-end • Dados • IA Aplicada
               </p>
 
-              <span className="font-sans text-[11px] text-[#4E4A45] mt-4 font-medium italic">
-                Preparando o portfólio...
+              <span className="font-sans text-[11px] text-[#4E4A45] mt-4 font-medium">
+                Preparando o portfólio
               </span>
             </motion.div>
 

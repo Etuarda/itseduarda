@@ -14,6 +14,7 @@ import {
   BookOpen,
   Info,
   Mail,
+  Code2,
 } from "lucide-react";
 import type { Project } from "@/types/portfolio";
 import ProjectArtwork from "@/components/ui/ProjectArtwork";
@@ -84,14 +85,14 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
             transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
             className="relative w-full max-w-4xl max-h-[92dvh] sm:max-h-[90dvh] bg-[#F7F6F2] border-t sm:border border-[#465B20]/35 rounded-t-3xl sm:rounded-3xl shadow-[0_25px_60px_-15px_rgba(28,26,24,0.35)] flex flex-col overflow-hidden z-10"
           >
-            {/* Top Bar Editorial (EPIC 26) */}
+            {/* Top Bar Editorial (Seção 53 & 54 do Guia Mestre) */}
             <div className="flex items-center justify-between px-4 sm:px-6 py-3 sm:py-4 border-b border-[#465B20]/20 bg-[#FAF8F5] shrink-0">
               <div className="flex items-center gap-2 sm:gap-2.5">
-                <span className="font-handwriting text-lg sm:text-xl text-[#465B20] font-bold">
-                  Estudo de caso
+                <span className="font-mono text-xs uppercase tracking-[0.20em] text-[#465B20] font-bold">
+                  ESTUDO DE CASO
                 </span>
-                <span className="text-[#4E4A45] text-xs">✦</span>
-                <span className="text-[9px] sm:text-[10px] uppercase tracking-[0.18em] text-[#383531] font-bold font-sans">
+                <span className="text-[#4E4A45] text-xs">•</span>
+                <span className="text-[10px] uppercase tracking-[0.14em] text-[#383531] font-semibold font-sans">
                   {project.categoryLabel || project.category.toUpperCase()}
                 </span>
               </div>
@@ -115,7 +116,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                     {project.categoryLabel || project.category.toUpperCase()}
                   </span>
                   <div className="flex flex-wrap gap-1.5">
-                    {project.tags.map((tag) => (
+                    {project.tags.slice(0, 4).map((tag) => (
                       <span
                         key={tag}
                         className="text-[10px] font-mono px-2 py-0.5 rounded-md bg-white border border-[#465B20]/25 text-[#2A3614] font-semibold shadow-2xs"
@@ -148,11 +149,11 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                 </p>
               </div>
 
-              {/* Preview Visual com Cores, Formas e Desenhos Representativos (Sem Imagens Fotográficas) */}
+              {/* Preview Visual Representativo */}
               <div className="relative w-full h-52 sm:h-64 rounded-2xl overflow-hidden border border-[#465B20]/25 shadow-xs bg-[#FAF8F5]">
                 <ProjectArtwork projectId={project.id} category={project.category} variant="modal" />
                 <div className="absolute bottom-3 left-4 right-4 flex justify-between items-center text-[#2A3614] text-xs font-sans px-3 py-1.5 rounded-full bg-white/90 backdrop-blur-md border border-[#465B20]/20 shadow-2xs">
-                  <span className="font-handwriting text-lg text-[#465B20]">
+                  <span className="font-serif font-bold text-sm text-[#465B20]">
                     Arquitetura em Produção
                   </span>
                   <span className="text-[11px] font-mono font-bold text-[#465B20]">
@@ -161,17 +162,17 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                 </div>
               </div>
 
-              {/* Deep Dive: Estrutura SPIN (EPIC 26) */}
+              {/* Deep Dive: Estrutura SPIN (Seções 53 & 54 do Guia Mestre) */}
               {caseStudy && (
                 <div className="flex flex-col gap-4">
-                  {/* Grid 1: Situação & Problema */}
+                  {/* Grid 1: Contexto & Problema */}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {/* 01. Situação */}
+                    {/* 01. Contexto */}
                     <div className="botanical-card p-5 rounded-2xl flex flex-col gap-2">
                       <div className="flex items-center gap-2 text-[#465B20]">
                         <Layers className="w-4 h-4 text-[#465B20]" />
                         <h4 className="font-serif font-bold text-sm sm:text-base text-[#1C1A18]">
-                          Situação
+                          Contexto
                         </h4>
                       </div>
                       <p className="font-sans text-xs sm:text-sm text-[#383531] leading-relaxed font-normal">
@@ -193,15 +194,15 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                     </div>
                   </div>
 
-                  {/* Grid 2: Implicação & Solução */}
+                  {/* Grid 2: Por que isso importava & Solução */}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {/* 03. Implicação */}
+                    {/* 03. Por que isso importava */}
                     {caseStudy.implication && (
                       <div className="botanical-card p-5 rounded-2xl flex flex-col gap-2 bg-[#F9F7F2]">
                         <div className="flex items-center gap-2 text-[#465B20]">
                           <HelpCircle className="w-4 h-4 text-[#465B20]" />
                           <h4 className="font-serif font-bold text-sm sm:text-base text-[#1C1A18]">
-                            Implicação
+                            Por que isso importava
                           </h4>
                         </div>
                         <p className="font-sans text-xs sm:text-sm text-[#383531] leading-relaxed font-normal">
@@ -224,15 +225,30 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                     </div>
                   </div>
 
-                  {/* 05. Decisões de Arquitetura */}
+                  {/* 05. Decisão técnica */}
+                  {caseStudy.technicalDecision && (
+                    <div className="p-4 sm:p-5 rounded-2xl bg-[#465B20]/10 border border-[#465B20]/30 flex flex-col gap-2">
+                      <div className="flex items-center gap-2 text-[#2A3614]">
+                        <Lightbulb className="w-4 h-4 text-[#465B20]" />
+                        <span className="font-serif font-bold text-xs sm:text-sm uppercase tracking-wider text-[#2A3614]">
+                          Decisão técnica
+                        </span>
+                      </div>
+                      <p className="font-sans text-xs sm:text-sm text-[#1C1A18] font-medium leading-relaxed">
+                        {caseStudy.technicalDecision}
+                      </p>
+                    </div>
+                  )}
+
+                  {/* 06. Arquitetura */}
                   <div className="botanical-card p-5 sm:p-6 rounded-2xl flex flex-col gap-3">
                     <div className="flex items-center justify-between border-b border-[#465B20]/20 pb-2">
                       <h4 className="font-serif font-bold text-sm sm:text-base text-[#1C1A18] flex items-center gap-2">
                         <Layers className="w-4 h-4 text-[#465B20]" />
-                        Decisões de Arquitetura
+                        Arquitetura
                       </h4>
-                      <span className="font-handwriting text-base text-[#465B20] font-semibold">
-                        Clean Code & Robustez
+                      <span className="font-sans text-xs text-[#465B20] font-semibold">
+                        Decisões estruturais
                       </span>
                     </div>
 
@@ -249,22 +265,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                     </div>
                   </div>
 
-                  {/* 06. Decisão Técnica Destacada (se houver) */}
-                  {caseStudy.technicalDecision && (
-                    <div className="p-4 sm:p-5 rounded-2xl bg-[#465B20]/10 border border-[#465B20]/30 flex flex-col gap-2">
-                      <div className="flex items-center gap-2 text-[#2A3614]">
-                        <Lightbulb className="w-4 h-4 text-[#465B20]" />
-                        <span className="font-serif font-bold text-xs sm:text-sm uppercase tracking-wider text-[#2A3614]">
-                          Decisão Técnica
-                        </span>
-                      </div>
-                      <p className="font-sans text-xs sm:text-sm text-[#1C1A18] font-medium leading-relaxed">
-                        {caseStudy.technicalDecision}
-                      </p>
-                    </div>
-                  )}
-
-                  {/* 07. Evidências / Resultados */}
+                  {/* 07. Evidências */}
                   {(caseStudy.evidence || caseStudy.metrics) && (
                     <div className="p-4 sm:p-5 rounded-2xl bg-white border border-[#465B20]/25 shadow-2xs flex flex-col sm:flex-row items-start sm:items-center gap-3">
                       <div className="w-9 h-9 rounded-xl bg-[#465B20]/15 flex items-center justify-center shrink-0 text-[#465B20]">
@@ -272,7 +273,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                       </div>
                       <div>
                         <span className="font-serif font-bold text-xs sm:text-sm text-[#2A3614] block">
-                          Evidências & Resultados
+                          Evidências
                         </span>
                         <p className="font-sans text-xs sm:text-sm text-[#383531] font-semibold mt-0.5">
                           {caseStudy.evidence || caseStudy.metrics}
@@ -281,13 +282,13 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                     </div>
                   )}
 
-                  {/* 08. Aprendizado */}
+                  {/* 08. Aprendizados */}
                   {caseStudy.learning && (
                     <div className="botanical-card p-4 sm:p-5 rounded-2xl flex flex-col gap-2 border-l-4 border-l-[#465B20]">
                       <div className="flex items-center gap-2 text-[#465B20]">
                         <BookOpen className="w-4 h-4 text-[#465B20]" />
                         <h4 className="font-serif font-bold text-xs sm:text-sm uppercase tracking-wider text-[#1C1A18]">
-                          Aprendizado
+                          Aprendizados
                         </h4>
                       </div>
                       <p className="font-sans text-xs sm:text-sm text-[#383531] leading-relaxed font-normal italic">
@@ -295,10 +296,30 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                       </p>
                     </div>
                   )}
+
+                  {/* 09. Tecnologias (Seção 54) */}
+                  <div className="p-4 rounded-2xl bg-[#FAF8F5] border border-[#465B20]/20 flex flex-col gap-2">
+                    <div className="flex items-center gap-2 text-[#465B20]">
+                      <Code2 className="w-4 h-4" />
+                      <span className="font-serif font-bold text-xs sm:text-sm uppercase tracking-wider text-[#1C1A18]">
+                        Tecnologias
+                      </span>
+                    </div>
+                    <div className="flex flex-wrap gap-1.5 pt-1">
+                      {project.tags.map((tag) => (
+                        <span
+                          key={tag}
+                          className="text-xs font-mono px-2.5 py-1 rounded-md bg-white border border-[#465B20]/25 text-[#2A3614] font-semibold shadow-2xs"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
                 </div>
               )}
 
-              {/* Avisos de Estado Vazio para Demo / Repositório (EPIC 27 & 28) */}
+              {/* Avisos de Estado Vazio para Demo / Repositório */}
               {(!hasDemo || !hasGithub) && (
                 <div className="flex flex-col gap-3 pt-2">
                   {!hasDemo && (
@@ -340,7 +361,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
               )}
             </div>
 
-            {/* Rodapé de Ações com Links Diretos (EPIC 26) */}
+            {/* 10. Rodapé de Ações / CTA (Seções 54 & 92 do Guia Mestre) */}
             <div className="px-4 sm:px-6 py-3.5 sm:py-4 pb-[calc(1.2rem+env(safe-area-inset-bottom))] sm:pb-4 border-t border-[#465B20]/20 bg-[#FAF8F5] flex flex-col sm:flex-row items-center justify-between gap-3 shrink-0">
               <span className="font-sans text-[11px] text-[#4E4A45] font-medium text-center sm:text-left">
                 Código-fonte e arquitetura desenvolvidos por Eduarda Silva Santos

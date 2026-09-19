@@ -7,6 +7,7 @@ import {
   EDITORIAL_GUIDE_HINTS,
   type Zone,
   type SectionId,
+  type SectionThought,
   SECTION_IDS,
   getSide,
 } from "@/lib/hummingbirdRoute";
@@ -199,12 +200,14 @@ export default function HummingbirdGuide({
   }, [explicitZone, birdRoute, effectiveSection]);
 
   // Pensamento poético editorial da seção
-  const currentThought = useMemo(() => {
+  const currentThought: SectionThought = useMemo(() => {
     if (explicitHint) {
       return {
         tag: "Guia Editorial",
         title: "Dossiê Narrativo",
         text: explicitHint,
+        actionText: "Avançar",
+        targetId: effectiveSection,
       };
     }
     return EDITORIAL_GUIDE_HINTS[effectiveSection] || EDITORIAL_GUIDE_HINTS["hero"];
@@ -385,28 +388,49 @@ export default function HummingbirdGuide({
               onClick={handleNextSectionPerch}
             />
 
-            {/* Balão inicial: "Comece por aqui. Engenharia, dados e IA aplicada." */}
+            {/* Balão inicial (Seção 81 do Guia Mestre) */}
             <motion.div
               initial={{ opacity: 0, scale: 0.8, x: 10 }}
               animate={{ opacity: 1, scale: 1, x: 0 }}
               transition={{ delay: 1.1, duration: 0.4 }}
-              className="absolute right-full mr-3 w-56 sm:w-64 max-w-[calc(100vw-4.5rem)] bg-[#FAF8F5] border border-[#465B20]/35 rounded-2xl p-3 shadow-[0_12px_32px_-6px_rgba(28,26,24,0.22)] text-[#1C1A18]"
+              className="absolute right-full mr-3 w-64 sm:w-72 max-w-[calc(100vw-4.5rem)] bg-[#FAF8F5] border border-[#465B20]/35 rounded-2xl p-3 sm:p-3.5 shadow-[0_12px_32px_-6px_rgba(28,26,24,0.22)] text-[#1C1A18] pointer-events-auto"
             >
-              <div className="flex items-center gap-1.5 pb-1 mb-1 border-b border-[#465B20]/20">
-                <Sparkles className="w-3 h-3 text-[#465B20]" />
-                <span className="font-handwriting text-base text-[#465B20] font-bold leading-none">
-                  Guia Beija-Flor
+              <div className="flex items-center justify-between pb-1.5 mb-1.5 border-b border-[#465B20]/20">
+                <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-[#465B20] font-bold">
+                  GUIA EDITORIAL
                 </span>
-                <span className="text-[8px] uppercase tracking-wider px-1.5 py-0.5 rounded-full bg-[#465B20]/15 text-[#2A3614] font-bold ml-auto">
-                  Abertura
-                </span>
+                <button
+                  type="button"
+                  onClick={() => setBubbleDismissed(true)}
+                  className="p-1 rounded-md text-[#4E4A45] hover:text-[#1C1A18] transition-colors cursor-pointer"
+                  title="Fechar"
+                  aria-label="Fechar"
+                >
+                  <X className="w-3 h-3" />
+                </button>
               </div>
-              <h4 className="font-serif font-bold text-xs text-[#1C1A18] leading-tight mb-1">
-                Início do Dossiê
-              </h4>
-              <p className="font-sans text-[11px] text-[#383531] font-normal leading-snug">
-                Comece por aqui. Engenharia, dados e IA aplicada.
+              <p className="font-sans text-xs text-[#383531] font-normal leading-relaxed mb-2.5">
+                Quer começar pelas provas? Posso te levar aos projetos que melhor mostram como eu trabalho.
               </p>
+              <div className="flex items-center justify-between gap-2 pt-1.5 border-t border-[#465B20]/15">
+                <button
+                  type="button"
+                  onClick={() => {
+                    const el = document.getElementById("projetos");
+                    if (el) el.scrollIntoView({ behavior: "smooth" });
+                  }}
+                  className="text-[11px] font-sans font-bold text-[#465B20] hover:text-[#2A3614] cursor-pointer"
+                >
+                  Ver projetos →
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setBubbleDismissed(true)}
+                  className="text-[10px] font-sans text-[#4E4A45] hover:text-[#1C1A18] cursor-pointer"
+                >
+                  Continuar explorando
+                </button>
+              </div>
             </motion.div>
           </div>
         </motion.div>
@@ -489,8 +513,7 @@ export default function HummingbirdGuide({
                   {/* Cabeçalho do Balão */}
                   <div className="flex items-center justify-between pb-1.5 mb-1.5 border-b border-[#465B20]/20">
                     <div className="flex items-center gap-1.5">
-                      <Sparkles className="w-3.5 h-3.5 text-[#465B20]" />
-                      <span className="font-handwriting text-base sm:text-lg text-[#465B20] font-bold leading-none">
+                      <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-[#465B20] font-bold">
                         Guia Beija-Flor
                       </span>
                       <span className="text-[8px] sm:text-[9px] uppercase tracking-wider px-1.5 py-0.5 rounded-full bg-[#465B20]/15 text-[#2A3614] font-bold">
@@ -532,14 +555,14 @@ export default function HummingbirdGuide({
                     “{currentThought.text}”
                   </p>
 
-                  {/* Ação de avançar percurso editorial (EPIC 29) */}
+                  {/* Ação de avançar percurso editorial (Seções 81 a 87, 92) */}
                   <button
                     type="button"
                     onClick={handleNextSectionPerch}
                     className="w-full flex items-center justify-between pt-1.5 border-t border-[#465B20]/20 text-[10px] font-sans font-bold text-[#465B20] hover:text-[#2A3614] cursor-pointer"
                   >
                     <span className="flex items-center gap-1">
-                      <Compass className="w-3 h-3" /> Seguir para a próxima seção
+                      <Compass className="w-3 h-3" /> {currentThought.actionText}
                     </span>
                     <span className="font-mono text-[9px] text-[#4E4A45] font-semibold">
                       {effectiveSection} ({isLeftSide ? "E" : "D"}) ↗

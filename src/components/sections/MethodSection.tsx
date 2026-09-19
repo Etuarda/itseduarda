@@ -8,7 +8,6 @@ import {
   Database,
   TestTube2,
   Cpu,
-  Accessibility,
 } from "lucide-react";
 
 const steps = [
@@ -16,74 +15,73 @@ const steps = [
     number: "01",
     title: "Entender",
     icon: Compass,
+    headline: "Primeiro, contexto.",
     description:
-      "Nenhum problema técnico é isolado do negócio. Começo entendendo o que precisa acontecer antes de escolher como construir.",
-    tag: "Contexto & Regras",
+      "Entendo o problema, quem será afetado, as regras envolvidas e o resultado esperado.",
+    result: "Problema e objetivo mais claros.",
   },
   {
     number: "02",
     title: "Estruturar",
     icon: Layers,
+    headline: "Depois, decisões.",
     description:
-      "Desenho a arquitetura, modelo os dados e defino as integrações antes de escrever código. Isso evita retrabalho e decisões precipitadas.",
-    tag: "Modelagem & Contratos",
+      "Organizo requisitos, dados, responsabilidades, integrações e restrições.",
+    result: "Direção técnica mais previsível.",
   },
   {
     number: "03",
     title: "Desenvolver",
     icon: Code2,
+    headline: "Implementar em partes verificáveis.",
     description:
-      "Implemento em camadas com separação clara de responsabilidades, tipagem forte e validação contínua de contratos entre partes do sistema.",
-    tag: "Clean Architecture",
+      "Desenvolvo incrementalmente, mantendo responsabilidades separadas, validação e versionamento.",
+    result: "Código mais simples de revisar e evoluir.",
   },
   {
     number: "04",
     title: "Validar",
     icon: CheckCircle2,
+    headline: "Funcionou tecnicamente. Agora precisa funcionar no contexto.",
     description:
-      "Testes automatizados, validação de edge cases e verificação de acessibilidade e performance antes de considerar a entrega pronta.",
-    tag: "Qualidade & Testes",
+      "Valido fluxos principais, regras críticas e cenários de erro.",
+    result: "Menos surpresa depois da entrega.",
   },
   {
     number: "05",
     title: "Documentar",
     icon: FileText,
+    headline: "O sistema precisa continuar compreensível.",
     description:
-      "Código que outra pessoa não entende é débito técnico. Documento decisões, contratos de API e instruções de execução.",
-    tag: "Sustentabilidade",
+      "Registro configurações, decisões relevantes e informações necessárias para continuidade.",
+    result: "Conhecimento que não depende apenas de quem implementou.",
   },
 ];
 
 const proofs = [
   {
-    metric: "+720 horas",
+    metric: "720h",
     icon: Clock,
-    label: "Formação imersiva em Engenharia de Software e IA Aplicada",
-    context: "Residência técnica e projetos full stack",
+    label: "Formação Full Stack — Programadores do Amanhã",
+    context: "Residência técnica imersiva",
   },
   {
-    metric: "+360 horas",
+    metric: "360h",
     icon: Database,
-    label: "Especialização prática em Ciência de Dados e Analytics",
-    context: "PUC-Rio — EDA, modelagem e pipelines",
+    label: "Capacitação Técnica em IA — FDTE/USP",
+    context: "Pesquisa prática & modelos aplicados",
   },
   {
-    metric: "95 testes",
+    metric: "95",
     icon: TestTube2,
-    label: "Cobertura de testes automatizados com Jest no projeto OnVagas",
-    context: "Testes unitários e de integração",
+    label: "Testes automatizados aprovados no VendeFácil",
+    context: "Testes com Jest e cobertura de fluxos",
   },
   {
-    metric: "5.714 chunks",
+    metric: "5.714",
     icon: Cpu,
-    label: "Base vetorial indexada com ChromaDB no projeto VendeFácil RAG",
-    context: "Recuperação contextual e guardrails",
-  },
-  {
-    metric: "WCAG 2.2",
-    icon: Accessibility,
-    label: "Conformidade com diretrizes de acessibilidade no projeto a11y.io",
-    context: "Padrão internacional de inclusão digital",
+    label: "Chunks indexados no pipeline RAG",
+    context: "Base vetorial FAISS & ChromaDB",
   },
 ];
 
@@ -93,14 +91,12 @@ export default function MethodSection() {
       id="metodo"
       className="w-full py-8 sm:py-12 md:py-16 px-4 md:px-8 max-w-7xl mx-auto scroll-mt-20 relative"
     >
-      {/* Cabeçalho Editorial */}
+      {/* Cabeçalho Editorial (Seção 18 & 55 do Guia Mestre) */}
       <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-12 relative z-20">
-        <div className="inline-flex items-center gap-2 mb-2 px-3 py-1 rounded-full bg-white border border-[#465B20]/30 shadow-2xs">
-          <span className="text-[#465B20] text-xs">✦</span>
-          <span className="font-mono text-[10px] sm:text-xs uppercase tracking-[0.22em] text-[#2A3614] font-bold">
+        <div className="inline-flex items-center mb-2 px-3.5 py-1 rounded-full bg-white border border-[#465B20]/30 shadow-2xs">
+          <span className="font-mono text-[10px] sm:text-xs uppercase tracking-[0.20em] text-[#2A3614] font-bold">
             COMO EU TRABALHO
           </span>
-          <span className="text-[#9E6761] text-xs">✦</span>
         </div>
 
         <h2
@@ -114,11 +110,11 @@ export default function MethodSection() {
           className="font-sans text-xs sm:text-sm md:text-base text-[#383531] mt-3 leading-relaxed max-w-2xl mx-auto"
           style={{ textWrap: "balance" }}
         >
-          Construir software não é apenas escrever linhas de código. É entender o problema antes de começar, estruturar com clareza e garantir que o resultado seja confiável e sustentável.
+          Cada problema exige decisões diferentes. Ainda assim, procuro manter um processo claro para reduzir retrabalho, tornar decisões mais compreensíveis e validar o que está sendo construído antes de aumentar a complexidade.
         </p>
       </div>
 
-      {/* Grid com os 5 Passos Metodológicos */}
+      {/* Grid com os 5 Passos Metodológicos (Seções 56 a 60 do Guia Mestre) */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 sm:gap-5 mb-10 sm:mb-12">
         {steps.map((step, idx) => {
           const Icon = step.icon;
@@ -136,7 +132,7 @@ export default function MethodSection() {
                     {step.number}
                   </span>
                   <span className="text-[10px] font-mono uppercase tracking-wider text-[#4E4A45]">
-                    {step.tag}
+                    Etapa {step.number}
                   </span>
                 </div>
 
@@ -144,69 +140,66 @@ export default function MethodSection() {
                   <Icon className="w-5 h-5" />
                 </div>
 
-                <h3 className="font-serif font-bold text-lg text-[#1C1A18] mb-2">
+                <h3 className="font-serif font-bold text-lg text-[#1C1A18] mb-1">
                   {step.title}
                 </h3>
 
-                <p className="font-sans text-xs sm:text-sm text-[#383531] leading-relaxed font-normal">
+                <p className="font-sans text-xs font-semibold text-[#465B20] mb-2 leading-snug">
+                  {step.headline}
+                </p>
+
+                <p className="font-sans text-xs text-[#383531] leading-relaxed font-normal mb-3">
                   {step.description}
                 </p>
               </div>
 
-              <div className="mt-4 pt-3 border-t border-[#465B20]/15 flex items-center justify-between text-[11px] font-handwriting text-base text-[#465B20]">
-                <span>Etapa {step.number}</span>
-                <span className="text-[#9E6761]">✦</span>
+              <div className="pt-2.5 border-t border-[#465B20]/15 text-[11px] font-sans text-[#4E4A45]">
+                <strong className="text-[#1C1A18] font-semibold">Resultado:</strong> {step.result}
               </div>
             </div>
           );
         })}
       </div>
 
-      {/* Frase de Fechamento Editorial */}
+      {/* Frase de Método (Seção 61 do Guia Mestre: Sem assinatura manuscrita abaixo) */}
       <div className="text-center mb-12 sm:mb-14">
         <blockquote className="inline-block p-4 sm:p-5 px-6 sm:px-8 rounded-2xl bg-[#F7F6F2] border border-[#465B20]/25 shadow-2xs">
-          <p className="font-serif italic font-bold text-sm sm:text-base md:text-lg text-[#1C1A18]">
-            "Software confiável não é acidente. É resultado de método."
+          <p className="font-serif italic text-base sm:text-lg md:text-xl text-[#1C1A18] font-normal">
+            “Software confiável não acontece por acaso. É resultado de processo.”
           </p>
-          <span className="font-handwriting text-sm sm:text-base text-[#465B20] block mt-1">
-            Eduarda Silva Santos
-          </span>
         </blockquote>
       </div>
 
-      {/* EPIC 19: Bloco de Provas Rápidas (Em Números / Evidências de Prática) */}
+      {/* Bloco de Provas Rápidas (Seções 62 & 63 do Guia Mestre) */}
       <div className="p-6 sm:p-8 md:p-10 rounded-3xl bg-[#FAF8F5] border border-[#465B20]/25 shadow-xs relative overflow-hidden">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4 pb-6 border-b border-[#465B20]/20">
           <div>
-            <div className="inline-flex items-center gap-1.5 mb-2 text-[#465B20]">
-              <span className="font-mono text-[10px] sm:text-xs uppercase tracking-[0.2em] font-bold">
+            <div className="inline-flex items-center mb-2 px-3.5 py-1 rounded-full bg-white border border-[#465B20]/30 shadow-2xs">
+              <span className="font-mono text-[10px] sm:text-xs uppercase tracking-[0.20em] text-[#2A3614] font-bold">
                 EVIDÊNCIAS DE PRÁTICA
               </span>
             </div>
             <h3 className="font-serif font-black text-xl sm:text-2xl md:text-3xl text-[#1C1A18]">
-              Evidências concretas de dedicação técnica.
+              Números que ajudam a colocar a trajetória em perspectiva.
             </h3>
           </div>
-          <p className="font-sans text-xs sm:text-sm text-[#4E4A45] max-w-md">
-            Números que representam horas de estudo prático, linhas de teste escritas e decisões de engenharia documentadas.
-          </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {proofs.map((proof, idx) => {
             const Icon = proof.icon;
             return (
               <div
                 key={idx}
-                className="p-4 sm:p-5 rounded-2xl bg-white border border-[#465B20]/20 shadow-2xs flex flex-col justify-between"
+                className="p-5 sm:p-6 rounded-2xl bg-white border border-[#465B20]/20 shadow-2xs flex flex-col justify-between"
               >
                 <div>
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="w-8 h-8 rounded-lg bg-[#465B20]/10 flex items-center justify-center text-[#465B20]">
+                  <div className="flex items-center justify-between mb-3">
+                    <span className="w-9 h-9 rounded-xl bg-[#465B20]/10 flex items-center justify-center text-[#465B20]">
                       <Icon className="w-4 h-4" />
                     </span>
                   </div>
-                  <div className="font-serif font-black text-2xl sm:text-3xl text-[#1C1A18] tracking-tight mb-1.5">
+                  <div className="font-serif font-black text-3xl sm:text-4xl text-[#1C1A18] tracking-tight mb-2">
                     {proof.metric}
                   </div>
                   <p className="font-sans text-xs text-[#1C1A18] font-semibold leading-snug mb-2">

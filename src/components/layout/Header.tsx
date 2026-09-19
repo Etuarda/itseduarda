@@ -136,7 +136,7 @@ export default function Header() {
                 <div className="flex items-center gap-2">
                   <span className="w-2 h-2 rounded-full bg-[#465B20]" />
                   <span className="font-serif font-bold text-lg text-[#1C1A18]">
-                    Dossiê Editorial
+                    Menu
                   </span>
                 </div>
                 <button

@@ -1,4 +1,4 @@
-import { ArrowDown, ArrowRight, Download, Layers, Cpu, Database, BrainCircuit } from "lucide-react";
+import { ArrowRight, Download, Layers, Cpu, Database, BrainCircuit } from "lucide-react";
 import eduardaPhoto from "@/components/assets/Eduardadev.png";
 import rendaHero from "@/components/assets/renda.png";
 
@@ -12,13 +12,13 @@ export default function HeroSection() {
     >
       {/* 1. O Grande Masthead Editorial (Nome em Destaque na Capa) */}
       <div className="w-full pt-1 sm:pt-3 pb-2.5 sm:pb-4 text-center border-b border-[#465B20]/15 select-none">
-        <div className="flex flex-wrap items-center justify-center gap-1.5 sm:gap-2.5 mb-1.5 sm:mb-2 text-[9px] sm:text-xs md:text-sm font-mono font-bold tracking-[0.16em] sm:tracking-[0.25em] text-[#465B20] uppercase">
+        <div className="flex flex-wrap items-center justify-center gap-1.5 sm:gap-2.5 mb-1.5 sm:mb-2 text-[10px] sm:text-xs md:text-sm font-sans font-semibold tracking-[0.16em] sm:tracking-[0.20em] text-[#465B20] uppercase">
           <span>FULL STACK</span>
-          <span className="text-[#9E6761]">✦</span>
+          <span className="text-[#4E4A45]">•</span>
           <span>BACK-END</span>
-          <span className="text-[#9E6761]">✦</span>
+          <span className="text-[#4E4A45]">•</span>
           <span>DADOS</span>
-          <span className="text-[#9E6761]">✦</span>
+          <span className="text-[#4E4A45]">•</span>
           <span>IA APLICADA</span>
         </div>
 
@@ -63,9 +63,9 @@ export default function HeroSection() {
             </span>
             <div className="flex flex-wrap items-center gap-1 sm:gap-2 text-[9px] sm:text-[11px] font-mono text-[#383531] font-semibold">
               <span>PUCRS</span>
-              <span className="text-[#9E6761]">✦</span>
+              <span className="text-[#4E4A45]">•</span>
               <span>USP / FDTE</span>
-              <span className="text-[#9E6761]">✦</span>
+              <span className="text-[#4E4A45]">•</span>
               <span>PUC-Rio</span>
             </div>
           </div>
@@ -73,17 +73,24 @@ export default function HeroSection() {
 
         {/* Bloco Textual: ORDEM 2 NO MOBILE, ORDEM 1 NO DESKTOP */}
         <div className="order-2 lg:order-1 lg:col-span-7 flex flex-col justify-center gap-3 sm:gap-4">
-          {/* Headline Principal de Capa (EPIC 03) */}
+          {/* Headline Principal de Capa (Seção 40 do Guia Mestre) */}
           <div className="flex flex-col">
             <h2
-              className="font-serif font-black text-[clamp(1.35rem,4.2vw,2.5rem)] text-[#1C1A18] tracking-tight leading-tight"
+              className="font-serif font-black text-[clamp(1.45rem,4.5vw,2.75rem)] text-[#1C1A18] tracking-tight leading-tight"
               style={{ textWrap: "balance" }}
             >
-              Software bem construído começa com um problema bem entendido.
+              Construindo software a partir de{" "}
+              <span
+                className="text-[clamp(2rem,5.5vw,3.5rem)] text-[#465B20] select-none inline-block font-normal"
+                style={{ fontFamily: "'Great Vibes', cursive" }}
+              >
+                problemas reais
+              </span>{" "}
+              que merecem ser bem entendidos.
             </h2>
           </div>
 
-          {/* Descrição Profissional Editorial */}
+          {/* Descrição Profissional Editorial (Seção 39 do Guia Mestre) */}
           <div className="p-4 sm:p-5 rounded-2xl bg-white border border-[#465B20]/20 shadow-2xs">
             <p className="font-sans text-xs sm:text-sm md:text-base text-[#1C1A18] font-normal leading-relaxed mb-3">
               Sou desenvolvedora Full Stack com foco em Back-end, Dados e IA Aplicada.
@@ -95,7 +102,7 @@ export default function HeroSection() {
               </strong>
             </p>
 
-            {/* Linha Técnica em Destaque */}
+            {/* Linha Técnica em Destaque (Seção 39) */}
             <div className="mt-3.5 pt-3 border-t border-[#465B20]/15 flex flex-wrap items-center gap-1.5 sm:gap-2 text-[10px] sm:text-xs font-mono font-semibold text-[#2A3614]">
               <span className="px-2 py-0.5 rounded-md bg-[#465B20]/10 border border-[#465B20]/25">React</span>
               <span>•</span>
@@ -111,7 +118,7 @@ export default function HeroSection() {
             </div>
           </div>
 
-          {/* Destaques da Capa: 4 Cards (EPIC 03) */}
+          {/* Provas Rápidas da Capa: 4 Cards (Seção 41 do Guia Mestre) */}
           <div>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-2.5 w-full">
               {/* Card 01 - Full Stack */}
@@ -163,7 +170,7 @@ export default function HeroSection() {
                     Dados
                   </span>
                   <p className="font-sans text-[10px] text-[#4E4A45] leading-snug mt-0.5">
-                    Informação organizada para decisões.
+                    Informação organizada para apoiar decisões.
                   </p>
                 </div>
                 <span className="font-mono text-[9px] text-[#465B20] font-bold tracking-tight">
@@ -186,13 +193,13 @@ export default function HeroSection() {
                   </p>
                 </div>
                 <span className="font-mono text-[9px] text-[#465B20] font-bold tracking-tight">
-                  RAG + Recuperação
+                  RAG + Recuperação Híbrida
                 </span>
               </div>
             </div>
           </div>
 
-          {/* Botões de Ação na Capa */}
+          {/* Botões de Ação na Capa (Seção 39 do Guia Mestre) */}
           <div className="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-2 sm:gap-2.5 pt-1 w-full sm:w-auto">
             <a
               href="#projetos"
@@ -222,32 +229,29 @@ export default function HeroSection() {
         </div>
       </div>
 
-      {/* 3. Rodapé da Capa Editorial (EPIC 03: PORTFÓLIO • EDIÇÃO 2026) */}
+      {/* 3. Rodapé da Capa Editorial (PORTFÓLIO • EDIÇÃO 2026) */}
       <div className="w-full pt-2.5 sm:pt-3 border-t border-[#465B20]/20 flex flex-wrap items-center justify-between gap-4 text-xs font-sans text-[#4E4A45] select-none">
-        {/* Barcode Simulado & Edição */}
         <div className="flex items-center gap-2.5">
           <div className="flex items-end gap-[2px] h-5 px-1.5 py-0.5 bg-white border border-[#465B20]/20 rounded shadow-2xs">
             {[3, 6, 2, 8, 4, 7, 3, 5, 8, 2, 6, 4, 7, 3, 8, 5].map((h, i) => (
-              <div
+              <span
                 key={i}
-                className="w-[2px] bg-[#1C1A18]"
-                style={{ height: `${h * 1.8}px` }}
+                className="w-[1.5px] bg-[#2A3614] rounded-xs"
+                style={{ height: `${h * 2}px` }}
               />
             ))}
           </div>
-          <span className="font-mono text-[10px] text-[#383531] font-bold tracking-widest uppercase">
+          <span className="font-mono text-[10px] sm:text-xs text-[#2A3614] font-bold tracking-wider">
             PORTFÓLIO • EDIÇÃO 2026
           </span>
         </div>
 
-        {/* Link de Continuação */}
         <a
           href="#sobre"
-          className="inline-flex items-center gap-1.5 text-xs font-sans text-[#383531] hover:text-[#465B20] font-semibold transition-colors group cursor-pointer"
-          aria-label="Ir para seção Sobre"
+          className="inline-flex items-center gap-1.5 text-[11px] font-sans font-semibold text-[#465B20] hover:text-[#2A3614] transition-colors"
         >
-          <span className="uppercase tracking-widest text-[10px]">Continuar explorando</span>
-          <ArrowDown className="w-3.5 h-3.5 text-[#465B20] group-hover:translate-y-0.5 transition-transform" />
+          <span>Continuar explorando</span>
+          <ArrowRight className="w-3 h-3" />
         </a>
       </div>
     </section>

@@ -59,24 +59,24 @@ export const zoneClasses: Record<Zone, string> = {
   "left-middle":
     "left-[clamp(8px,2vw,24px)] top-1/2 -translate-y-1/2",
   "left-bottom":
-    "left-[clamp(8px,2vw,24px)] bottom-[calc(clamp(16px,4vh,40px)+env(safe-area-inset-bottom))]",
-
+    "left-[clamp(8px,2vw,24px)] bottom-[clamp(16px,4vh,36px)]",
   "right-top":
     "right-[clamp(8px,2vw,24px)] top-[clamp(72px,9vh,88px)]",
   "right-middle":
     "right-[clamp(8px,2vw,24px)] top-1/2 -translate-y-1/2",
   "right-bottom":
-    "right-[clamp(8px,2vw,24px)] bottom-[calc(clamp(16px,4vh,40px)+env(safe-area-inset-bottom))]",
+    "right-[clamp(8px,2vw,24px)] bottom-[clamp(16px,4vh,36px)]",
 };
 
 /**
- * Rota Determinística Editorial por Seção (Desktop & Tablet)
+ * Rota Determinística Editorial para Desktop
+ * Alternância estrita entre as margens da página
  */
 export const DESKTOP_SECTION_ZONES: Record<SectionId, Zone> = {
   hero: "right-top",
-  sobre: "left-middle",
-  stacks: "right-bottom",
-  projetos: "left-top",
+  sobre: "left-top",
+  stacks: "right-middle",
+  projetos: "left-middle",
   metodo: "right-middle",
   skills: "left-middle",
   competencias: "left-middle",
@@ -118,7 +118,7 @@ export function useBirdRoute(isMobile: boolean): Record<SectionId, Zone> {
 }
 
 /**
- * Dicas e pensamentos do Guia Beija-Flor conforme EPIC 29 do Backlog de Copywriting
+ * Dicas e pensamentos do Guia Beija-Flor conforme Seções 78 a 87 do Guia Mestre de Copywriting
  */
 export type SectionThought = {
   tag: string;
@@ -130,72 +130,72 @@ export type SectionThought = {
 
 export const EDITORIAL_GUIDE_HINTS: Record<SectionId, SectionThought> = {
   hero: {
-    tag: "Comece aqui",
-    title: "Visão geral",
-    text: "Desenvolvimento, dados e IA fazem parte da mesma história. Aqui você conhece primeiro o que conecta tudo isso.",
-    actionText: "Seguir para a próxima seção",
-    targetId: "sobre",
+    tag: "Início",
+    title: "Começar pelas provas",
+    text: "Quer começar pelas provas? Posso te levar aos projetos que melhor mostram como eu trabalho.",
+    actionText: "Ver projetos",
+    targetId: "projetos",
   },
   sobre: {
     tag: "Como eu penso",
     title: "Antes do código",
     text: "Antes da stack, vem a pergunta certa: qual problema precisa ser resolvido?",
-    actionText: "Conhecer as stacks",
+    actionText: "Ver base técnica",
     targetId: "stacks",
   },
   stacks: {
     tag: "Base técnica",
-    title: "Quatro frentes conectadas",
-    text: "Front-end, back-end, dados e IA. Áreas diferentes, unidas pela mesma preocupação com clareza e qualidade.",
+    title: "Ferramentas & aplicação",
+    text: "Aqui estão as ferramentas. Nos projetos você consegue ver por que e onde cada uma foi utilizada.",
     actionText: "Ver projetos",
     targetId: "projetos",
   },
   projetos: {
-    tag: "Provas",
-    title: "Da ideia à implementação",
-    text: "Aqui estão as provas. Abra os projetos para ver problemas, decisões técnicas e o que foi construído.",
-    actionText: "Ver método",
-    targetId: "metodo",
+    tag: "Estudos de caso",
+    title: "Provas de engenharia",
+    text: "Aqui estão as principais provas do meu trabalho. Abra um projeto para conhecer o problema e as decisões por trás da solução.",
+    actionText: "Abrir estudo de caso",
+    targetId: "projetos",
   },
   metodo: {
     tag: "Como eu trabalho",
-    title: "Código faz parte da entrega",
-    text: "Cada problema exige decisões diferentes. Manter um processo previsível reduz retrabalho e dá clareza.",
-    actionText: "Ver competências",
-    targetId: "competencias",
+    title: "Processo & previsibilidade",
+    text: "Você já viu algumas entregas. Quer conhecer agora o processo que utilizo para transformar problema em implementação?",
+    actionText: "Ver método",
+    targetId: "metodo",
   },
   skills: {
     tag: "Repertório técnico",
-    title: "O que sustenta as entregas",
-    text: "Ferramentas mudam. Fundamentos fortes fazem o software continuar bom depois da primeira versão.",
-    actionText: "Conhecer a trajetória",
+    title: "Fundamentos que permanecem",
+    text: "Ferramentas mudam. A capacidade de tomar boas decisões técnicas precisa permanecer.",
+    actionText: "Ver trajetória",
     targetId: "trajetoria",
   },
   competencias: {
     tag: "Repertório técnico",
-    title: "O que sustenta as entregas",
-    text: "Ferramentas mudam. Fundamentos fortes fazem o software continuar bom depois da primeira versão.",
-    actionText: "Conhecer a trajetória",
+    title: "Fundamentos que permanecem",
+    text: "Ferramentas mudam. A capacidade de tomar boas decisões técnicas precisa permanecer.",
+    actionText: "Ver trajetória",
     targetId: "trajetoria",
   },
   experiencia: {
-    tag: "Caminho",
-    title: "Como esse repertório foi construído",
-    text: "Cada etapa acrescentou uma camada: comunicação, desenvolvimento, dados, acessibilidade e IA aplicada.",
-    actionText: "Ir para contato",
+    tag: "Trajetória",
+    title: "Formação em camadas",
+    text: "Atendimento, engenharia, dados e IA. Cada etapa acrescentou uma camada de preparo para construir software confiável.",
+    actionText: "Falar comigo",
     targetId: "contato",
   },
   trajetoria: {
-    tag: "Caminho",
-    title: "Como esse repertório foi construído",
-    text: "Cada etapa acrescentou uma camada: comunicação, desenvolvimento, dados, acessibilidade e IA aplicada.",
-    actionText: "Ir para contato",
+    tag: "Trajetória",
+    title: "Formação em camadas",
+    text: "Atendimento, engenharia, dados e IA. Cada etapa acrescentou uma camada de preparo para construir software confiável.",
+    actionText: "Falar comigo",
     targetId: "contato",
   },
   contato: {
-    tag: "Próximo passo",
-    title: "Podemos conversar",
-    text: "Você já viu como Eduarda pensa, o que constrói e como trabalha. Se isso fizer sentido para sua equipe, o próximo passo é uma conversa.",
+    tag: "Contato",
+    title: "Iniciar conversa",
+    text: "Se meu perfil fizer sentido para sua equipe, podemos continuar essa conversa.",
     actionText: "Entrar em contato",
     targetId: "contato",
   },

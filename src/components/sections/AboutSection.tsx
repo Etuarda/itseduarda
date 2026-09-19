@@ -1,4 +1,4 @@
-import { ArrowRight, Sparkles, HeartHandshake, Compass } from "lucide-react";
+import { ArrowRight, HeartHandshake, Compass } from "lucide-react";
 
 export default function AboutSection() {
   return (
@@ -6,14 +6,12 @@ export default function AboutSection() {
       id="sobre"
       className="w-full py-8 sm:py-12 md:py-16 px-4 md:px-8 max-w-7xl mx-auto scroll-mt-20 relative"
     >
-      {/* Cabeçalho Editorial */}
+      {/* Cabeçalho Editorial (Seção 18 & 42 do Guia Mestre) */}
       <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-12 relative z-20">
-        <div className="inline-flex items-center gap-2 mb-2 px-3 py-1 rounded-full bg-white border border-[#465B20]/30 shadow-2xs">
-          <span className="text-[#465B20] text-xs">✦</span>
-          <span className="font-mono text-[10px] sm:text-xs uppercase tracking-[0.22em] text-[#2A3614] font-bold">
+        <div className="inline-flex items-center mb-2 px-3.5 py-1 rounded-full bg-white border border-[#465B20]/30 shadow-2xs">
+          <span className="font-mono text-[10px] sm:text-xs uppercase tracking-[0.20em] text-[#2A3614] font-bold">
             COMO EU PENSO
           </span>
-          <span className="text-[#9E6761] text-xs">✦</span>
         </div>
 
         <h2
@@ -51,7 +49,7 @@ export default function AboutSection() {
               <div className="p-3.5 rounded-xl bg-white border border-[#465B20]/20 shadow-2xs">
                 <span className="text-[#465B20] text-xs font-mono font-bold block mb-1">04. IA APLICADA</span>
                 <p className="text-xs text-[#1C1A18]">
-                  E uma IA pode responder com segurança aparente sem ter evidência para sustentar o que diz.
+                  Uma IA pode responder com segurança aparente sem ter evidência para sustentar o que diz.
                 </p>
               </div>
             </div>
@@ -70,15 +68,15 @@ export default function AboutSection() {
             </p>
           </div>
 
-          {/* Destaque: Ciclo de Pensamento */}
+          {/* Destaque: Ciclo de Pensamento (Seção 42) */}
           <div className="mt-6 pt-4 border-t border-[#465B20]/20 flex flex-wrap items-center justify-between gap-3">
             <div className="flex flex-wrap items-center gap-2 text-xs sm:text-sm font-mono font-bold text-[#2A3614]">
               <span className="px-2.5 py-1 rounded-lg bg-[#465B20]/15 border border-[#465B20]/30">Entender</span>
-              <span className="text-[#9E6761]">→</span>
+              <span className="text-[#4E4A45]">→</span>
               <span className="px-2.5 py-1 rounded-lg bg-[#465B20]/15 border border-[#465B20]/30">Estruturar</span>
-              <span className="text-[#9E6761]">→</span>
+              <span className="text-[#4E4A45]">→</span>
               <span className="px-2.5 py-1 rounded-lg bg-[#465B20]/15 border border-[#465B20]/30">Desenvolver</span>
-              <span className="text-[#9E6761]">→</span>
+              <span className="text-[#4E4A45]">→</span>
               <span className="px-2.5 py-1 rounded-lg bg-[#465B20]/15 border border-[#465B20]/30">Validar</span>
             </div>
 
@@ -91,9 +89,9 @@ export default function AboutSection() {
           </div>
         </div>
 
-        {/* Coluna Direita: Experiência Humana & Significado do Beija-Flor */}
+        {/* Coluna Direita: Experiência Humana & Significado do Beija-Flor (Seções 43 & 44) */}
         <div className="lg:col-span-4 flex flex-col gap-6">
-          {/* Card: Experiência Humana */}
+          {/* Card: Experiência Humana (Seção 43) */}
           <div className="p-6 rounded-3xl bg-white border border-[#465B20]/25 shadow-2xs flex-1 flex flex-col justify-between">
             <div>
               <div className="flex items-center gap-2 text-[#465B20] mb-2">
@@ -115,16 +113,20 @@ export default function AboutSection() {
               </p>
             </div>
 
-            <div className="mt-4 pt-3 border-t border-[#465B20]/15 text-[11px] font-handwriting text-base text-[#465B20] font-semibold">
-              Empatia aplicada à engenharia
+            {/* Nota editorial em Great Vibes (Seção 43: Não usar Caveat) */}
+            <div
+              className="mt-4 pt-3 border-t border-[#465B20]/15 text-2xl text-[#465B20] select-none"
+              style={{ fontFamily: "'Great Vibes', cursive" }}
+            >
+              Escutar antes de construir
             </div>
           </div>
 
-          {/* Card: Significado do Beija-Flor (EPIC 05) */}
+          {/* Card: Significado do Beija-Flor (Seção 44) */}
           <div className="p-6 rounded-3xl bg-[#FAF8F5] border border-[#465B20]/25 shadow-2xs flex-1 flex flex-col justify-between">
             <div>
               <div className="flex items-center gap-2 text-[#465B20] mb-2">
-                <Sparkles className="w-4 h-4 text-[#465B20]" />
+                <Compass className="w-4 h-4 text-[#465B20]" />
                 <span className="text-[10px] font-mono uppercase tracking-wider font-bold">
                   SÍMBOLO & PROPÓSITO
                 </span>
@@ -135,19 +137,22 @@ export default function AboutSection() {
               </h3>
 
               <p className="font-sans text-xs sm:text-sm text-[#383531] leading-relaxed font-normal">
-                O beija-flor representa uma ideia simples que também aparece no meu trabalho:{" "}
-                <strong className="text-[#1C1A18] font-semibold">
-                  conectar diferentes pontos com precisão.
-                </strong>
+                O beija-flor representa uma ideia simples que também aparece na forma como trabalho:
+              </p>
+              <p className="font-sans text-xs sm:text-sm text-[#1C1A18] font-semibold leading-relaxed mt-1">
+                conectar diferentes pontos com precisão.
               </p>
               <p className="font-sans text-xs sm:text-sm text-[#383531] leading-relaxed font-normal mt-2">
                 Front-end, back-end, dados e IA podem ser áreas diferentes. O valor está em fazê-las trabalhar juntas para resolver o problema certo.
               </p>
             </div>
 
-            <div className="mt-4 pt-3 border-t border-[#465B20]/15 flex items-center justify-between text-[11px] font-sans text-[#4E4A45]">
-              <span className="italic">Precisão em cada conexão</span>
-              <span className="font-mono text-[#465B20] font-bold">✦ 2026</span>
+            {/* Nota caligráfica em Great Vibes (Seção 44) */}
+            <div
+              className="mt-4 pt-3 border-t border-[#465B20]/15 text-2xl text-[#465B20] select-none"
+              style={{ fontFamily: "'Great Vibes', cursive" }}
+            >
+              Precisão em cada conexão
             </div>
           </div>
         </div>

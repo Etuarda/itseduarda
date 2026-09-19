@@ -245,28 +245,26 @@ export default function SkillsSection() {
       {/* Âncora de compatibilidade para competências e skills */}
       <div id="competencias" className="absolute -top-20" />
 
-      {/* Cabeçalho Editorial (EPIC 17) */}
+      {/* Cabeçalho Editorial (Seções 18 & 64 do Guia Mestre) */}
       <div className="text-center max-w-3xl mx-auto mb-6 sm:mb-8 relative z-20">
-        <div className="inline-flex items-center gap-2 mb-2 px-3 py-1 rounded-full bg-white border border-[#465B20]/30 shadow-2xs">
-          <span className="text-[#465B20] text-xs">✦</span>
-          <span className="font-mono text-[10px] sm:text-xs uppercase tracking-[0.22em] text-[#2A3614] font-bold">
-            COMPETÊNCIAS TÉCNICAS
+        <div className="inline-flex items-center mb-2 px-3.5 py-1 rounded-full bg-white border border-[#465B20]/30 shadow-2xs">
+          <span className="font-mono text-[10px] sm:text-xs uppercase tracking-[0.20em] text-[#2A3614] font-bold">
+            REPERTÓRIO TÉCNICO
           </span>
-          <span className="text-[#9E6761] text-xs">✦</span>
         </div>
 
         <h2
           className="font-serif font-black text-2xl sm:text-4xl lg:text-5xl text-[#1C1A18] tracking-tight leading-tight mt-1"
           style={{ textWrap: "balance" }}
         >
-          Tecnologias organizadas por área de domínio.
+          Ferramentas mudam. A capacidade de tomar boas decisões precisa permanecer.
         </h2>
 
         <p
           className="font-sans text-xs sm:text-sm md:text-base text-[#383531] mt-3 leading-relaxed max-w-2xl mx-auto"
           style={{ textWrap: "balance" }}
         >
-          Arraste os cards para reorganizar ou use a visualização para explorar minha stack. Combine ferramentas no Architecture Playground para simular a arquitetura de projetos reais.
+          Meu objetivo não é aumentar uma lista de tecnologias. Procuro entender quando utilizar cada ferramenta, quais problemas ela resolve e quais trade-offs introduz.
         </p>
       </div>
 
@@ -477,7 +475,7 @@ export default function SkillsSection() {
         <div className="p-3.5 sm:p-4 rounded-2xl bg-white border border-[#465B20]/25 flex flex-col gap-2.5 shadow-2xs">
           <div className="flex flex-wrap items-center justify-between gap-2">
             <span className="text-[11px] font-mono font-bold text-[#2A3614] uppercase tracking-wider">
-              ✦ Projetos Compatíveis com Esta Combinação ({matchingProjects.length}):
+              Projetos compatíveis com esta combinação ({matchingProjects.length}):
             </span>
           </div>
 
@@ -783,7 +781,7 @@ export default function SkillsSection() {
                         key={i}
                         className="flex items-start gap-2 p-2 rounded-xl bg-white border border-[#465B20]/20 shadow-2xs"
                       >
-                        <span className="text-[#556B2F] font-bold mt-0.5">✦</span>
+                        <CheckCircle2 className="w-3.5 h-3.5 text-[#465B20] shrink-0 mt-0.5" />
                         <span>{app}</span>
                       </li>
                     ))}

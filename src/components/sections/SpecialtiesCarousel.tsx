@@ -40,13 +40,13 @@ const stackPillars: StackPillar[] = [
     number: "02",
     shortTitle: "Back-End",
     fullTitle: "APIs que continuam compreensíveis quando o sistema cresce.",
-    tagline: "“Não quero apenas fazer o endpoint responder. Quero tornar a próxima mudança mais segura de fazer.”",
+    tagline: "“A próxima mudança também precisa ser segura.”",
     image: backendImg,
     tools: ["Node.js", "TypeScript", "Express", "Fastify", "PostgreSQL", "Prisma", "Redis", "RabbitMQ", "Docker"],
     concepts: ["REST APIs", "Clean Architecture", "SOLID", "JWT", "Zod", "Swagger"],
     description:
-      "À medida que um produto evolui, surgem novas regras, integrações, validações e dependências. Sem organização, cada nova funcionalidade aumenta o risco de quebrar outra parte do sistema. Estruturo o back-end com responsabilidades bem definidas, validação, contratos claros e tratamento consistente de erros.",
-    closingQuote: "Não quero apenas fazer o endpoint responder. Quero tornar a próxima mudança mais segura de fazer.",
+      "À medida que um produto evolui, surgem novas regras, validações, integrações e dependências. Sem organização, cada nova funcionalidade aumenta o risco de afetar outras partes do sistema. Por isso, estruturo o back-end com responsabilidades bem definidas, contratos claros, validação e tratamento consistente de erros.",
+    closingQuote: "A próxima mudança também precisa ser segura.",
     icon: <Cpu className="w-4 h-4 text-[#465B20]" />,
   },
   {
@@ -54,13 +54,13 @@ const stackPillars: StackPillar[] = [
     number: "03",
     shortTitle: "Dados",
     fullTitle: "Dados só ajudam quando conseguimos transformá-los em informação.",
-    tagline: "“Primeiro organizamos os dados. Depois conseguimos fazer perguntas melhores.”",
+    tagline: "“Organizar primeiro. Perguntar melhor depois.”",
     image: dadosImg,
     tools: ["Python", "Pandas", "SQL", "PostgreSQL", "Jupyter", "Looker Studio"],
     concepts: ["ETL", "Limpeza de dados", "Análise exploratória", "KPIs", "Visualização", "Storytelling com dados"],
     description:
       "Dados inconsistentes ou mal organizados comprometem qualquer análise posterior. Trabalho com tratamento, exploração, transformação e visualização para tornar informações mais confiáveis e úteis.",
-    closingQuote: "Primeiro organizamos os dados. Depois conseguimos fazer perguntas melhores.",
+    closingQuote: "Organizar primeiro. Perguntar melhor depois.",
     icon: <Database className="w-4 h-4 text-[#465B20]" />,
   },
   {
@@ -68,13 +68,13 @@ const stackPillars: StackPillar[] = [
     number: "04",
     shortTitle: "IA Aplicada",
     fullTitle: "Uma resposta convincente não basta. Ela precisa ter fundamento.",
-    tagline: "“IA aplicada significa aumentar capacidade sem abrir mão de controle.”",
+    tagline: "“Mais capacidade sem abrir mão de controle.”",
     image: iaImg,
     tools: ["Python", "FAISS", "BM25", "RRF", "Pydantic", "LLMs"],
     concepts: ["RAG", "Embeddings", "Recuperação híbrida", "Filtros por metadados", "Guardrails", "Avaliação"],
     description:
-      "Modelos generativos podem errar, extrapolar contexto ou responder algo que nunca esteve na fonte. Por isso, meu interesse em IA está também na engenharia ao redor do modelo: recuperação, contexto, avaliação, guardrails e rastreabilidade.",
-    closingQuote: "IA aplicada significa aumentar capacidade sem abrir mão de controle.",
+      "Modelos generativos podem errar, extrapolar contexto ou responder algo que nunca esteve na fonte. Por isso, meu interesse também está na engenharia ao redor do modelo: recuperação, contexto, avaliação, guardrails e rastreabilidade.",
+    closingQuote: "Mais capacidade sem abrir mão de controle.",
     icon: <BrainCircuit className="w-4 h-4 text-[#465B20]" />,
   },
 ];
@@ -87,14 +87,12 @@ export default function SpecialtiesCarousel() {
       {/* Alias de navegação retrocompatível */}
       <div id="the-edits" className="absolute -top-20" />
 
-      {/* Cabeçalho Editorial (EPIC 06) */}
+      {/* Cabeçalho Editorial (Seção 18 & 45 do Guia Mestre) */}
       <div className="text-center max-w-3xl mx-auto mb-6 sm:mb-8 relative z-20">
-        <div className="inline-flex items-center gap-2 mb-2 px-3 py-1 rounded-full bg-white border border-[#465B20]/30 shadow-2xs">
-          <span className="text-[#465B20] text-xs">✦</span>
-          <span className="font-mono text-[10px] sm:text-xs uppercase tracking-[0.22em] text-[#2A3614] font-bold">
+        <div className="inline-flex items-center mb-2 px-3.5 py-1 rounded-full bg-white border border-[#465B20]/30 shadow-2xs">
+          <span className="font-mono text-[10px] sm:text-xs uppercase tracking-[0.20em] text-[#2A3614] font-bold">
             BASE TÉCNICA
           </span>
-          <span className="text-[#9E6761] text-xs">✦</span>
         </div>
 
         <h2
@@ -212,7 +210,7 @@ export default function SpecialtiesCarousel() {
                         <span className="font-serif font-black text-2xl sm:text-3xl text-[#465B20]">
                           {pillar.number}
                         </span>
-                        <span className="text-[#4E4A45] text-xs">✦</span>
+                        <span className="text-[#4E4A45] text-xs">•</span>
                         <span className="font-sans text-[10px] uppercase tracking-[0.2em] text-[#2A3614] font-bold px-2.5 py-0.5 rounded-full bg-[#465B20]/15 border border-[#465B20]/25">
                           {pillar.shortTitle}
                         </span>
@@ -238,7 +236,7 @@ export default function SpecialtiesCarousel() {
                               key={concept}
                               className="bg-white border border-[#465B20]/25 text-[#1C1A18] font-sans text-[11px] font-medium px-2.5 py-0.5 rounded-md shadow-2xs"
                             >
-                              ✦ {concept}
+                              {concept}
                             </span>
                           ))}
                         </div>

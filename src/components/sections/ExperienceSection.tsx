@@ -59,10 +59,10 @@ const CATEGORY_PALETTES = {
 };
 
 const tabs = [
-  { id: "work", label: "Atuação Profissional", icon: Briefcase },
-  { id: "education", label: "Formação Superior", icon: GraduationCap },
-  { id: "specializations", label: "Especializações & IA", icon: Award },
-  { id: "courses", label: "Cursos & Certificações", icon: BookOpen },
+  { id: "work", label: "Experiência", icon: Briefcase },
+  { id: "education", label: "Formação", icon: GraduationCap },
+  { id: "specializations", label: "Especializações", icon: Award },
+  { id: "courses", label: "Cursos", icon: BookOpen },
 ] as const;
 
 // Extrai o ano numérico para ordenação
@@ -151,10 +151,10 @@ function TimelineCard({
 
             {entry.note && (
               <span
-                className="font-handwriting text-sm sm:text-base mt-2 leading-tight font-semibold"
+                className="font-sans text-xs mt-2 leading-tight font-medium"
                 style={{ color: palette.accent }}
               >
-                ✦ {entry.note}
+                • {entry.note}
               </span>
             )}
           </div>
@@ -206,7 +206,7 @@ function TimelineCard({
                       key={item}
                       className="bg-white border border-[#465B20]/30 font-sans text-[11px] text-[#2A3614] font-semibold px-2.5 py-0.5 rounded-full shadow-2xs"
                     >
-                      ✦ {item}
+                      {item}
                     </span>
                   ))}
                 </div>
@@ -251,14 +251,12 @@ export default function ExperienceSection() {
       {/* Âncora de compatibilidade para experiencia e trajetória */}
       <div id="experiencia" className="absolute -top-20" />
 
-      {/* Cabeçalho Editorial (EPIC 18) */}
+      {/* Cabeçalho Editorial (Seções 18 & 66 do Guia Mestre) */}
       <div className="text-center max-w-3xl mx-auto mb-6 sm:mb-8 relative z-20">
-        <div className="inline-flex items-center gap-2 mb-2 px-3 py-1 rounded-full bg-white border border-[#465B20]/30 shadow-2xs">
-          <span className="text-[#465B20] text-xs">✦</span>
-          <span className="font-mono text-[10px] sm:text-xs uppercase tracking-[0.22em] text-[#2A3614] font-bold">
-            MINHA TRAJETÓRIA
+        <div className="inline-flex items-center mb-2 px-3.5 py-1 rounded-full bg-white border border-[#465B20]/30 shadow-2xs">
+          <span className="font-mono text-[10px] sm:text-xs uppercase tracking-[0.20em] text-[#2A3614] font-bold">
+            TRAJETÓRIA
           </span>
-          <span className="text-[#9E6761] text-xs">✦</span>
         </div>
 
         <h2
@@ -272,7 +270,7 @@ export default function ExperienceSection() {
           className="font-sans text-xs sm:text-sm md:text-base text-[#383531] mt-3 leading-relaxed max-w-2xl mx-auto"
           style={{ textWrap: "balance" }}
         >
-          Cada etapa foi pensada para conectar lógica de programação, arquitetura de sistemas, dados e inteligência artificial.
+          Atendimento me ensinou a escutar e organizar problemas. Desenvolvimento me ensinou a transformá-los em sistemas. Dados ampliaram minha capacidade de investigar informações e encontrar padrões. IA me levou a estudar sistemas capazes de trabalhar com contexto, recuperação e evidências. Hoje, essas experiências se encontram na forma como desenvolvo software.
         </p>
       </div>
 

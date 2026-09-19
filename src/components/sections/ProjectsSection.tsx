@@ -51,8 +51,8 @@ const CURIOSITY_HOOKS: Record<
     stampText: "FULL STACK • SAAS",
   },
   vendefacil: {
-    question: "Como fazer uma IA responder com base em evidências, e não apenas em probabilidade?",
-    metricTag: "5.714 chunks & 95 testes",
+    question: "Como fazer uma IA responder a partir de evidências, e não apenas de probabilidade?",
+    metricTag: "5.714 chunks • 95 testes aprovados",
     secretTeaser: "Recuperação híbrida FAISS + BM25, fusão por RRF e guardrails.",
     stampText: "IA GENERATIVA • RAG",
   },
@@ -237,28 +237,23 @@ export default function ProjectsSection() {
 
   return (
     <section id="projetos" className="w-full py-8 sm:py-12 md:py-16 px-3 sm:px-6 md:px-8 max-w-7xl mx-auto scroll-mt-20 overflow-hidden">
-      {/* Cabeçalho Editorial (EPIC 07) */}
+      {/* Cabeçalho Editorial (Seção 18 & 50 do Guia Mestre) */}
       <div className="text-center max-w-3xl mx-auto mb-6 md:mb-8 relative z-20">
-        <div className="inline-flex items-center gap-2 mb-2 px-3 py-1 rounded-full bg-white border border-[#465B20]/30 shadow-2xs">
-          <span className="text-[#465B20] text-xs">✦</span>
-          <span className="font-mono text-[10px] sm:text-xs uppercase tracking-[0.22em] text-[#2A3614] font-bold">
+        <div className="inline-flex items-center mb-2 px-3.5 py-1 rounded-full bg-white border border-[#465B20]/30 shadow-2xs">
+          <span className="font-mono text-[10px] sm:text-xs uppercase tracking-[0.20em] text-[#2A3614] font-bold">
             PROJETOS & ESTUDOS DE CASO
           </span>
-          <span className="text-[#9E6761] text-xs">✦</span>
         </div>
 
         <h2
           className="font-serif font-black text-2xl sm:text-3xl lg:text-4xl text-[#1C1A18] tracking-tight leading-tight"
           style={{ textWrap: "balance" }}
         >
-          O código mostra o que foi construído. O estudo de caso mostra como cheguei até lá.
+          O código mostra o que foi construído. O estudo de caso mostra por quê.
         </h2>
 
         <p className="font-sans text-xs sm:text-sm md:text-base text-[#383531] mt-3 max-w-2xl mx-auto leading-relaxed">
-          Aqui você encontra problemas diferentes que exigiram decisões diferentes. Cada projeto apresenta{" "}
-          <strong className="text-[#1C1A18] font-semibold">
-            contexto, desafio, implicações e solução
-          </strong>, além das tecnologias utilizadas.
+          Cada projeto parte de um problema diferente. Abra os estudos de caso para conhecer o contexto, as decisões técnicas, a solução desenvolvida e os aprendizados de cada entrega.
         </p>
       </div>
 
