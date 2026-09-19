@@ -1,8 +1,10 @@
 import { useState, useMemo } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import { ArrowUpDown, Calendar, Check, ArrowRight } from "lucide-react";
+import { ArrowUpDown, Calendar, Check, ArrowRight, Download } from "lucide-react";
 import { portfolioData } from "@/data/portfolio";
 import type { Education, Experience } from "@/types/portfolio";
+
+const resumeUrl = "/Eduarda- Curriculo-Full-Stack(6).pdf";
 
 type TabType = "work" | "education" | "specializations" | "courses";
 
@@ -226,10 +228,11 @@ export default function ExperienceSection() {
             </div>
           </div>
 
-          {/* Lead Editorial de Matéria */}
-          <div className="border-l-2 border-[#465B20] pl-5 sm:pl-6 py-2 bg-[#FAF8F5]/80 rounded-r-lg">
+          {/* Lead Editorial de Matéria com Capitular */}
+          <div className="border-l-2 border-[#465B20] pl-5 sm:pl-6 py-2.5 bg-[#FAF8F5]/80 rounded-r-lg">
             <p className="font-serif text-base sm:text-lg md:text-xl text-[#1C1A18] leading-relaxed italic">
-              “Hoje, essas experiências se encontram na forma como desenvolvo software: com mais clareza de problema, responsabilidade técnica e atenção ao que acontece depois da primeira entrega.”
+              <span className="font-serif font-bold text-3xl sm:text-4xl text-[#465B20] float-left mr-2.5 leading-none mt-1">H</span>
+              oje, essas experiências se encontram na forma como desenvolvo software: com mais clareza de problema, responsabilidade técnica e atenção ao que acontece depois da primeira entrega.
             </p>
           </div>
         </div>
@@ -621,13 +624,28 @@ export default function ExperienceSection() {
           </p>
         </div>
 
-        <a
-          href="#contato"
-          className="inline-flex items-center gap-1.5 font-sans text-xs font-bold text-[#465B20] hover:text-[#2A3614] border-b border-[#465B20]/30 pb-0.5 transition-colors cursor-pointer"
-        >
-          <span>Iniciar conversa de trabalho</span>
-          <ArrowRight className="w-3.5 h-3.5" />
-        </a>
+        <div className="flex flex-wrap items-center justify-center sm:justify-end gap-4">
+          <a
+            href={resumeUrl}
+            download="Eduarda- Curriculo-Full-Stack(6).pdf"
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center gap-1.5 font-mono text-[11px] font-bold text-[#4E4A45] hover:text-[#1C1A18] transition-colors"
+          >
+            <Download className="w-3.5 h-3.5 text-[#465B20]" />
+            <span>Baixar currículo (PDF)</span>
+          </a>
+
+          <span className="text-[#465B20]/30 hidden sm:inline">•</span>
+
+          <a
+            href="#contato"
+            className="inline-flex items-center gap-1.5 font-sans text-xs font-bold text-[#465B20] hover:text-[#2A3614] border-b border-[#465B20]/30 pb-0.5 transition-colors cursor-pointer"
+          >
+            <span>Falar sobre contratação</span>
+            <ArrowRight className="w-3.5 h-3.5" />
+          </a>
+        </div>
       </footer>
     </section>
   );

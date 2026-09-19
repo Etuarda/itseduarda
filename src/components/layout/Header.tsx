@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { ArrowUpRight, Menu, X } from "lucide-react";
+import { ArrowUpRight, Menu, X, Download } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { sectionIds, sectionLinks } from "@/data/navigation";
 import { useActiveSection } from "@/hooks/useActiveSection";
@@ -177,6 +177,20 @@ export default function Header() {
                   );
                 })}
               </nav>
+
+              {/* Ação de Contratação / Currículo no Mobile */}
+              <div className="mb-4 pt-1">
+                <a
+                  href="/Eduarda- Curriculo-Full-Stack(6).pdf"
+                  download="Eduarda- Curriculo-Full-Stack(6).pdf"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="w-full py-2.5 px-4 rounded-xl border border-[#465B20]/30 bg-white text-[#2A3614] hover:bg-[#FAF8F5] text-xs font-mono font-bold uppercase tracking-wider text-center flex items-center justify-center gap-2 shadow-2xs cursor-pointer active:scale-98"
+                >
+                  <Download className="w-3.5 h-3.5 text-[#465B20]" />
+                  <span>Baixar currículo (PDF)</span>
+                </a>
+              </div>
 
               {/* Rodapé do Menu Mobile */}
               <div className="pt-4 border-t border-[#465B20]/15 flex items-center justify-between text-xs text-[#4E4A45]">

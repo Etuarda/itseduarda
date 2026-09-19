@@ -10,9 +10,14 @@ export default function HeroSection() {
       id="hero"
       className="w-full min-h-[100svh] h-auto relative bg-[#FAF8F5] texture-paper flex flex-col justify-between overflow-x-clip px-3.5 sm:px-8 md:px-12 lg:px-16 pt-16 sm:pt-20 lg:pt-22 pb-4 sm:pb-5 scroll-mt-0"
     >
-      {/* 1. O Grande Masthead Editorial (Nome em Destaque na Capa) */}
-      <div className="w-full pt-1 sm:pt-3 pb-2.5 sm:pb-4 text-center border-b border-[#465B20]/15 select-none">
-        <div className="flex flex-wrap items-center justify-center gap-1.5 sm:gap-2.5 mb-1.5 sm:mb-2 text-[10px] sm:text-xs md:text-sm font-sans font-semibold tracking-[0.16em] sm:tracking-[0.20em] text-[#465B20] uppercase">
+      {/* 1. Cabeçalho Editorial de Capa */}
+      <div className="w-full text-center pb-2 sm:pb-3 border-b border-[#465B20]/20 select-none">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1 mb-2.5 rounded-full bg-[#465B20]/10 border border-[#465B20]/30 text-[#2A3614] text-[10px] sm:text-[11px] font-mono font-bold tracking-wider uppercase shadow-2xs">
+          <span className="w-2 h-2 rounded-full bg-[#465B20]" />
+          <span>Disponível para contratação (CLT / PJ • Remoto ou Híbrido)</span>
+        </div>
+
+        <div className="font-mono text-[10px] sm:text-xs uppercase tracking-[0.20em] text-[#2A3614] font-bold mb-1 flex items-center justify-center gap-1.5 sm:gap-2 flex-wrap">
           <span>FULL STACK</span>
           <span className="text-[#4E4A45]">•</span>
           <span>BACK-END</span>
@@ -199,20 +204,20 @@ export default function HeroSection() {
             </div>
           </div>
 
-          {/* Botões de Ação na Capa (Seção 39 do Guia Mestre) */}
+          {/* Botões de Ação na Capa (Foco em Contratação & Provas) */}
           <div className="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-2 sm:gap-2.5 pt-1 w-full sm:w-auto">
             <a
-              href="#projetos"
+              href="#contato"
               className="w-full sm:w-auto px-5 sm:px-6 py-2.5 sm:py-3 min-h-[44px] rounded-full bg-[#465B20] hover:bg-[#2A3614] text-[#F7F6F2] font-sans font-semibold text-xs uppercase tracking-[0.12em] sm:tracking-[0.14em] transition-all flex items-center justify-center gap-2 shadow-xs cursor-pointer active:scale-98"
             >
-              Conhecer meus projetos <ArrowRight className="w-3.5 h-3.5" />
+              Falar sobre contratação <ArrowRight className="w-3.5 h-3.5" />
             </a>
 
             <a
-              href="#metodo"
+              href="#projetos"
               className="w-full sm:w-auto px-4 sm:px-5 py-2.5 sm:py-3 min-h-[44px] rounded-full border border-[#465B20]/40 bg-white hover:bg-[#FAF8F5] text-[#1C1A18] font-sans font-semibold text-xs uppercase tracking-[0.10em] sm:tracking-[0.12em] transition-all flex items-center justify-center gap-2 cursor-pointer shadow-xs active:scale-98"
             >
-              Ver como eu trabalho
+              Ver projetos e provas
             </a>
 
             <a
