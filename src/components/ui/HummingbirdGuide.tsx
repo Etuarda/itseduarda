@@ -307,7 +307,8 @@ export default function HummingbirdGuide({
               setTimeout(() => {
                 setActiveSection(detected);
                 setManualSectionIndex(null);
-                setBubbleDismissed(false); // Revela o balão poético na nova seção
+                const isTrajetoriaSection = detected === "experiencia" || detected === "trajetoria";
+                setBubbleDismissed(isTrajetoriaSection); // Na trajetória, permanece silencioso por padrão
                 setTransitionState("arriving");
 
                 setTimeout(() => {
