@@ -1,10 +1,15 @@
-export type ProjectCategory = 'frontend' | 'backend' | 'fullstack' | 'data_ai';
+export type ProjectCategory = 'frontend' | 'backend' | 'fullstack' | 'data_ai' | 'dados' | 'ia';
 
 export interface CaseStudy {
-  context: string;
+  situation?: string;
+  context?: string;
   problem: string;
+  implication?: string;
   solution: string;
-  architecture: string[];
+  technicalDecision?: string;
+  evidence?: string;
+  learning?: string;
+  architecture?: string[];
   metrics?: string;
 }
 
@@ -12,6 +17,8 @@ export interface Project {
   id: string;
   title: string;
   subtitle?: string;
+  categoryLabel?: string;
+  headline?: string;
   description: string;
   longDescription: string;
   tags: string[];
@@ -21,6 +28,9 @@ export interface Project {
   githubUrl?: string;
   features: string[];
   caseStudy?: CaseStudy;
+  ctaText?: string;
+  ctaExternalText?: string;
+  githubText?: string;
 }
 
 export interface Experience {

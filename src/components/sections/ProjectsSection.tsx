@@ -23,7 +23,7 @@ import ProjectModal from "@/components/ui/ProjectModal";
 import ProjectArtwork from "@/components/ui/ProjectArtwork";
 
 
-type CategoryFilter = "all" | "fullstack" | "backend" | "data_ai";
+type CategoryFilter = "all" | "fullstack" | "backend" | "dados" | "ia";
 
 interface CategoryOption {
   id: CategoryFilter;
@@ -32,58 +32,65 @@ interface CategoryOption {
 }
 
 const CATEGORIES: CategoryOption[] = [
-  { id: "all", label: "Todos os Espécimes", icon: Sparkles },
-  { id: "fullstack", label: "Full-Stack & SaaS", icon: Leaf },
-  { id: "backend", label: "APIs & Microsserviços", icon: Sprout },
-  { id: "data_ai", label: "Dados & IA", icon: Flower2 },
+  { id: "all", label: "Todos", icon: Sparkles },
+  { id: "fullstack", label: "Full Stack", icon: Leaf },
+  { id: "backend", label: "Back-end", icon: Sprout },
+  { id: "dados", label: "Dados", icon: Database },
+  { id: "ia", label: "IA", icon: Flower2 },
 ];
 
-// Gatilhos de curiosidade botânica: O néctar de arquitetura que atrai o beija-flor em cada projeto
+// Gatilhos de curiosidade técnica por projeto
 const CURIOSITY_HOOKS: Record<
   string,
   { question: string; metricTag: string; secretTeaser: string; stampText: string }
 > = {
   onvagas: {
-    question: "Como cruzar centenas de requisitos de vagas e perfis em menos de 45ms sem latência?",
-    metricTag: "Resposta < 45ms & -70% tempo",
-    secretTeaser: "Validação cruzada Zod compartilhada e índices btree no PostgreSQL.",
-    stampText: "LATÊNCIA & ESCALA",
+    question: "Como organizar candidaturas sem transformar o processo em mais uma tarefa manual?",
+    metricTag: "Matching estruturado & < 45ms",
+    secretTeaser: "Lógica auditável antes de IA generativa com Zod e PostgreSQL.",
+    stampText: "FULL STACK • SAAS",
   },
   vendefacil: {
-    question: "Como blindar o inventário contra compras simultâneas concorrentes sem travar o banco?",
-    metricTag: "0 divergências sob 100 req/s",
-    secretTeaser: "Clean Architecture com transações atômicas de bloqueio pessimista calibrado.",
-    stampText: "CONCORRÊNCIA ATÔMICA",
+    question: "Como fazer uma IA responder com base em evidências, e não apenas em probabilidade?",
+    metricTag: "5.714 chunks & 95 testes",
+    secretTeaser: "Recuperação híbrida FAISS + BM25, fusão por RRF e guardrails.",
+    stampText: "IA GENERATIVA • RAG",
   },
   "controle-planos": {
-    question: "O que acontece quando o gateway de pagamento falha no meio de 10.000 cobranças recorrentes?",
-    metricTag: "100% resiliência via RabbitMQ",
-    secretTeaser: "Mensageria desacoplada com filas de retry e Dead-Letter Exchange (DLX).",
-    stampText: "MICROSSERVIÇOS RESILIENTES",
+    question: "Sistemas desacoplados para responsabilidades que precisam evoluir separadamente.",
+    metricTag: "Comunicação por RabbitMQ",
+    secretTeaser: "Desacoplamento assíncrono com Redis, PostgreSQL e Docker Compose.",
+    stampText: "BACK-END • ARQUITETURA",
   },
   "a11y-io": {
-    question: "Como traduzir 50+ critérios da WCAG 2.2 em cenários BDD prontos para testes antes do primeiro código?",
-    metricTag: "Testes BDD em minutos",
-    secretTeaser: "Motor de inferência de acessibilidade digital com Clean Architecture pura.",
-    stampText: "ENGENHARIA DE ACESSIBILIDADE",
+    question: "E se acessibilidade entrasse no requisito antes de chegar à interface?",
+    metricTag: "Critérios WCAG 2.2 & BDD",
+    secretTeaser: "Clean Architecture para tratar acessibilidade como requisito de qualidade.",
+    stampText: "ACESSIBILIDADE • ENGENHARIA",
   },
   "roadmap-planner": {
-    question: "Como diagnosticar defasagens técnicas de um desenvolvedor e traçar a rota exata em 3 segundos?",
-    metricTag: "Scoring ponderado",
-    secretTeaser: "Algoritmo de scoring multicritério com arquitetura em 3 camadas modulares.",
-    stampText: "ALGORITMO DE RECOMENDAÇÃO",
-  },
-  "capacitacao-ia": {
-    question: "Como um agente autônomo de IA aprende a tomar decisões explorando um lab na USP?",
-    metricTag: "Q-Learning + NLP + Visão",
-    secretTeaser: "Convergência matemática de funções de recompensa e processamento multimodal.",
-    stampText: "INTELIGÊNCIA ARTIFICIAL USP",
+    question: "Estudar mais não significa necessariamente estudar o que falta.",
+    metricTag: "Diagnóstico por regras claras",
+    secretTeaser: "Motor de recomendação determinístico e validação compartilhada com Zod.",
+    stampText: "FULL STACK • REGRAS",
   },
   "residencia-dados": {
-    question: "Como transformar bases de dados caóticas e dispersas em decisões corporativas estratégicas na PUC-Rio?",
-    metricTag: "Pipelines ETL + Star Schema",
-    secretTeaser: "Storytelling com dados limpos via Pandas e dashboards no Looker Studio.",
-    stampText: "DATA WAREHOUSE PUC-RIO",
+    question: "Uma análise confiável começa antes do dashboard.",
+    metricTag: "Python + Pandas + SQL",
+    secretTeaser: "Pipelines de ETL de higienização prévia para tomadas de decisão seguras.",
+    stampText: "DADOS • ETL",
+  },
+  "capacitacao-ia": {
+    question: "Antes de trabalhar com IA generativa, eu quis entender outras formas de aprendizado de máquina.",
+    metricTag: "360h de imersão técnica",
+    secretTeaser: "Experimentos práticos em Classificação, Regressão, Visão e Reinforcement Learning.",
+    stampText: "MACHINE LEARNING • IA",
+  },
+  vemari: {
+    question: "Tecnologia precisa conversar com a operação real da empresa.",
+    metricTag: "Operação & DNS corporativo",
+    secretTeaser: "Conectando sistemas, processos e comunicação à rotina real de negócio.",
+    stampText: "WEB • NEGÓCIO",
   },
 };
 
@@ -229,18 +236,30 @@ export default function ProjectsSection() {
   };
 
   return (
-    <section id="projetos" className="w-full py-4 md:py-6 px-3 sm:px-6 md:px-8 max-w-7xl mx-auto scroll-mt-20 overflow-hidden">
-      {/* Cabeçalho Editorial */}
-      <div className="text-center max-w-2xl mx-auto mb-4 md:mb-6 relative z-20">
-        <h2 className="font-serif font-light text-2xl sm:text-3xl lg:text-4xl text-[#1C1A18] tracking-tight inline-block bg-[#F7F6F2] px-6 py-1 rounded-full">
-          Projetos em{" "}
-          <span
-            className="text-3xl sm:text-4xl lg:text-5xl text-[#9E6761] select-none inline-block ml-1"
-            style={{ fontFamily: "'Great Vibes', cursive" }}
-          >
-            Produção
+    <section id="projetos" className="w-full py-8 sm:py-12 md:py-16 px-3 sm:px-6 md:px-8 max-w-7xl mx-auto scroll-mt-20 overflow-hidden">
+      {/* Cabeçalho Editorial (EPIC 07) */}
+      <div className="text-center max-w-3xl mx-auto mb-6 md:mb-8 relative z-20">
+        <div className="inline-flex items-center gap-2 mb-2 px-3 py-1 rounded-full bg-white border border-[#465B20]/30 shadow-2xs">
+          <span className="text-[#465B20] text-xs">✦</span>
+          <span className="font-mono text-[10px] sm:text-xs uppercase tracking-[0.22em] text-[#2A3614] font-bold">
+            PROJETOS & ESTUDOS DE CASO
           </span>
+          <span className="text-[#9E6761] text-xs">✦</span>
+        </div>
+
+        <h2
+          className="font-serif font-black text-2xl sm:text-3xl lg:text-4xl text-[#1C1A18] tracking-tight leading-tight"
+          style={{ textWrap: "balance" }}
+        >
+          O código mostra o que foi construído. O estudo de caso mostra como cheguei até lá.
         </h2>
+
+        <p className="font-sans text-xs sm:text-sm md:text-base text-[#383531] mt-3 max-w-2xl mx-auto leading-relaxed">
+          Aqui você encontra problemas diferentes que exigiram decisões diferentes. Cada projeto apresenta{" "}
+          <strong className="text-[#1C1A18] font-semibold">
+            contexto, desafio, implicações e solução
+          </strong>, além das tecnologias utilizadas.
+        </p>
       </div>
 
       {/* Seletor de Categorias com Scroll Suave no Mobile */}
@@ -282,37 +301,35 @@ export default function ProjectsSection() {
         </div>
       </div>
 
-      {/* Controles Florais de Navegação no Topo do Trilho */}
+      {/* Controles de Navegação no Topo do Trilho */}
       <div className="flex items-center justify-between gap-2 mb-2 px-2">
-        {/* Botão de Controle da Brisa Contínua */}
+        {/* Botão de Controle do Movimento */}
         <button
           type="button"
           onClick={() => setIsPausedManual((prev) => !prev)}
           className="px-3.5 py-2 min-h-[38px] rounded-full border border-[#465B20]/35 bg-[#FAF8F5] hover:bg-[#465B20] hover:text-[#F7F6F2] text-[#2A3614] text-xs font-sans font-semibold flex items-center gap-1.5 transition-all cursor-pointer shadow-xs active:scale-95"
+          aria-label={isPausedManual ? "Retomar movimento" : "Pausar movimento"}
         >
           {isPausedManual ? (
             <>
               <Play className="w-3.5 h-3.5 ml-0.5" />
-              <span>Retomar Brisa</span>
+              <span>Retomar movimento</span>
             </>
           ) : (
             <>
               <Pause className="w-3.5 h-3.5" />
-              <span>Pausar Brisa</span>
+              <span>Pausar movimento</span>
             </>
           )}
         </button>
 
-        {/* Setas de Transição Imediata (Próximo / Anterior) */}
+        {/* Setas de Transição (Anterior / Próximo) */}
         <div className="flex items-center gap-2">
-          <span className="text-[11px] font-mono text-[#2A3614] font-semibold hidden sm:inline">
-            Transição rápida:
-          </span>
           <button
             type="button"
             onClick={handlePrev}
             className="w-10 h-10 rounded-full border border-[#465B20]/35 bg-[#FAF8F5] hover:bg-[#465B20] hover:text-[#F7F6F2] text-[#1C1A18] flex items-center justify-center transition-all cursor-pointer shadow-xs active:scale-95"
-            aria-label="Transicionar prancha anterior"
+            aria-label="Projeto anterior"
           >
             <ChevronLeft className="w-4 h-4" />
           </button>
@@ -320,7 +337,7 @@ export default function ProjectsSection() {
             type="button"
             onClick={handleNext}
             className="w-10 h-10 rounded-full border border-[#465B20]/35 bg-[#FAF8F5] hover:bg-[#465B20] hover:text-[#F7F6F2] text-[#1C1A18] flex items-center justify-center transition-all cursor-pointer shadow-xs active:scale-95"
-            aria-label="Transicionar próxima prancha"
+            aria-label="Próximo projeto"
           >
             <ChevronRight className="w-4 h-4" />
           </button>
@@ -446,7 +463,7 @@ export default function ProjectsSection() {
                       className="flex-1 py-2.5 px-3 min-h-[44px] rounded-full bg-[#465B20] hover:bg-[#344516] text-[#F7F6F2] font-sans font-semibold text-xs tracking-wider flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-xs active:scale-98"
                     >
                       <BookOpen className="w-3.5 h-3.5" />
-                      <span>Ver Estudo de Caso</span>
+                      <span>Ver estudo de caso</span>
                     </button>
 
                     {project.githubUrl && project.githubUrl !== "#" && (
@@ -456,7 +473,8 @@ export default function ProjectsSection() {
                         rel="noreferrer"
                         onClick={(e) => e.stopPropagation()}
                         className="w-11 h-11 min-w-[44px] min-h-[44px] rounded-full border border-[#465B20]/30 bg-white hover:bg-[#1C1A18] hover:text-[#F7F6F2] text-[#1C1A18] transition-all cursor-pointer shadow-2xs flex items-center justify-center active:scale-95"
-                        title="Repositório GitHub"
+                        title="Ver código"
+                        aria-label={`Ver código do projeto ${project.title} no GitHub`}
                       >
                         <Github className="w-3.5 h-3.5" />
                       </a>
@@ -469,7 +487,8 @@ export default function ProjectsSection() {
                         rel="noreferrer"
                         onClick={(e) => e.stopPropagation()}
                         className="w-11 h-11 min-w-[44px] min-h-[44px] rounded-full border border-[#465B20]/30 bg-white hover:bg-[#465B20] hover:text-[#F7F6F2] text-[#465B20] transition-all cursor-pointer shadow-2xs flex items-center justify-center active:scale-95"
-                        title="Acessar Aplicação"
+                        title="Abrir aplicação"
+                        aria-label={`Abrir demonstração do projeto ${project.title}`}
                       >
                         <ExternalLink className="w-3.5 h-3.5" />
                       </a>
@@ -481,6 +500,25 @@ export default function ProjectsSection() {
           })}
         </div>
       </div>
+
+      {/* Empty State (EPIC 39) */}
+      {filteredProjects.length === 0 && (
+        <div className="text-center py-12 px-6 rounded-3xl bg-white border border-[#465B20]/25 my-6 max-w-md mx-auto shadow-xs">
+          <h3 className="font-serif font-bold text-lg text-[#1C1A18] mb-2">
+            Nenhum projeto nesta categoria ainda.
+          </h3>
+          <p className="font-sans text-xs sm:text-sm text-[#383531] mb-5 leading-relaxed">
+            Você pode explorar as outras áreas do portfólio.
+          </p>
+          <button
+            type="button"
+            onClick={() => handleCategoryChange("all")}
+            className="px-5 py-2.5 rounded-full bg-[#465B20] hover:bg-[#2A3614] text-[#F7F6F2] text-xs font-sans font-semibold uppercase tracking-wider cursor-pointer transition-colors shadow-xs"
+          >
+            Ver todos os projetos
+          </button>
+        </div>
+      )}
 
       {/* Modal de Estudo de Caso (Deep Dive) */}
       <ProjectModal

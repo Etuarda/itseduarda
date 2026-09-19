@@ -51,8 +51,8 @@ export default function SplashIntro() {
             >
               <div className="flex items-center gap-2 mb-2 px-3 py-1 rounded-full bg-white border border-[#465B20]/30 shadow-xs">
                 <span className="text-[#465B20] text-xs">✦</span>
-                <span className="font-serif-display text-[10px] sm:text-[11px] uppercase tracking-[0.28em] text-[#2A3614] font-bold">
-                  Editorial Portfolio & Guia Beija-Flor
+                <span className="font-serif-display text-[10px] sm:text-[11px] uppercase tracking-[0.22em] text-[#2A3614] font-bold">
+                  Portfólio de Desenvolvimento & IA
                 </span>
                 <span className="text-[#9E6761] text-xs">✦</span>
               </div>
@@ -60,17 +60,17 @@ export default function SplashIntro() {
               <h1 className="font-serif font-black text-3xl sm:text-5xl text-[#1C1A18] tracking-tight">
                 Eduarda Silva Santos
               </h1>
-              <p className="font-handwriting text-xl text-[#465B20] mt-1 font-semibold">
-                Full-Stack, Dados & Inteligência Artificial
+              <p className="font-mono text-xs sm:text-sm text-[#465B20] mt-2 font-bold tracking-wider uppercase">
+                Full Stack • Back-end • Dados • IA Aplicada
               </p>
 
-              <span className="font-sans text-[10px] text-[#383531] uppercase tracking-[0.22em] font-semibold mt-4 bg-white px-3.5 py-1 rounded-full border border-[#465B20]/25 shadow-xs">
-                PUCRS • USP/FDTE • PUC-Rio
+              <span className="font-sans text-[11px] text-[#4E4A45] mt-4 font-medium italic">
+                Preparando o portfólio...
               </span>
             </motion.div>
 
             {/* Sóbria Linha de Carregamento */}
-            <div className="w-36 h-1 bg-[#DCD8CA] rounded-full mx-auto mt-6 overflow-hidden relative">
+            <div className="w-36 h-1 bg-[#DCD8CA] rounded-full mx-auto mt-3 overflow-hidden relative">
               <motion.div
                 id="splash-loading-bar"
                 className="absolute top-0 bottom-0 left-0 bg-[#465B20]"

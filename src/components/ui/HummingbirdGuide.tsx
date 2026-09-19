@@ -34,8 +34,14 @@ function HummingbirdSvg({
   return (
     <div
       className="relative w-11 sm:w-14 md:w-16 h-11 sm:h-14 md:h-16 pointer-events-auto cursor-pointer group"
-      onClick={onClick}
-      title="Clique para eu alternar para a próxima borda da narrativa!"
+      onClick={() => {
+        if (bubbleDismissed && onReopenBubble) {
+          onReopenBubble();
+        } else if (onClick) {
+          onClick();
+        }
+      }}
+      title={bubbleDismissed ? "Ver dica" : "Seguir para a próxima seção"}
       style={{
         transform: `scaleX(${facingInward})`,
         transition: "transform 0.3s ease-out",
@@ -497,8 +503,8 @@ export default function HummingbirdGuide({
                         type="button"
                         onClick={() => setIsMuted(!isMuted)}
                         className="p-1 rounded-md text-[#383531] hover:text-[#1C1A18] hover:bg-[#E5E2D8] transition-colors cursor-pointer"
-                        title={isMuted ? "Ativar dicas" : "Silenciar dicas"}
-                        aria-label={isMuted ? "Ativar som e dicas" : "Silenciar dicas"}
+                        title={isMuted ? "Mostrar dicas" : "Ocultar dicas"}
+                        aria-label={isMuted ? "Mostrar dicas" : "Ocultar dicas"}
                       >
                         {isMuted ? (
                           <VolumeX className="w-3 h-3 text-[#9E6761]" />
@@ -510,8 +516,8 @@ export default function HummingbirdGuide({
                         type="button"
                         onClick={() => setBubbleDismissed(true)}
                         className="p-1 rounded-md text-[#383531] hover:text-[#1C1A18] hover:bg-[#E5E2D8] transition-colors cursor-pointer"
-                        title="Fechar dica"
-                        aria-label="Fechar dica"
+                        title="Fechar"
+                        aria-label="Fechar"
                       >
                         <X className="w-3 h-3" />
                       </button>
@@ -526,14 +532,14 @@ export default function HummingbirdGuide({
                     “{currentThought.text}”
                   </p>
 
-                  {/* Ação de avançar percurso editorial */}
+                  {/* Ação de avançar percurso editorial (EPIC 29) */}
                   <button
                     type="button"
                     onClick={handleNextSectionPerch}
                     className="w-full flex items-center justify-between pt-1.5 border-t border-[#465B20]/20 text-[10px] font-sans font-bold text-[#465B20] hover:text-[#2A3614] cursor-pointer"
                   >
                     <span className="flex items-center gap-1">
-                      <Compass className="w-3 h-3" /> Continuar percurso editorial
+                      <Compass className="w-3 h-3" /> Seguir para a próxima seção
                     </span>
                     <span className="font-mono text-[9px] text-[#4E4A45] font-semibold">
                       {effectiveSection} ({isLeftSide ? "E" : "D"}) ↗

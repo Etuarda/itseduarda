@@ -251,17 +251,29 @@ export default function ExperienceSection() {
       {/* Âncora de compatibilidade para experiencia e trajetória */}
       <div id="experiencia" className="absolute -top-20" />
 
-      {/* Cabeçalho Editorial */}
-      <div className="text-center max-w-2xl mx-auto mb-4 md:mb-6 relative z-20">
-        <h2 className="font-serif font-light text-2xl sm:text-3xl lg:text-4xl text-[#1C1A18] tracking-tight inline-block bg-[#F7F6F2] px-6 py-1 rounded-full">
-          Trajetória &{" "}
-          <span
-            className="text-3xl sm:text-4xl lg:text-5xl text-[#9E6761] select-none inline-block ml-1"
-            style={{ fontFamily: "'Great Vibes', cursive" }}
-          >
-            Formação
+      {/* Cabeçalho Editorial (EPIC 18) */}
+      <div className="text-center max-w-3xl mx-auto mb-6 sm:mb-8 relative z-20">
+        <div className="inline-flex items-center gap-2 mb-2 px-3 py-1 rounded-full bg-white border border-[#465B20]/30 shadow-2xs">
+          <span className="text-[#465B20] text-xs">✦</span>
+          <span className="font-mono text-[10px] sm:text-xs uppercase tracking-[0.22em] text-[#2A3614] font-bold">
+            MINHA TRAJETÓRIA
           </span>
+          <span className="text-[#9E6761] text-xs">✦</span>
+        </div>
+
+        <h2
+          className="font-serif font-black text-2xl sm:text-4xl lg:text-5xl text-[#1C1A18] tracking-tight leading-tight mt-1"
+          style={{ textWrap: "balance" }}
+        >
+          Minha formação técnica foi construída em camadas.
         </h2>
+
+        <p
+          className="font-sans text-xs sm:text-sm md:text-base text-[#383531] mt-3 leading-relaxed max-w-2xl mx-auto"
+          style={{ textWrap: "balance" }}
+        >
+          Cada etapa foi pensada para conectar lógica de programação, arquitetura de sistemas, dados e inteligência artificial.
+        </p>
       </div>
 
       {/* Barra de Controles: Abas de Categoria + Alternador de Ordem */}

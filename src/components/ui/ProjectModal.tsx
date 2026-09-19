@@ -1,6 +1,20 @@
 import { useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { X, ExternalLink, Github, CheckCircle2, Layers, Cpu, BarChart3, AlertCircle } from "lucide-react";
+import {
+  X,
+  ExternalLink,
+  Github,
+  CheckCircle2,
+  Layers,
+  Cpu,
+  BarChart3,
+  AlertCircle,
+  HelpCircle,
+  Lightbulb,
+  BookOpen,
+  Info,
+  Mail,
+} from "lucide-react";
 import type { Project } from "@/types/portfolio";
 import ProjectArtwork from "@/components/ui/ProjectArtwork";
 
@@ -31,6 +45,18 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
   if (!project) return null;
 
   const caseStudy = project.caseStudy;
+  const hasDemo = Boolean(project.demoUrl && project.demoUrl !== "#");
+  const hasGithub = Boolean(project.githubUrl && project.githubUrl !== "#");
+
+  const handleContactNavigate = () => {
+    onClose();
+    setTimeout(() => {
+      const contactEl = document.getElementById("contato");
+      if (contactEl) {
+        contactEl.scrollIntoView({ behavior: "smooth" });
+      }
+    }, 150);
+  };
 
   return (
     <AnimatePresence>
@@ -47,7 +73,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
             aria-hidden="true"
           />
 
-          {/* Modal Card com Animação de Escala 95 -> 100 */}
+          {/* Modal Card com Animação Editorial */}
           <motion.div
             role="dialog"
             aria-modal="true"
@@ -58,15 +84,15 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
             transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
             className="relative w-full max-w-4xl max-h-[92dvh] sm:max-h-[90dvh] bg-[#F7F6F2] border-t sm:border border-[#465B20]/35 rounded-t-3xl sm:rounded-3xl shadow-[0_25px_60px_-15px_rgba(28,26,24,0.35)] flex flex-col overflow-hidden z-10"
           >
-            {/* Top Bar Editorial */}
+            {/* Top Bar Editorial (EPIC 26) */}
             <div className="flex items-center justify-between px-4 sm:px-6 py-3 sm:py-4 border-b border-[#465B20]/20 bg-[#FAF8F5] shrink-0">
               <div className="flex items-center gap-2 sm:gap-2.5">
                 <span className="font-handwriting text-lg sm:text-xl text-[#465B20] font-bold">
-                  Dossiê Arquitetural
+                  Estudo de caso
                 </span>
                 <span className="text-[#4E4A45] text-xs">✦</span>
                 <span className="text-[9px] sm:text-[10px] uppercase tracking-[0.18em] text-[#383531] font-bold font-sans">
-                  Estudo de Caso Técnico
+                  {project.categoryLabel || project.category.toUpperCase()}
                 </span>
               </div>
 
@@ -74,7 +100,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                 type="button"
                 onClick={onClose}
                 className="w-10 h-10 min-w-[40px] min-h-[40px] rounded-full border border-[#465B20]/30 text-[#383531] hover:text-[#1C1A18] hover:border-[#465B20]/60 flex items-center justify-center transition-all cursor-pointer active:scale-95 shadow-2xs"
-                aria-label="Fechar modal"
+                aria-label="Fechar"
               >
                 <X className="w-4 h-4" />
               </button>
@@ -86,7 +112,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
               <div className="flex flex-col gap-2">
                 <div className="flex flex-wrap items-center gap-2">
                   <span className="text-[10px] font-sans font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-[#465B20]/15 text-[#2A3614] border border-[#465B20]/25">
-                    {project.category.toUpperCase()}
+                    {project.categoryLabel || project.category.toUpperCase()}
                   </span>
                   <div className="flex flex-wrap gap-1.5">
                     {project.tags.map((tag) => (
@@ -107,18 +133,23 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                 >
                   {project.title}
                 </h3>
-                {project.subtitle && (
+                {project.headline && (
+                  <p className="font-sans text-xs sm:text-sm text-[#465B20] font-semibold mt-1">
+                    {project.headline}
+                  </p>
+                )}
+                {project.subtitle && !project.headline && (
                   <p className="font-sans italic text-xs sm:text-sm text-[#465B20] font-semibold mt-1">
                     {project.subtitle}
                   </p>
                 )}
-                <p className="font-sans text-xs sm:text-sm text-[#383531] leading-relaxed mt-1.5 font-normal">
+                <p className="font-sans text-xs sm:text-sm text-[#383531] leading-relaxed mt-1 font-normal">
                   {project.longDescription}
                 </p>
               </div>
 
               {/* Preview Visual com Cores, Formas e Desenhos Representativos (Sem Imagens Fotográficas) */}
-              <div className="relative w-full h-56 sm:h-72 rounded-2xl overflow-hidden border border-[#465B20]/25 shadow-xs bg-[#FAF8F5]">
+              <div className="relative w-full h-52 sm:h-64 rounded-2xl overflow-hidden border border-[#465B20]/25 shadow-xs bg-[#FAF8F5]">
                 <ProjectArtwork projectId={project.id} category={project.category} variant="modal" />
                 <div className="absolute bottom-3 left-4 right-4 flex justify-between items-center text-[#2A3614] text-xs font-sans px-3 py-1.5 rounded-full bg-white/90 backdrop-blur-md border border-[#465B20]/20 shadow-2xs">
                   <span className="font-handwriting text-lg text-[#465B20]">
@@ -130,119 +161,231 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                 </div>
               </div>
 
-              {/* Deep Dive: Contexto, Desafio, Solução */}
+              {/* Deep Dive: Estrutura SPIN (EPIC 26) */}
               {caseStudy && (
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {/* Contexto & Motivação */}
-                  <div className="botanical-card p-5 rounded-2xl flex flex-col gap-2">
-                    <div className="flex items-center gap-2 text-[#465B20]">
-                      <Layers className="w-4 h-4 text-[#465B20]" />
-                      <h4 className="font-serif font-bold text-base text-[#1C1A18]">
-                        01. Contexto & Motivação
-                      </h4>
+                <div className="flex flex-col gap-4">
+                  {/* Grid 1: Situação & Problema */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {/* 01. Situação */}
+                    <div className="botanical-card p-5 rounded-2xl flex flex-col gap-2">
+                      <div className="flex items-center gap-2 text-[#465B20]">
+                        <Layers className="w-4 h-4 text-[#465B20]" />
+                        <h4 className="font-serif font-bold text-sm sm:text-base text-[#1C1A18]">
+                          Situação
+                        </h4>
+                      </div>
+                      <p className="font-sans text-xs sm:text-sm text-[#383531] leading-relaxed font-normal">
+                        {caseStudy.situation || caseStudy.context}
+                      </p>
                     </div>
-                    <p className="font-sans text-xs text-[#383531] leading-relaxed font-normal">
-                      {caseStudy.context}
-                    </p>
+
+                    {/* 02. Problema */}
+                    <div className="botanical-card p-5 rounded-2xl flex flex-col gap-2">
+                      <div className="flex items-center gap-2 text-[#465B20]">
+                        <AlertCircle className="w-4 h-4 text-[#465B20]" />
+                        <h4 className="font-serif font-bold text-sm sm:text-base text-[#1C1A18]">
+                          Problema
+                        </h4>
+                      </div>
+                      <p className="font-sans text-xs sm:text-sm text-[#383531] leading-relaxed font-normal">
+                        {caseStudy.problem}
+                      </p>
+                    </div>
                   </div>
 
-                  {/* O Desafio de Engenharia */}
-                  <div className="botanical-card p-5 rounded-2xl flex flex-col gap-2">
-                    <div className="flex items-center gap-2 text-[#465B20]">
-                      <AlertCircle className="w-4 h-4 text-[#465B20]" />
-                      <h4 className="font-serif font-bold text-base text-[#1C1A18]">
-                        02. O Desafio Técnico
-                      </h4>
+                  {/* Grid 2: Implicação & Solução */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {/* 03. Implicação */}
+                    {caseStudy.implication && (
+                      <div className="botanical-card p-5 rounded-2xl flex flex-col gap-2 bg-[#F9F7F2]">
+                        <div className="flex items-center gap-2 text-[#465B20]">
+                          <HelpCircle className="w-4 h-4 text-[#465B20]" />
+                          <h4 className="font-serif font-bold text-sm sm:text-base text-[#1C1A18]">
+                            Implicação
+                          </h4>
+                        </div>
+                        <p className="font-sans text-xs sm:text-sm text-[#383531] leading-relaxed font-normal">
+                          {caseStudy.implication}
+                        </p>
+                      </div>
+                    )}
+
+                    {/* 04. Solução */}
+                    <div className={`botanical-card p-5 rounded-2xl flex flex-col gap-2 ${caseStudy.implication ? "" : "md:col-span-2"}`}>
+                      <div className="flex items-center gap-2 text-[#465B20]">
+                        <Cpu className="w-4 h-4 text-[#465B20]" />
+                        <h4 className="font-serif font-bold text-sm sm:text-base text-[#1C1A18]">
+                          Solução
+                        </h4>
+                      </div>
+                      <p className="font-sans text-xs sm:text-sm text-[#383531] leading-relaxed font-normal">
+                        {caseStudy.solution}
+                      </p>
                     </div>
-                    <p className="font-sans text-xs text-[#383531] leading-relaxed font-normal">
-                      {caseStudy.problem}
-                    </p>
                   </div>
 
-                  {/* Solução Implementada */}
-                  <div className="botanical-card p-5 rounded-2xl flex flex-col gap-2 md:col-span-2">
-                    <div className="flex items-center gap-2 text-[#465B20]">
-                      <Cpu className="w-4 h-4 text-[#465B20]" />
-                      <h4 className="font-serif font-bold text-base text-[#1C1A18]">
-                        03. Solução Arquitetural
+                  {/* 05. Decisões de Arquitetura */}
+                  <div className="botanical-card p-5 sm:p-6 rounded-2xl flex flex-col gap-3">
+                    <div className="flex items-center justify-between border-b border-[#465B20]/20 pb-2">
+                      <h4 className="font-serif font-bold text-sm sm:text-base text-[#1C1A18] flex items-center gap-2">
+                        <Layers className="w-4 h-4 text-[#465B20]" />
+                        Decisões de Arquitetura
                       </h4>
+                      <span className="font-handwriting text-base text-[#465B20] font-semibold">
+                        Clean Code & Robustez
+                      </span>
                     </div>
-                    <p className="font-sans text-xs text-[#383531] leading-relaxed font-normal">
-                      {caseStudy.solution}
-                    </p>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                      {(caseStudy.architecture || project.features).map((item, idx) => (
+                        <div
+                          key={idx}
+                          className="flex items-start gap-2 text-xs font-sans text-[#1C1A18] p-2.5 rounded-lg bg-white border border-[#465B20]/20 shadow-2xs"
+                        >
+                          <CheckCircle2 className="w-3.5 h-3.5 text-[#465B20] shrink-0 mt-0.5" />
+                          <span className="font-normal">{item}</span>
+                        </div>
+                      ))}
+                    </div>
                   </div>
+
+                  {/* 06. Decisão Técnica Destacada (se houver) */}
+                  {caseStudy.technicalDecision && (
+                    <div className="p-4 sm:p-5 rounded-2xl bg-[#465B20]/10 border border-[#465B20]/30 flex flex-col gap-2">
+                      <div className="flex items-center gap-2 text-[#2A3614]">
+                        <Lightbulb className="w-4 h-4 text-[#465B20]" />
+                        <span className="font-serif font-bold text-xs sm:text-sm uppercase tracking-wider text-[#2A3614]">
+                          Decisão Técnica
+                        </span>
+                      </div>
+                      <p className="font-sans text-xs sm:text-sm text-[#1C1A18] font-medium leading-relaxed">
+                        {caseStudy.technicalDecision}
+                      </p>
+                    </div>
+                  )}
+
+                  {/* 07. Evidências / Resultados */}
+                  {(caseStudy.evidence || caseStudy.metrics) && (
+                    <div className="p-4 sm:p-5 rounded-2xl bg-white border border-[#465B20]/25 shadow-2xs flex flex-col sm:flex-row items-start sm:items-center gap-3">
+                      <div className="w-9 h-9 rounded-xl bg-[#465B20]/15 flex items-center justify-center shrink-0 text-[#465B20]">
+                        <BarChart3 className="w-5 h-5" />
+                      </div>
+                      <div>
+                        <span className="font-serif font-bold text-xs sm:text-sm text-[#2A3614] block">
+                          Evidências & Resultados
+                        </span>
+                        <p className="font-sans text-xs sm:text-sm text-[#383531] font-semibold mt-0.5">
+                          {caseStudy.evidence || caseStudy.metrics}
+                        </p>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* 08. Aprendizado */}
+                  {caseStudy.learning && (
+                    <div className="botanical-card p-4 sm:p-5 rounded-2xl flex flex-col gap-2 border-l-4 border-l-[#465B20]">
+                      <div className="flex items-center gap-2 text-[#465B20]">
+                        <BookOpen className="w-4 h-4 text-[#465B20]" />
+                        <h4 className="font-serif font-bold text-xs sm:text-sm uppercase tracking-wider text-[#1C1A18]">
+                          Aprendizado
+                        </h4>
+                      </div>
+                      <p className="font-sans text-xs sm:text-sm text-[#383531] leading-relaxed font-normal italic">
+                        "{caseStudy.learning}"
+                      </p>
+                    </div>
+                  )}
                 </div>
               )}
 
-              {/* Decisões de Arquitetura & Código */}
-              <div className="botanical-card p-5 sm:p-6 rounded-2xl flex flex-col gap-3">
-                <div className="flex items-center justify-between border-b border-[#465B20]/20 pb-2">
-                  <h4 className="font-serif font-bold text-base text-[#1C1A18] flex items-center gap-2">
-                    <Layers className="w-4 h-4 text-[#465B20]" />
-                    Decisões Chave de Arquitetura
-                  </h4>
-                  <span className="font-handwriting text-base text-[#465B20] font-semibold">
-                    Clean Code & Robustez
-                  </span>
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                  {(caseStudy?.architecture || project.features).map((item, idx) => (
-                    <div
-                      key={idx}
-                      className="flex items-start gap-2 text-xs font-sans text-[#1C1A18] p-2.5 rounded-lg bg-white border border-[#465B20]/20 shadow-2xs"
-                    >
-                      <CheckCircle2 className="w-3.5 h-3.5 text-[#465B20] shrink-0 mt-0.5" />
-                      <span className="font-normal">{item}</span>
+              {/* Avisos de Estado Vazio para Demo / Repositório (EPIC 27 & 28) */}
+              {(!hasDemo || !hasGithub) && (
+                <div className="flex flex-col gap-3 pt-2">
+                  {!hasDemo && (
+                    <div className="p-3.5 sm:p-4 rounded-xl bg-[#F0EFEA] border border-[#465B20]/20 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+                      <div className="flex items-start gap-2.5">
+                        <Info className="w-4 h-4 text-[#465B20] shrink-0 mt-0.5" />
+                        <p className="font-sans text-xs text-[#383531] leading-relaxed">
+                          Aplicação em ambiente de testes ou restrita a ambiente corporativo. Solicite uma demonstração.
+                        </p>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={handleContactNavigate}
+                        className="text-xs font-sans font-bold text-[#465B20] hover:text-[#2A3614] underline underline-offset-2 shrink-0 cursor-pointer"
+                      >
+                        Solicitar demonstração →
+                      </button>
                     </div>
-                  ))}
-                </div>
-              </div>
+                  )}
 
-              {/* Métricas de Impacto */}
-              {caseStudy?.metrics && (
-                <div className="p-4 rounded-xl bg-[#465B20]/15 border border-[#465B20]/30 flex items-center gap-3">
-                  <BarChart3 className="w-5 h-5 text-[#465B20] shrink-0" />
-                  <div>
-                    <span className="font-serif font-bold text-xs text-[#2A3614] block">
-                      Resultado & Eficiência Aferida:
-                    </span>
-                    <p className="font-sans text-xs text-[#383531] font-semibold">
-                      {caseStudy.metrics}
-                    </p>
-                  </div>
+                  {!hasGithub && (
+                    <div className="p-3.5 sm:p-4 rounded-xl bg-[#F0EFEA] border border-[#465B20]/20 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+                      <div className="flex items-start gap-2.5">
+                        <Info className="w-4 h-4 text-[#465B20] shrink-0 mt-0.5" />
+                        <p className="font-sans text-xs text-[#383531] leading-relaxed">
+                          Repositório com código proprietário ou sob confidencialidade. Entre em contato para ver trechos de código ou arquitetura.
+                        </p>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={handleContactNavigate}
+                        className="text-xs font-sans font-bold text-[#465B20] hover:text-[#2A3614] underline underline-offset-2 shrink-0 cursor-pointer"
+                      >
+                        Conversar sobre este projeto →
+                      </button>
+                    </div>
+                  )}
                 </div>
               )}
             </div>
 
-            {/* Rodapé de Ações com Links Diretos */}
+            {/* Rodapé de Ações com Links Diretos (EPIC 26) */}
             <div className="px-4 sm:px-6 py-3.5 sm:py-4 pb-[calc(1.2rem+env(safe-area-inset-bottom))] sm:pb-4 border-t border-[#465B20]/20 bg-[#FAF8F5] flex flex-col sm:flex-row items-center justify-between gap-3 shrink-0">
               <span className="font-sans text-[11px] text-[#4E4A45] font-medium text-center sm:text-left">
                 Código-fonte e arquitetura desenvolvidos por Eduarda Silva Santos
               </span>
 
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-2.5 w-full sm:w-auto">
-                {project.githubUrl && project.githubUrl !== "#" && (
+                {hasGithub && (
                   <a
                     href={project.githubUrl}
                     target="_blank"
                     rel="noreferrer"
                     className="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 min-h-[44px] rounded-full border border-[#465B20]/35 bg-white text-[#1C1A18] hover:bg-[#1C1A18] hover:text-[#F7F6F2] transition-all text-xs font-sans font-semibold cursor-pointer shadow-xs active:scale-98"
                   >
-                    <Github className="w-3.5 h-3.5" /> Ver no GitHub
+                    <Github className="w-3.5 h-3.5" /> Ver código no GitHub
                   </a>
                 )}
 
-                {project.demoUrl && project.demoUrl !== "#" && (
+                {hasDemo && (
                   <a
                     href={project.demoUrl}
                     target="_blank"
                     rel="noreferrer"
                     className="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 min-h-[44px] rounded-full bg-[#465B20] text-[#F7F6F2] hover:bg-[#2A3614] transition-all text-xs font-sans font-semibold cursor-pointer shadow-xs active:scale-98"
                   >
-                    <ExternalLink className="w-3.5 h-3.5" /> Acessar Aplicação
+                    <ExternalLink className="w-3.5 h-3.5" /> Acessar aplicação
                   </a>
                 )}
+
+                {!hasDemo && !hasGithub && (
+                  <button
+                    type="button"
+                    onClick={handleContactNavigate}
+                    className="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 min-h-[44px] rounded-full bg-[#465B20] text-[#F7F6F2] hover:bg-[#2A3614] transition-all text-xs font-sans font-semibold cursor-pointer shadow-xs active:scale-98"
+                  >
+                    <Mail className="w-3.5 h-3.5" /> Conversar sobre este projeto
+                  </button>
+                )}
+
+                <button
+                  type="button"
+                  onClick={onClose}
+                  className="inline-flex items-center justify-center px-4 py-2.5 min-h-[44px] rounded-full border border-[#465B20]/30 text-[#383531] hover:text-[#1C1A18] hover:border-[#465B20]/60 transition-all text-xs font-sans font-medium cursor-pointer"
+                >
+                  Fechar
+                </button>
               </div>
             </div>
           </motion.div>
@@ -251,4 +394,3 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
     </AnimatePresence>
   );
 }
-

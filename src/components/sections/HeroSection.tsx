@@ -1,4 +1,4 @@
-import { ArrowDown, ArrowRight, Download, Sparkles, Layers, Cpu, Database, BrainCircuit } from "lucide-react";
+import { ArrowDown, ArrowRight, Download, Layers, Cpu, Database, BrainCircuit } from "lucide-react";
 import eduardaPhoto from "@/components/assets/Eduardadev.png";
 import rendaHero from "@/components/assets/renda.png";
 
@@ -10,34 +10,36 @@ export default function HeroSection() {
       id="hero"
       className="w-full min-h-[100svh] h-auto relative bg-[#FAF8F5] texture-paper flex flex-col justify-between overflow-x-clip px-3.5 sm:px-8 md:px-12 lg:px-16 pt-16 sm:pt-20 lg:pt-22 pb-4 sm:pb-5 scroll-mt-0"
     >
-      {/* 2. O Grande Masthead Editorial (Nome em Destaque na Capa) */}
+      {/* 1. O Grande Masthead Editorial (Nome em Destaque na Capa) */}
       <div className="w-full pt-1 sm:pt-3 pb-2.5 sm:pb-4 text-center border-b border-[#465B20]/15 select-none">
+        <div className="flex flex-wrap items-center justify-center gap-1.5 sm:gap-2.5 mb-1.5 sm:mb-2 text-[9px] sm:text-xs md:text-sm font-mono font-bold tracking-[0.16em] sm:tracking-[0.25em] text-[#465B20] uppercase">
+          <span>FULL STACK</span>
+          <span className="text-[#9E6761]">✦</span>
+          <span>BACK-END</span>
+          <span className="text-[#9E6761]">✦</span>
+          <span>DADOS</span>
+          <span className="text-[#9E6761]">✦</span>
+          <span>IA APLICADA</span>
+        </div>
+
         <h1
           className="font-serif font-black text-[clamp(1.65rem,6.8vw,4.5rem)] lg:text-7xl xl:text-8xl tracking-tight sm:tracking-[0.05em] lg:tracking-[0.08em] text-[#1C1A18] uppercase leading-none break-words"
           style={{ textWrap: "balance" }}
         >
           Eduarda Silva Santos
         </h1>
-
-        <div className="flex flex-wrap items-center justify-center gap-1.5 sm:gap-3 mt-1.5 sm:mt-2.5 text-[9px] sm:text-xs md:text-sm font-mono font-bold tracking-[0.14em] sm:tracking-[0.25em] text-[#465B20] uppercase">
-          <span>Dev Full-Stack</span>
-          <span className="text-[#9E6761]">✦</span>
-          <span>Engenharia de Dados</span>
-          <span className="text-[#9E6761]">✦</span>
-          <span>Inteligência Artificial</span>
-        </div>
       </div>
 
-      {/* 3. Corpo Principal da Capa: Composição com Foto em Moldura de Renda (Primeiro no Mobile) e Destaques */}
+      {/* 2. Corpo Principal da Capa: Composição com Foto em Moldura de Renda e Bloco Textual */}
       <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 lg:gap-10 items-center flex-1 my-auto py-2 sm:py-4">
-        {/* Bloco da Foto da Capa com Moldura de Renda: ORDEM 1 NO MOBILE (Aparece antes do texto), ORDEM 2 NO DESKTOP */}
+        {/* Bloco da Foto da Capa com Moldura de Renda: ORDEM 1 NO MOBILE, ORDEM 2 NO DESKTOP */}
         <div className="order-1 lg:order-2 lg:col-span-5 relative flex flex-col justify-center items-center w-full my-1 sm:my-0">
           <div className="relative w-full max-w-[min(84vw,320px)] sm:max-w-[360px] lg:max-w-[420px] aspect-[1122/1402] flex items-center justify-center group select-none">
             {/* Foto de Eduarda ajustada na área interna da renda */}
             <div className="absolute inset-[10%] sm:inset-[10.5%] rounded-2xl sm:rounded-3xl overflow-hidden bg-[#FAF8F5] flex items-center justify-center shadow-inner">
               <img
                 src={eduardaPhoto}
-                alt="Eduarda Silva Santos — Desenvolvedora Full Stack e Especialista em IA"
+                alt="Eduarda Silva Santos, desenvolvedora Full Stack com foco em Back-end, Dados e IA Aplicada"
                 className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
               />
             </div>
@@ -51,7 +53,7 @@ export default function HeroSection() {
             />
           </div>
 
-          {/* Assinatura Editorial e Selos na Base da Foto (Sem cobrir a foto e sem extrapolar viewport) */}
+          {/* Assinatura Editorial e Selos na Base da Foto */}
           <div className="w-full max-w-[min(84vw,320px)] sm:max-w-[360px] lg:max-w-[420px] mt-2 sm:mt-2.5 px-1 flex flex-wrap items-center justify-between gap-x-2 gap-y-1 text-xs select-none">
             <span
               className="text-2xl sm:text-3xl text-[#465B20] leading-none"
@@ -69,92 +71,123 @@ export default function HeroSection() {
           </div>
         </div>
 
-        {/* Bloco Textual: ORDEM 2 NO MOBILE (Depois da Foto), ORDEM 1 NO DESKTOP (À Esquerda) */}
+        {/* Bloco Textual: ORDEM 2 NO MOBILE, ORDEM 1 NO DESKTOP */}
         <div className="order-2 lg:order-1 lg:col-span-7 flex flex-col justify-center gap-3 sm:gap-4">
-          {/* Manchete Principal de Capa */}
+          {/* Headline Principal de Capa (EPIC 03) */}
           <div className="flex flex-col">
-            <div className="flex flex-wrap items-baseline gap-x-2 sm:gap-x-3 gap-y-1 mb-1">
-              <span className="font-serif font-light text-[clamp(1.15rem,4vw,2.25rem)] text-[#1C1A18] tracking-tight leading-snug">
-                Desenvolvedora web usando
-              </span>
-              <span
-                className="text-[clamp(1.6rem,5.8vw,3rem)] text-[#9E6761] leading-none select-none drop-shadow-xs inline-block"
-                style={{ fontFamily: "'Great Vibes', cursive" }}
-              >
-                dados e ia generativa aplicada.
-              </span>
-            </div>
-
             <h2
-              className="font-serif font-bold text-sm sm:text-lg lg:text-xl text-[#1C1A18] tracking-tight leading-snug"
+              className="font-serif font-black text-[clamp(1.35rem,4.2vw,2.5rem)] text-[#1C1A18] tracking-tight leading-tight"
               style={{ textWrap: "balance" }}
             >
-              Soluções que impactam{" "}
-              <span className="italic font-light text-[#465B20]">
-               pessoas.
-              </span>
+              Software bem construído começa com um problema bem entendido.
             </h2>
           </div>
 
-          {/* A SEÇÃO SOBRE (Lead Story / Manifesto da Engenheira) */}
-          <div id="sobre" className="w-full scroll-mt-28">
-            <div className="p-3.5 sm:p-4 rounded-2xl bg-white border border-[#465B20]/20 shadow-2xs">
-              <div className="flex items-center gap-2 mb-1.5 pb-1 border-b border-[#465B20]/15">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#465B20]" />
-                <span className="text-[9px] sm:text-[10px] font-mono uppercase tracking-[0.2em] text-[#465B20] font-bold">
-                  // EDITORIAL • SOBRE A ENGENHEIRA
-                </span>
-              </div>
-              <p className="font-sans text-xs sm:text-sm md:text-base text-[#1C1A18] font-normal leading-relaxed">
-                Construo arquiteturas de software resilientes, conectando ecossistemas{" "}
-                <strong>Node.js, TypeScript e React</strong> a pipelines analíticos de dados e
-                orquestração de inteligência artificial generativa com RAG. Engenharia com rigor
-                técnico, acessibilidade digital (WCAG 2.2) e foco intransigente na experiência do
-                usuário final.
-              </p>
+          {/* Descrição Profissional Editorial */}
+          <div className="p-4 sm:p-5 rounded-2xl bg-white border border-[#465B20]/20 shadow-2xs">
+            <p className="font-sans text-xs sm:text-sm md:text-base text-[#1C1A18] font-normal leading-relaxed mb-3">
+              Sou desenvolvedora Full Stack com foco em Back-end, Dados e IA Aplicada.
+            </p>
+            <p className="font-sans text-xs sm:text-sm md:text-base text-[#383531] font-normal leading-relaxed">
+              Transformo necessidades de produto e operação em{" "}
+              <strong className="text-[#1C1A18] font-semibold">
+                interfaces claras, APIs bem estruturadas, dados organizados e soluções com IA fundamentadas em contexto.
+              </strong>
+            </p>
+
+            {/* Linha Técnica em Destaque */}
+            <div className="mt-3.5 pt-3 border-t border-[#465B20]/15 flex flex-wrap items-center gap-1.5 sm:gap-2 text-[10px] sm:text-xs font-mono font-semibold text-[#2A3614]">
+              <span className="px-2 py-0.5 rounded-md bg-[#465B20]/10 border border-[#465B20]/25">React</span>
+              <span>•</span>
+              <span className="px-2 py-0.5 rounded-md bg-[#465B20]/10 border border-[#465B20]/25">TypeScript</span>
+              <span>•</span>
+              <span className="px-2 py-0.5 rounded-md bg-[#465B20]/10 border border-[#465B20]/25">Node.js</span>
+              <span>•</span>
+              <span className="px-2 py-0.5 rounded-md bg-[#465B20]/10 border border-[#465B20]/25">PostgreSQL</span>
+              <span>•</span>
+              <span className="px-2 py-0.5 rounded-md bg-[#465B20]/10 border border-[#465B20]/25">Python</span>
+              <span>•</span>
+              <span className="px-2 py-0.5 rounded-md bg-[#465B20]/10 border border-[#465B20]/25">RAG</span>
             </div>
           </div>
 
-          {/* Destaques da Edição (4 Eixos de Competência na Capa) */}
+          {/* Destaques da Capa: 4 Cards (EPIC 03) */}
           <div>
-            <span className="font-mono text-[9px] sm:text-[10px] uppercase tracking-[0.2em] text-[#4E4A45] font-bold block mb-1.5">
-              ✦ ARTIGOS & COMPETÊNCIAS CENTRAIS //
-            </span>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-2.5 w-full">
-              <div className="p-2.5 rounded-xl bg-white border border-[#465B20]/20 shadow-2xs flex flex-col gap-0.5">
-                <div className="flex items-center gap-1.5 text-[#465B20]">
-                  <Layers className="w-3.5 h-3.5" />
-                  <span className="text-[9px] font-mono font-bold tracking-wider uppercase">01. FRONT</span>
+              {/* Card 01 - Full Stack */}
+              <div className="p-3 rounded-xl bg-white border border-[#465B20]/20 shadow-2xs flex flex-col justify-between gap-1">
+                <div>
+                  <div className="flex items-center gap-1.5 text-[#465B20] mb-0.5">
+                    <Layers className="w-3.5 h-3.5" />
+                    <span className="text-[9px] font-mono font-bold tracking-wider uppercase">01</span>
+                  </div>
+                  <span className="font-serif font-bold text-xs sm:text-sm text-[#1C1A18] block leading-tight">
+                    Full Stack
+                  </span>
+                  <p className="font-sans text-[10px] text-[#4E4A45] leading-snug mt-0.5">
+                    Da interface à regra de negócio.
+                  </p>
                 </div>
-                <span className="font-serif font-bold text-xs sm:text-sm text-[#1C1A18]">Full-Stack</span>
-                <span className="font-sans text-[10px] text-[#4E4A45]">React & TS</span>
+                <span className="font-mono text-[9px] text-[#465B20] font-bold tracking-tight">
+                  React + TypeScript
+                </span>
               </div>
 
-              <div className="p-2.5 rounded-xl bg-white border border-[#465B20]/20 shadow-2xs flex flex-col gap-0.5">
-                <div className="flex items-center gap-1.5 text-[#465B20]">
-                  <Cpu className="w-3.5 h-3.5" />
-                  <span className="text-[9px] font-mono font-bold tracking-wider uppercase">02. BACK</span>
+              {/* Card 02 - Back-end */}
+              <div className="p-3 rounded-xl bg-white border border-[#465B20]/20 shadow-2xs flex flex-col justify-between gap-1">
+                <div>
+                  <div className="flex items-center gap-1.5 text-[#465B20] mb-0.5">
+                    <Cpu className="w-3.5 h-3.5" />
+                    <span className="text-[9px] font-mono font-bold tracking-wider uppercase">02</span>
+                  </div>
+                  <span className="font-serif font-bold text-xs sm:text-sm text-[#1C1A18] block leading-tight">
+                    Back-end
+                  </span>
+                  <p className="font-sans text-[10px] text-[#4E4A45] leading-snug mt-0.5">
+                    APIs preparadas para evoluir.
+                  </p>
                 </div>
-                <span className="font-serif font-bold text-xs sm:text-sm text-[#1C1A18]">Arquitetura</span>
-                <span className="font-sans text-[10px] text-[#4E4A45]">Node & APIs</span>
+                <span className="font-mono text-[9px] text-[#465B20] font-bold tracking-tight">
+                  Node.js + PostgreSQL
+                </span>
               </div>
 
-              <div className="p-2.5 rounded-xl bg-white border border-[#465B20]/20 shadow-2xs flex flex-col gap-0.5">
-                <div className="flex items-center gap-1.5 text-[#465B20]">
-                  <Database className="w-3.5 h-3.5" />
-                  <span className="text-[9px] font-mono font-bold tracking-wider uppercase">03. DADOS</span>
+              {/* Card 03 - Dados */}
+              <div className="p-3 rounded-xl bg-white border border-[#465B20]/20 shadow-2xs flex flex-col justify-between gap-1">
+                <div>
+                  <div className="flex items-center gap-1.5 text-[#465B20] mb-0.5">
+                    <Database className="w-3.5 h-3.5" />
+                    <span className="text-[9px] font-mono font-bold tracking-wider uppercase">03</span>
+                  </div>
+                  <span className="font-serif font-bold text-xs sm:text-sm text-[#1C1A18] block leading-tight">
+                    Dados
+                  </span>
+                  <p className="font-sans text-[10px] text-[#4E4A45] leading-snug mt-0.5">
+                    Informação organizada para decisões.
+                  </p>
                 </div>
-                <span className="font-serif font-bold text-xs sm:text-sm text-[#1C1A18]">Dados & ETL</span>
-                <span className="font-sans text-[10px] text-[#4E4A45]">Postgres & Python</span>
+                <span className="font-mono text-[9px] text-[#465B20] font-bold tracking-tight">
+                  Python + SQL
+                </span>
               </div>
 
-              <div className="p-2.5 rounded-xl bg-white border border-[#465B20]/20 shadow-2xs flex flex-col gap-0.5">
-                <div className="flex items-center gap-1.5 text-[#465B20]">
-                  <BrainCircuit className="w-3.5 h-3.5" />
-                  <span className="text-[9px] font-mono font-bold tracking-wider uppercase">04. IA</span>
+              {/* Card 04 - IA Aplicada */}
+              <div className="p-3 rounded-xl bg-white border border-[#465B20]/20 shadow-2xs flex flex-col justify-between gap-1">
+                <div>
+                  <div className="flex items-center gap-1.5 text-[#465B20] mb-0.5">
+                    <BrainCircuit className="w-3.5 h-3.5" />
+                    <span className="text-[9px] font-mono font-bold tracking-wider uppercase">04</span>
+                  </div>
+                  <span className="font-serif font-bold text-xs sm:text-sm text-[#1C1A18] block leading-tight">
+                    IA Aplicada
+                  </span>
+                  <p className="font-sans text-[10px] text-[#4E4A45] leading-snug mt-0.5">
+                    Contexto, recuperação e controle.
+                  </p>
                 </div>
-                <span className="font-serif font-bold text-xs sm:text-sm text-[#1C1A18]">IA & RAG</span>
-                <span className="font-sans text-[10px] text-[#4E4A45]">FDTE / USP</span>
+                <span className="font-mono text-[9px] text-[#465B20] font-bold tracking-tight">
+                  RAG + Recuperação
+                </span>
               </div>
             </div>
           </div>
@@ -165,14 +198,14 @@ export default function HeroSection() {
               href="#projetos"
               className="w-full sm:w-auto px-5 sm:px-6 py-2.5 sm:py-3 min-h-[44px] rounded-full bg-[#465B20] hover:bg-[#2A3614] text-[#F7F6F2] font-sans font-semibold text-xs uppercase tracking-[0.12em] sm:tracking-[0.14em] transition-all flex items-center justify-center gap-2 shadow-xs cursor-pointer active:scale-98"
             >
-              Explorar Projetos <ArrowRight className="w-3.5 h-3.5" />
+              Conhecer meus projetos <ArrowRight className="w-3.5 h-3.5" />
             </a>
 
             <a
-              href="#stacks"
+              href="#metodo"
               className="w-full sm:w-auto px-4 sm:px-5 py-2.5 sm:py-3 min-h-[44px] rounded-full border border-[#465B20]/40 bg-white hover:bg-[#FAF8F5] text-[#1C1A18] font-sans font-semibold text-xs uppercase tracking-[0.10em] sm:tracking-[0.12em] transition-all flex items-center justify-center gap-2 cursor-pointer shadow-xs active:scale-98"
             >
-              Stacks & Arquitetura
+              Ver como eu trabalho
             </a>
 
             <a
@@ -181,17 +214,17 @@ export default function HeroSection() {
               target="_blank"
               rel="noreferrer"
               className="w-full sm:w-auto px-4 py-2.5 sm:py-3 min-h-[44px] rounded-full border border-[#465B20]/35 text-[#383531] hover:text-[#1C1A18] hover:border-[#465B20]/60 bg-white hover:bg-[#FAF8F5] transition-all flex items-center justify-center gap-1.5 text-xs font-sans font-medium cursor-pointer shadow-xs active:scale-98"
-              title="Baixar Currículo em PDF"
+              title="Baixar currículo em PDF"
             >
-              <Download className="w-3.5 h-3.5 text-[#465B20]" /> Baixar CV
+              <Download className="w-3.5 h-3.5 text-[#465B20]" /> Baixar currículo
             </a>
           </div>
         </div>
       </div>
 
-      {/* 4. Rodapé da Capa Editorial (Código de Barras & Indicador de Leitura) */}
+      {/* 3. Rodapé da Capa Editorial (EPIC 03: PORTFÓLIO • EDIÇÃO 2026) */}
       <div className="w-full pt-2.5 sm:pt-3 border-t border-[#465B20]/20 flex flex-wrap items-center justify-between gap-4 text-xs font-sans text-[#4E4A45] select-none">
-        {/* Barcode Simulado de Publicação Editorial */}
+        {/* Barcode Simulado & Edição */}
         <div className="flex items-center gap-2.5">
           <div className="flex items-end gap-[2px] h-5 px-1.5 py-0.5 bg-white border border-[#465B20]/20 rounded shadow-2xs">
             {[3, 6, 2, 8, 4, 7, 3, 5, 8, 2, 6, 4, 7, 3, 8, 5].map((h, i) => (
@@ -203,17 +236,17 @@ export default function HeroSection() {
             ))}
           </div>
           <span className="font-mono text-[10px] text-[#383531] font-bold tracking-widest uppercase">
-            ISSUE 01 // 2026-FULLSTACK-AI
+            PORTFÓLIO • EDIÇÃO 2026
           </span>
         </div>
 
-        {/* Indicador de Continuação */}
+        {/* Link de Continuação */}
         <a
-          href="#stacks"
+          href="#sobre"
           className="inline-flex items-center gap-1.5 text-xs font-sans text-[#383531] hover:text-[#465B20] font-semibold transition-colors group cursor-pointer"
-          aria-label="Continuar leitura do dossiê"
+          aria-label="Ir para seção Sobre"
         >
-          <span className="uppercase tracking-widest text-[10px]">Continuar Lendo o Dossiê</span>
+          <span className="uppercase tracking-widest text-[10px]">Continuar explorando</span>
           <ArrowDown className="w-3.5 h-3.5 text-[#465B20] group-hover:translate-y-0.5 transition-transform" />
         </a>
       </div>

@@ -56,8 +56,19 @@ export default function Header() {
               <span className="font-mono text-[10px] uppercase font-bold tracking-wider">Menu</span>
             </button>
 
-            {/* Espaçador esquerdo invisível no desktop */}
-            <div className="hidden md:block w-8" />
+            {/* Logo Editorial no Desktop / Início */}
+            <a
+              href="#hero"
+              className="hidden md:flex items-center gap-2 group text-[#1C1A18] hover:text-[#465B20] transition-colors"
+              aria-label="Ir para o início"
+            >
+              <span className="w-7 h-7 rounded-full bg-[#465B20]/15 border border-[#465B20]/30 flex items-center justify-center font-serif font-black text-sm text-[#465B20] group-hover:bg-[#465B20] group-hover:text-[#F7F6F2] transition-all">
+                E
+              </span>
+              <span className="font-serif font-bold text-sm tracking-wide">
+                Eduarda
+              </span>
+            </a>
 
             {/* Navigation Links Desktop */}
             <nav className="hidden md:flex items-center gap-6" aria-label="Navegação principal">
@@ -75,6 +86,7 @@ export default function Header() {
                           ? "text-[#465B20] font-bold"
                           : "text-[#383531] hover:text-[#1C1A18] font-semibold"
                       }`}
+                      aria-label={`Ir para seção ${item.label}`}
                     >
                       {item.label}
                       {isActive && (
@@ -85,12 +97,12 @@ export default function Header() {
                 })}
             </nav>
 
-            {/* Único Botão de Ação de Contato */}
+            {/* Botão de Ação: Falar Comigo */}
             <a
               href="#contato"
-              className="px-3.5 sm:px-4 py-2 min-h-[40px] rounded-full bg-[#465B20] hover:bg-[#2A3614] text-[#F7F6F2] font-sans font-semibold text-xs uppercase tracking-[0.12em] sm:tracking-[0.14em] transition-all flex items-center gap-1.5 shadow-xs cursor-pointer active:scale-95"
+              className="px-4 py-2 min-h-[40px] rounded-full bg-[#465B20] hover:bg-[#2A3614] text-[#F7F6F2] font-sans font-semibold text-xs uppercase tracking-[0.12em] sm:tracking-[0.14em] transition-all flex items-center gap-1.5 shadow-xs cursor-pointer active:scale-95"
             >
-              <span>Contato</span>
+              <span>Falar comigo</span>
               <ArrowUpRight className="w-3.5 h-3.5" />
             </a>
           </div>
