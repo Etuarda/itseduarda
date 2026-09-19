@@ -5,10 +5,6 @@ import frontenderImg from "@/components/assets/frontender.png";
 import backendImg from "@/components/assets/backend.png";
 import dadosImg from "@/components/assets/dados.png";
 import iaImg from "@/components/assets/ia.png";
-import renda1 from "@/components/assets/renda.png";
-import renda2 from "@/components/assets/renda2.png";
-import renda3 from "@/components/assets/renda3.png";
-import renda4 from "@/components/assets/renda4.png";
 
 type StackPillar = {
   id: string;
@@ -17,8 +13,6 @@ type StackPillar = {
   fullTitle: string;
   tagline: string;
   image: string;
-  frame: string;
-  isOval?: boolean;
   tools: string[];
   concepts: string[];
   description: string;
@@ -33,8 +27,6 @@ const stackPillars: StackPillar[] = [
     fullTitle: "Front-End & UI/UX Design",
     tagline: "“Interfaces acessíveis, reativas e com estética editorial”",
     image: frontenderImg,
-    frame: renda1,
-    isOval: false,
     tools: ["React 19", "Next.js", "TypeScript", "Tailwind CSS", "Zod", "Framer Motion"],
     concepts: ["Design Systems", "Acessibilidade WCAG 2.2", "Componentização Modular", "Clean UI"],
     description:
@@ -48,8 +40,6 @@ const stackPillars: StackPillar[] = [
     fullTitle: "Back-End & Microsserviços",
     tagline: "“Sistemas distribuídos resilientes e fluxos assíncronos”",
     image: backendImg,
-    frame: renda2,
-    isOval: false,
     tools: ["Node.js", "Express", "TypeScript", "PostgreSQL", "Docker", "RabbitMQ", "Redis"],
     concepts: ["Clean Architecture", "Mensageria Assíncrona", "Autenticação JWT", "Prisma ORM"],
     description:
@@ -63,8 +53,6 @@ const stackPillars: StackPillar[] = [
     fullTitle: "Engenharia & Ciência de Dados",
     tagline: "“Saneamento, pipelines de ETL e decisões inteligentes”",
     image: dadosImg,
-    frame: renda3,
-    isOval: false,
     tools: ["Python", "Pandas", "PostgreSQL", "Looker Studio", "Jupyter", "ETL Pipelines"],
     concepts: ["Tratamento de Dados", "Storytelling com Dados", "Modelagem Star Schema", "Dashboards"],
     description:
@@ -78,8 +66,6 @@ const stackPillars: StackPillar[] = [
     fullTitle: "Inteligência Artificial & Agentes",
     tagline: "“Modelos preditivos, agentes autônomos e busca semântica”",
     image: iaImg,
-    frame: renda4,
-    isOval: true,
     tools: ["Python", "Scikit-Learn", "OpenCV", "LangChain/RAG", "IBM SkillsBuild", "Colab"],
     concepts: ["RAG (Busca Semântica)", "Agentes Autônomos", "Classificação Supervisionada", "PLN & Visão"],
     description:
@@ -193,32 +179,13 @@ export default function SpecialtiesCarousel() {
                   {/* Linha de feixe de luz de scanner animada */}
                   <div className="scanner-beam" />
 
-                  {/* Foto da Especialidade com Moldura de Renda Botânica */}
-                  <div className="w-full lg:w-[42%] h-auto max-h-[50svh] lg:max-h-none lg:h-full shrink-0 relative flex items-center justify-center p-3 sm:p-4 lg:p-4">
-                    <div className="relative aspect-[1122/1402] w-auto h-full max-h-[44svh] lg:max-h-[480px] max-w-full flex items-center justify-center group/frame select-none">
-                      {/* Imagem interna sob a renda */}
-                      <div
-                        className={`absolute ${
-                          pillar.isOval
-                            ? "inset-[11%] rounded-full"
-                            : "inset-[9%] sm:inset-[10%] rounded-2xl sm:rounded-3xl"
-                        } overflow-hidden bg-[#FAF8F5] flex items-center justify-center shadow-inner`}
-                      >
-                        <img
-                          src={pillar.image}
-                          alt={pillar.fullTitle}
-                          className="w-full h-full object-cover object-center group-hover/frame:scale-105 transition-transform duration-700 ease-out"
-                        />
-                      </div>
-
-                      {/* Moldura de Renda sobreposta com transparência central */}
-                      <img
-                        src={pillar.frame}
-                        alt=""
-                        aria-hidden="true"
-                        className="absolute inset-0 w-full h-full object-contain pointer-events-none drop-shadow-[0_10px_25px_rgba(43,41,39,0.20)] z-10"
-                      />
-                    </div>
+                  {/* Foto da Especialidade: Imagem 100% Completa, Sem Cortes, Object-Contain no Mobile */}
+                  <div className="w-full lg:w-[42%] h-auto max-h-[55svh] lg:max-h-none lg:h-full shrink-0 relative overflow-hidden bg-[#FAF8F5] flex items-center justify-center p-2 sm:p-3 lg:p-0">
+                    <img
+                      src={pillar.image}
+                      alt={pillar.fullTitle}
+                      className="w-full h-auto max-h-[55svh] lg:h-full lg:max-h-none object-contain lg:object-cover object-center group-hover:scale-102 transition-transform duration-700"
+                    />
                   </div>
 
                   {/* Especificações Técnicas e Conceitos (Coluna Direita - Cresce naturalmente no Mobile) */}
