@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion } from "motion/react";
-import { ArrowRight, Layers, Cpu, Database, BrainCircuit, Maximize2 } from "lucide-react";
+import { ArrowRight, Layers, Cpu, Database, BrainCircuit, Maximize2, ChevronLeft, ChevronRight } from "lucide-react";
 import frontenderImg from "@/components/assets/frontender.png";
 import backendImg from "@/components/assets/backend.png";
 import dadosImg from "@/components/assets/dados.png";
@@ -81,6 +81,58 @@ const stackPillars: StackPillar[] = [
 
 export default function SpecialtiesCarousel() {
   const [activePillar, setActivePillar] = useState<number>(0);
+  const [isPaused, setIsPaused] = useState<boolean>(false);
+  const touchStartXRef = useRef<number>(0);
+  const touchEndXRef = useRef<number>(0);
+  const pauseTimerRef = useRef<number | null>(null);
+
+  // Auto-avanço contínuo do carrossel de stacks (a cada 4.8s quando não interagido)
+  useEffect(() => {
+    if (isPaused) return;
+
+    const interval = setInterval(() => {
+      setActivePillar((prev) => (prev + 1) % stackPillars.length);
+    }, 4800);
+
+    return () => clearInterval(interval);
+  }, [isPaused]);
+
+  const pauseTemporarily = (duration = 5000) => {
+    setIsPaused(true);
+    if (pauseTimerRef.current) clearTimeout(pauseTimerRef.current);
+    pauseTimerRef.current = window.setTimeout(() => {
+      setIsPaused(false);
+    }, duration);
+  };
+
+  const goToNext = () => {
+    pauseTemporarily(6000);
+    setActivePillar((prev) => (prev + 1) % stackPillars.length);
+  };
+
+  const goToPrev = () => {
+    pauseTemporarily(6000);
+    setActivePillar((prev) => (prev - 1 + stackPillars.length) % stackPillars.length);
+  };
+
+  // Suporte a swipe de toque no mobile
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartXRef.current = e.touches[0].clientX;
+    pauseTemporarily(6000);
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    touchEndXRef.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = () => {
+    const diff = touchStartXRef.current - touchEndXRef.current;
+    if (diff > 40) {
+      goToNext();
+    } else if (diff < -40) {
+      goToPrev();
+    }
+  };
 
   return (
     <section id="stacks" className="w-full py-8 sm:py-12 md:py-16 px-4 md:px-8 max-w-7xl mx-auto scroll-mt-20 relative">
@@ -110,8 +162,67 @@ export default function SpecialtiesCarousel() {
         </p>
       </div>
 
+      {/* Controles do Carrossel de Stacks (Navegação Rápida & Gestos) */}
+      <div className="flex flex-wrap items-center justify-between gap-3 mb-4 sm:mb-5 max-w-5xl mx-auto px-1">
+        {/* Pills de Seleção Rápida */}
+        <div className="flex items-center gap-1.5 sm:gap-2 overflow-x-auto no-scrollbar py-1">
+          {stackPillars.map((pillar, idx) => {
+            const isActive = activePillar === idx;
+            return (
+              <button
+                key={pillar.id}
+                type="button"
+                onClick={() => {
+                  pauseTemporarily(6000);
+                  setActivePillar(idx);
+                }}
+                className={`px-3 py-1.5 rounded-full text-xs font-sans font-semibold transition-all cursor-pointer flex items-center gap-1.5 ${
+                  isActive
+                    ? "bg-[#465B20] text-[#F7F6F2] shadow-xs"
+                    : "bg-[#FAF8F5] border border-[#465B20]/25 text-[#4E4A45] hover:border-[#465B20]/45 hover:text-[#1C1A18]"
+                }`}
+                aria-label={`Ver especialidade ${pillar.shortTitle}`}
+              >
+                <span className="font-mono text-[10px] font-bold opacity-80">{pillar.number}</span>
+                <span>{pillar.shortTitle}</span>
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Controles de Navegação (Setas Anterior/Próximo e Contador) */}
+        <div className="flex items-center gap-2 ml-auto">
+          <span className="font-mono text-xs font-bold text-[#465B20]">
+            0{activePillar + 1} / 0{stackPillars.length}
+          </span>
+          <button
+            type="button"
+            onClick={goToPrev}
+            className="w-8 h-8 rounded-full border border-[#465B20]/30 bg-[#FAF8F5] hover:bg-[#465B20] hover:text-[#F7F6F2] text-[#1C1A18] flex items-center justify-center transition-all cursor-pointer shadow-2xs active:scale-95"
+            aria-label="Especialidade anterior"
+          >
+            <ChevronLeft className="w-4 h-4" />
+          </button>
+          <button
+            type="button"
+            onClick={goToNext}
+            className="w-8 h-8 rounded-full border border-[#465B20]/30 bg-[#FAF8F5] hover:bg-[#465B20] hover:text-[#F7F6F2] text-[#1C1A18] flex items-center justify-center transition-all cursor-pointer shadow-2xs active:scale-95"
+            aria-label="Próxima especialidade"
+          >
+            <ChevronRight className="w-4 h-4" />
+          </button>
+        </div>
+      </div>
+
       {/* Carrossel em Acordeão */}
-      <div className="flex flex-col md:flex-row gap-3 md:gap-3.5 w-full h-auto md:h-[560px]">
+      <div
+        className="flex flex-col md:flex-row gap-3 md:gap-3.5 w-full h-auto md:h-[560px]"
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
+        onMouseEnter={() => setIsPaused(true)}
+        onMouseLeave={() => setIsPaused(false)}
+      >
         {stackPillars.map((pillar, index) => {
           const isExpanded = activePillar === index;
 
@@ -137,7 +248,10 @@ export default function SpecialtiesCarousel() {
                   aria-expanded={false}
                   aria-controls={`stack-panel-${pillar.id}`}
                   aria-label={`Expandir stack ${pillar.fullTitle}`}
-                  onClick={() => setActivePillar(index)}
+                  onClick={() => {
+                    pauseTemporarily(6000);
+                    setActivePillar(index);
+                  }}
                   className="w-full h-full min-h-[58px] sm:min-h-[62px] flex md:flex-col items-center justify-between p-3.5 sm:p-5 select-none relative overflow-hidden group cursor-pointer text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-[#465B20] active:bg-white/80"
                 >
                   <img

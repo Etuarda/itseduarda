@@ -102,21 +102,12 @@ export default function ProjectsSection() {
   const [isPausedManual, setIsPausedManual] = useState(false);
   const [isHoveredCard, setIsHoveredCard] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
-  const [isTouchDevice, setIsTouchDevice] = useState(false);
 
   // Referência do trilho de rolagem contínua
   const scrollRef = useRef<HTMLDivElement>(null);
   const isMouseDownRef = useRef(false);
   const startXRef = useRef(0);
   const scrollLeftRef = useRef(0);
-
-  // Detecção de toque para otimizar swipe nativo sem interferência da brisa contínua
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const isTouch = "ontouchstart" in window || navigator.maxTouchPoints > 0;
-      setIsTouchDevice(isTouch);
-    }
-  }, []);
 
   // Filtragem dinâmica por categoria
   const filteredProjects = useMemo(() => {
@@ -135,35 +126,46 @@ export default function ProjectsSection() {
   const handleCategoryChange = (catId: CategoryFilter) => {
     if (catId === activeCategory) return;
     setActiveCategory(catId);
-    if (scrollRef.current) {
-      scrollRef.current.scrollLeft = 0;
-    }
   };
+
+  // Posiciona o scroll inicial no centro (Set B de 3) para permitir loop bidirecional sem fim
+  useEffect(() => {
+    const container = scrollRef.current;
+    if (!container) return;
+    const timer = setTimeout(() => {
+      const unitWidth = container.scrollWidth / 3;
+      if (unitWidth > 0) {
+        container.scrollLeft = unitWidth;
+      }
+    }, 60);
+    return () => clearTimeout(timer);
+  }, [activeCategory, filteredProjects]);
 
   // Movimento contínuo suave (60/120fps via requestAnimationFrame)
   useEffect(() => {
     const container = scrollRef.current;
     if (!container) return;
 
-    // Desativa auto-scroll em dispositivos móveis/touch ou quando preferência de movimento reduzido está ativa
+    // Respeita preferência do usuário por movimento reduzido
     const prefersReducedMotion =
       typeof window !== "undefined" &&
       window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-    if (isTouchDevice || prefersReducedMotion) return;
+    if (prefersReducedMotion) return;
 
     let animationFrameId: number;
-    const speed = 0.75; // velocidade contínua orgânica (brisa suave)
+    // Velocidade aumentada e fluida (brisa ágil e viva no desktop e no mobile)
+    const speed = 1.65;
 
     const step = () => {
       const isPaused = isPausedManual || isHoveredCard || isDragging || Boolean(selectedProjectForModal);
       if (!isPaused && container) {
         container.scrollLeft += speed;
 
-        // Loop infinito contínuo sem solavancos
-        const halfWidth = container.scrollWidth / 2;
-        if (container.scrollLeft >= halfWidth) {
-          container.scrollLeft -= halfWidth;
+        // Loop infinito contínuo sem solavancos calibrado para 3 blocos idênticos
+        const unitWidth = container.scrollWidth / 3;
+        if (unitWidth > 0 && container.scrollLeft >= unitWidth * 2) {
+          container.scrollLeft -= unitWidth;
         }
       }
       animationFrameId = requestAnimationFrame(step);
@@ -171,7 +173,7 @@ export default function ProjectsSection() {
 
     animationFrameId = requestAnimationFrame(step);
     return () => cancelAnimationFrame(animationFrameId);
-  }, [isPausedManual, isHoveredCard, isDragging, selectedProjectForModal, isTouchDevice]);
+  }, [isPausedManual, isHoveredCard, isDragging, selectedProjectForModal]);
 
   // Cálculo dinâmico do passo de scroll (largura do card + gap real)
   const getStepWidth = useCallback(() => {
@@ -232,6 +234,35 @@ export default function ProjectsSection() {
     if (isMouseDownRef.current) {
       isMouseDownRef.current = false;
       setIsDragging(false);
+    }
+  };
+
+  // Suporte a toque nativo e pausa inteligente no mobile
+  const touchTimeoutRef = useRef<number | null>(null);
+
+  const handleTouchStart = () => {
+    if (touchTimeoutRef.current) clearTimeout(touchTimeoutRef.current);
+    setIsDragging(true);
+  };
+
+  const handleTouchEnd = () => {
+    if (touchTimeoutRef.current) clearTimeout(touchTimeoutRef.current);
+    touchTimeoutRef.current = window.setTimeout(() => {
+      setIsDragging(false);
+    }, 1400);
+  };
+
+  // Garante loop sem emendas também durante swipe livre ou inércia no mobile
+  const handleScroll = () => {
+    const container = scrollRef.current;
+    if (!container) return;
+    const unitWidth = container.scrollWidth / 3;
+    if (unitWidth <= 0) return;
+
+    if (container.scrollLeft >= unitWidth * 2) {
+      container.scrollLeft -= unitWidth;
+    } else if (container.scrollLeft <= 5) {
+      container.scrollLeft += unitWidth;
     }
   };
 
@@ -347,7 +378,11 @@ export default function ProjectsSection() {
           onMouseMove={handleMouseMove}
           onMouseUp={handleMouseUpOrLeave}
           onMouseLeave={handleMouseUpOrLeave}
-          className="flex gap-4 sm:gap-5 md:gap-6 overflow-x-auto no-scrollbar py-3 px-2 cursor-grab active:cursor-grabbing select-none snap-x snap-mandatory md:snap-none"
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
+          onTouchCancel={handleTouchEnd}
+          onScroll={handleScroll}
+          className="flex gap-4 sm:gap-5 md:gap-6 overflow-x-auto no-scrollbar py-3 px-2 cursor-grab active:cursor-grabbing select-none"
           style={{ WebkitOverflowScrolling: "touch" }}
         >
           {duplicatedProjects.map((project, idx) => {

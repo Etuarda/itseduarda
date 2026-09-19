@@ -19,7 +19,7 @@ function Leaf({
   angle,
   scale = 1,
   flip = false,
-  opacity = 0.55,
+  opacity = 0.32,
 }: {
   x: number;
   y: number;
@@ -84,18 +84,18 @@ export default function ConnectingLineArt() {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
         preserveAspectRatio="none"
-        className="w-full h-full opacity-40 sm:opacity-85 transition-opacity duration-1000"
+        className="w-full h-full opacity-20 sm:opacity-28 transition-opacity duration-1000"
       >
         <defs>
-          {/* Gradiente natural da haste do galho único em Verde Oliva & Floresta */}
+          {/* Gradiente sutil da haste do galho único como gravura botânica delicada */}
           <linearGradient id="single-branch-grad" x1="0" y1="0" x2="0" y2="4200" gradientUnits="userSpaceOnUse">
-            <stop offset="0%" stopColor="#465B20" stopOpacity="0.45" />
-            <stop offset="18%" stopColor="#556B2F" stopOpacity="0.65" />
-            <stop offset="38%" stopColor="#3A4A1C" stopOpacity="0.70" />
-            <stop offset="58%" stopColor="#465B20" stopOpacity="0.65" />
-            <stop offset="78%" stopColor="#556B2F" stopOpacity="0.70" />
-            <stop offset="92%" stopColor="#3A4A1C" stopOpacity="0.65" />
-            <stop offset="100%" stopColor="#465B20" stopOpacity="0.45" />
+            <stop offset="0%" stopColor="#465B20" stopOpacity="0.25" />
+            <stop offset="18%" stopColor="#556B2F" stopOpacity="0.35" />
+            <stop offset="38%" stopColor="#3A4A1C" stopOpacity="0.40" />
+            <stop offset="58%" stopColor="#465B20" stopOpacity="0.35" />
+            <stop offset="78%" stopColor="#556B2F" stopOpacity="0.40" />
+            <stop offset="92%" stopColor="#3A4A1C" stopOpacity="0.35" />
+            <stop offset="100%" stopColor="#465B20" stopOpacity="0.25" />
           </linearGradient>
 
           {/* Filtro sutil para textura orgânica de aquarela botânica */}

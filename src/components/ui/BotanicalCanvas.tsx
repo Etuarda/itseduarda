@@ -40,20 +40,20 @@ export default function BotanicalCanvas() {
     };
     updateCanvasDimensions();
 
-    // Paleta Verde Oliva & Sálvia Botânico-Digital Vibrante e Aparente
+    // Paleta Verde Oliva & Sálvia Botânico-Digital Suave e Eclética (Fundo não-invasivo)
     const oliveColors = [
-      "rgba(85, 107, 47, 0.85)",   // Verde Oliva Base vibrante
-      "rgba(47, 62, 20, 0.90)",    // Oliva Profundo elegante
-      "rgba(70, 95, 45, 0.80)",    // Oliva Floresta
-      "rgba(158, 103, 97, 0.78)",  // Mauve Botânico
+      "rgba(85, 107, 47, 0.28)",   // Verde Oliva Suave
+      "rgba(47, 62, 20, 0.25)",    // Oliva Profundo sutil
+      "rgba(70, 95, 45, 0.26)",    // Oliva Floresta suave
+      "rgba(158, 103, 97, 0.24)",  // Mauve Botânico leve
     ];
 
     const binaryChars = ["0", "1", "01", "10", "101", "010", "11"];
 
     // Gerador de partículas heterogêneas calibrado por dispositivo para alta performance móvel
     const isMobile = width < 640;
-    const maxParticles = isMobile ? 26 : 85;
-    const particleCount = Math.min(Math.floor((width * height) / 14000), maxParticles);
+    const maxParticles = isMobile ? 24 : 70;
+    const particleCount = Math.min(Math.floor((width * height) / 16000), maxParticles);
     const particles: Particle[] = [];
 
     for (let i = 0; i < particleCount; i++) {
@@ -64,7 +64,7 @@ export default function BotanicalCanvas() {
       if (rand < 0.38) {
         type = "neural-node"; // Nós de rede neural
       } else if (rand < 0.62) {
-        type = "binary"; // Dígitos binários flutuantes
+        type = "binary"; // Dígitos binários flutuantes suaves
         char = binaryChars[Math.floor(Math.random() * binaryChars.length)];
       } else if (rand < 0.85) {
         type = "leaf"; // Folhas botânicas ao vento
@@ -72,20 +72,20 @@ export default function BotanicalCanvas() {
         type = "flower"; // Pequenas flores/pétalas
       }
 
-      const r = type === "leaf" ? 3.8 : type === "flower" ? 3.2 : 2.2;
+      const r = type === "leaf" ? 3.5 : type === "flower" ? 3.0 : 2.0;
 
       particles.push({
         x: Math.random() * width,
         y: Math.random() * height,
-        vx: (Math.random() - 0.4) * 0.35 + 0.1, // Deriva suave com o vento para a direita
-        vy: (Math.random() - 0.5) * 0.28,
+        vx: (Math.random() - 0.4) * 0.3 + 0.08, // Deriva suave com o vento para a direita
+        vy: (Math.random() - 0.5) * 0.24,
         radius: r,
         type,
         char,
         angle: Math.random() * Math.PI * 2,
         spin: (Math.random() - 0.5) * 0.02,
         color: oliveColors[Math.floor(Math.random() * oliveColors.length)],
-        alpha: Math.random() * 0.35 + 0.55,
+        alpha: Math.random() * 0.15 + 0.22,
       });
     }
 
@@ -188,18 +188,18 @@ export default function BotanicalCanvas() {
           ctx.fillStyle = p.color;
           ctx.fill();
         } else if (p.type === "binary") {
-          // NÚMERO BINÁRIO (0 ou 1): Monospace verde oliva visível e nítido
-          ctx.font = "bold 11px 'Courier New', monospace";
-          ctx.fillStyle = "rgba(47, 62, 20, 0.75)";
+          // NÚMERO BINÁRIO (0 ou 1): Monospace suave como marca d'água digital
+          ctx.font = "bold 10px 'Courier New', monospace";
+          ctx.fillStyle = "rgba(47, 62, 20, 0.20)";
           ctx.fillText(p.char || "1", -4, 4);
         } else if (p.type === "leaf") {
-          // FOLHA BOTÂNICA: Curva elíptica alongada
+          // FOLHA BOTÂNICA: Curva elíptica alongada suave
           ctx.beginPath();
           ctx.ellipse(0, 0, p.radius * 2.2, p.radius, 0, 0, Math.PI * 2);
-          ctx.fillStyle = "rgba(85, 107, 47, 0.60)";
+          ctx.fillStyle = "rgba(85, 107, 47, 0.22)";
           ctx.fill();
-          ctx.strokeStyle = "rgba(47, 62, 20, 0.85)";
-          ctx.lineWidth = 1.0;
+          ctx.strokeStyle = "rgba(47, 62, 20, 0.28)";
+          ctx.lineWidth = 0.8;
           ctx.stroke();
           // Nervura central da folha
           ctx.beginPath();
@@ -207,8 +207,8 @@ export default function BotanicalCanvas() {
           ctx.lineTo(p.radius * 2, 0);
           ctx.stroke();
         } else if (p.type === "flower") {
-          // FLOR / PÉTALAS: 4 pequenas pétalas simétricas em tom mauve botânico
-          ctx.fillStyle = "rgba(158, 103, 97, 0.65)";
+          // FLOR / PÉTALAS: 4 pequenas pétalas simétricas em tom mauve suave
+          ctx.fillStyle = "rgba(158, 103, 97, 0.24)";
           for (let petal = 0; petal < 4; petal++) {
             ctx.rotate(Math.PI / 2);
             ctx.beginPath();
@@ -217,7 +217,7 @@ export default function BotanicalCanvas() {
           }
           ctx.beginPath();
           ctx.arc(0, 0, 1.4, 0, Math.PI * 2);
-          ctx.fillStyle = "rgba(47, 62, 20, 0.90)";
+          ctx.fillStyle = "rgba(47, 62, 20, 0.30)";
           ctx.fill();
         }
 
@@ -231,7 +231,7 @@ export default function BotanicalCanvas() {
           const dist = Math.sqrt(dx * dx + dy * dy);
 
           if (dist < maxDistance) {
-            const lineOpacity = (1 - dist / maxDistance) * 0.45;
+            const lineOpacity = (1 - dist / maxDistance) * 0.16;
             ctx.beginPath();
             ctx.moveTo(p.x, p.y);
 
@@ -241,7 +241,7 @@ export default function BotanicalCanvas() {
 
             ctx.quadraticCurveTo(midX, midY, p2.x, p2.y);
             ctx.strokeStyle = `rgba(85, 107, 47, ${lineOpacity})`;
-            ctx.lineWidth = 0.95;
+            ctx.lineWidth = 0.8;
             ctx.stroke();
 
             // Pulso de sinapse neural animado viajando ocasionalmente
@@ -251,8 +251,8 @@ export default function BotanicalCanvas() {
               const pulseY = p.y + (p2.y - p.y) * progress;
 
               ctx.beginPath();
-              ctx.arc(pulseX, pulseY, 1.6, 0, Math.PI * 2);
-              ctx.fillStyle = "rgba(85, 107, 47, 0.85)";
+              ctx.arc(pulseX, pulseY, 1.4, 0, Math.PI * 2);
+              ctx.fillStyle = "rgba(85, 107, 47, 0.35)";
               ctx.fill();
             }
           }
@@ -280,7 +280,7 @@ export default function BotanicalCanvas() {
     <canvas
       ref={canvasRef}
       aria-hidden="true"
-      className="fixed inset-0 w-full h-full pointer-events-none z-0 opacity-95"
+      className="fixed inset-0 w-full h-full pointer-events-none z-0 opacity-60"
     />
   );
 }
