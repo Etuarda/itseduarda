@@ -1,5 +1,6 @@
 import { ArrowDown, ArrowRight, Download, Sparkles, Layers, Cpu, Database, BrainCircuit } from "lucide-react";
 import eduardaPhoto from "@/components/assets/Eduardadev.png";
+import rendaHero from "@/components/assets/renda.png";
 
 export default function HeroSection() {
   const resumeUrl = "/Eduarda- Curriculo-Full-Stack(6).pdf";
@@ -9,7 +10,7 @@ export default function HeroSection() {
       id="hero"
       className="w-full min-h-[100svh] h-auto relative bg-[#FAF8F5] texture-paper flex flex-col justify-between overflow-x-clip px-3.5 sm:px-8 md:px-12 lg:px-16 pt-16 sm:pt-20 lg:pt-22 pb-4 sm:pb-5 scroll-mt-0"
     >
-      {/* 2. O Grande Masthead Editorial (Nome em Destaque na Capa Sem Moldura) */}
+      {/* 2. O Grande Masthead Editorial (Nome em Destaque na Capa) */}
       <div className="w-full pt-1 sm:pt-3 pb-2.5 sm:pb-4 text-center border-b border-[#465B20]/15 select-none">
         <h1
           className="font-serif font-black text-[clamp(1.65rem,6.8vw,4.5rem)] lg:text-7xl xl:text-8xl tracking-tight sm:tracking-[0.05em] lg:tracking-[0.08em] text-[#1C1A18] uppercase leading-none break-words"
@@ -27,20 +28,31 @@ export default function HeroSection() {
         </div>
       </div>
 
-      {/* 3. Corpo Principal da Capa: Composição Sem Moldura com Foto (Primeiro no Mobile) e Destaques */}
+      {/* 3. Corpo Principal da Capa: Composição com Foto em Moldura de Renda (Primeiro no Mobile) e Destaques */}
       <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 lg:gap-10 items-center flex-1 my-auto py-2 sm:py-4">
-        {/* Bloco da Foto da Capa: ORDEM 1 NO MOBILE (Aparece antes do texto), ORDEM 2 NO DESKTOP */}
+        {/* Bloco da Foto da Capa com Moldura de Renda: ORDEM 1 NO MOBILE (Aparece antes do texto), ORDEM 2 NO DESKTOP */}
         <div className="order-1 lg:order-2 lg:col-span-5 relative flex flex-col justify-center items-center w-full my-1 sm:my-0">
-          <div className="relative w-full max-w-[min(88vw,340px)] sm:max-w-[400px] lg:max-w-[480px] rounded-2xl sm:rounded-3xl overflow-hidden shadow-xl sm:shadow-2xl group border-0 bg-[#FAF8F5] flex items-center justify-center">
+          <div className="relative w-full max-w-[min(84vw,320px)] sm:max-w-[360px] lg:max-w-[420px] aspect-[1122/1402] flex items-center justify-center group select-none">
+            {/* Foto de Eduarda ajustada na área interna da renda */}
+            <div className="absolute inset-[10%] sm:inset-[10.5%] rounded-2xl sm:rounded-3xl overflow-hidden bg-[#FAF8F5] flex items-center justify-center shadow-inner">
+              <img
+                src={eduardaPhoto}
+                alt="Eduarda Silva Santos — Desenvolvedora Full Stack e Especialista em IA"
+                className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
+              />
+            </div>
+
+            {/* A Moldura de Renda Nobre em Overlay */}
             <img
-              src={eduardaPhoto}
-              alt="Eduarda Silva Santos — Desenvolvedora Full Stack e Especialista em IA"
-              className="w-full h-auto max-h-[42svh] sm:max-h-[50svh] lg:max-h-none object-contain sm:object-cover object-center group-hover:scale-102 transition-transform duration-700 ease-out"
+              src={rendaHero}
+              alt=""
+              aria-hidden="true"
+              className="absolute inset-0 w-full h-full object-contain pointer-events-none drop-shadow-[0_12px_28px_rgba(43,41,39,0.22)] z-10"
             />
           </div>
 
           {/* Assinatura Editorial e Selos na Base da Foto (Sem cobrir a foto e sem extrapolar viewport) */}
-          <div className="w-full max-w-[min(88vw,340px)] sm:max-w-[400px] lg:max-w-[480px] mt-2 sm:mt-2.5 px-1 flex flex-wrap items-center justify-between gap-x-2 gap-y-1 text-xs select-none">
+          <div className="w-full max-w-[min(84vw,320px)] sm:max-w-[360px] lg:max-w-[420px] mt-2 sm:mt-2.5 px-1 flex flex-wrap items-center justify-between gap-x-2 gap-y-1 text-xs select-none">
             <span
               className="text-2xl sm:text-3xl text-[#465B20] leading-none"
               style={{ fontFamily: "'Great Vibes', cursive" }}
