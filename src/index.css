@@ -2,29 +2,38 @@
 
 @theme {
   --font-serif: 'Cormorant Garamond', Georgia, serif;
+  --font-editorial: 'Cormorant Garamond', Georgia, serif;
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-ui: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-script: 'Great Vibes', cursive;
   --font-handwriting: 'Great Vibes', cursive;
 
-  /* Paleta Editorial Romântica Sóbria (Reference 2) */
+  /* Tokens Semânticos Oficiais (EPIC 02 / PB-04) */
+  --color-paper-50: #FAF8F5;
+  --color-paper-100: #F4F1EA;
+  --color-paper-200: #EAE5D9;
+  --color-olive-700: #465B20;
+  --color-olive-900: #1E2713;
+  --color-mauve-500: #9E6761;
+  --color-mauve-600: #7F4E49;
+  --color-rose-vintage: #D9A9A5;
+  --color-lilac-muted: #8E8294;
+  --color-ink-warm: #1C1A18;
+  --color-ink-muted: #4E4A45;
+
+  /* Cores Retrô e Compatíveis */
   --color-mauve: #9E6761;
   --color-mauve-soft: #C6928B;
   --color-rose-antique: #D9A9A5;
   --color-salvia: #5C6E50;
   --color-chocolate: #2E221E;
-
-  /* Estética Sóbria Chique: Alabaste Quente & Verde Oliva */
-  --color-alabaster: #F7F6F2;
-  --color-alabaster-subtle: #EDEAE2;
+  --color-alabaster: #FAF8F5;
+  --color-alabaster-subtle: #F4F1EA;
   --color-alabaster-border: #DCD8CA;
-  
-  /* Grafite Escuro de Alto Contraste para Leitura Nítida */
   --color-graphite: #1C1A18;
   --color-graphite-muted: #383531;
   --color-graphite-faint: #4E4A45;
-
-  /* Verde Oliva Botânico Sóbrio Nítido */
-  --color-olive-deep: #2A3614;
+  --color-olive-deep: #1E2713;
   --color-olive-base: #465B20;
   --color-olive-muted: #556B2F;
   --color-olive-soft: #708450;
@@ -185,123 +194,130 @@
 }
 
 /* ==========================================================================
-   TEXTURAS EDITORIAIS TÁTEIS & ATMOSFERAS (ESTILO SARAH SHUTTLE)
-   Fundo contínuo com alternância de texturas materiais que preservam a
-   visibilidade e interatividade total do canvas botânico e do beija-flor.
+   TEXTURAS EDITORIAIS TÁTEIS & ATMOSFERAS DE ALTO CONTRASTE (ESTILO SARAH SHUTTLE)
+   Cadência alternada entre luz natural, pergaminhos encorpados e noites veludadas.
+   Preserva a visibilidade e interatividade total do canvas botânico e do beija-flor.
    ========================================================================== */
 
-/* 1. Hero: Alabastro Imperial & Linho Fino */
+/* 1. Hero: Alabastro Imperial & Linho Fino (Luz e Ar - Fundo Vivo Visível) */
 .texture-ivory-linen {
-  background-color: rgba(250, 248, 245, 0.88);
+  background-color: rgba(250, 248, 245, 0.42);
   background-image: 
-    radial-gradient(circle at 50% 30%, rgba(85, 107, 47, 0.03) 0%, transparent 70%),
+    radial-gradient(circle at 50% 30%, rgba(85, 107, 47, 0.04) 0%, transparent 70%),
     repeating-linear-gradient(0deg, rgba(28, 26, 24, 0.015) 0px, rgba(28, 26, 24, 0.015) 1px, transparent 1px, transparent 5px),
     repeating-linear-gradient(90deg, rgba(28, 26, 24, 0.012) 0px, rgba(28, 26, 24, 0.012) 1px, transparent 1px, transparent 5px);
   position: relative;
 }
 
-/* 2. Sobre: Pergaminho Quente Táctil */
+/* 2. Sobre: Pergaminho Quente Encorpado & Terracota (Papel Nobre Táctil) */
 .texture-warm-parchment {
-  background-color: rgba(244, 241, 234, 0.90);
+  background-color: rgba(244, 241, 234, 0.48);
   background-image: 
-    radial-gradient(circle at 15% 20%, rgba(158, 103, 97, 0.025) 0%, transparent 60%),
-    radial-gradient(circle at 85% 80%, rgba(85, 107, 47, 0.03) 0%, transparent 65%),
-    repeating-linear-gradient(45deg, rgba(28, 26, 24, 0.012) 0px, rgba(28, 26, 24, 0.012) 1px, transparent 1px, transparent 6px);
+    radial-gradient(circle at 15% 20%, rgba(158, 103, 97, 0.08) 0%, transparent 60%),
+    radial-gradient(circle at 85% 80%, rgba(85, 107, 47, 0.08) 0%, transparent 65%),
+    repeating-linear-gradient(45deg, rgba(43, 38, 30, 0.02) 0px, rgba(43, 38, 30, 0.02) 1px, transparent 1px, transparent 6px);
   position: relative;
 }
 
-/* 3. Stacks: Papel Técnico de Ateliê de Engenharia */
-.texture-atelier-paper {
-  background-color: rgba(247, 245, 238, 0.90);
+/* 3. Stacks: O Grande Ateliê Noturno — Verde Oliva Floresta Veludado (Primeiro Grande Choque Noturno) */
+.texture-dark-atelier {
+  background-color: rgba(26, 36, 17, 0.72);
   background-image: 
-    linear-gradient(to right, rgba(85, 107, 47, 0.04) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(85, 107, 47, 0.04) 1px, transparent 1px),
-    radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.4) 0%, transparent 80%);
-  background-size: 24px 24px, 24px 24px, 100% 100%;
-  position: relative;
-}
-
-/* 4. Projetos: O Grande Contraste de Luxo — Verde Oliva Floresta Veludado */
-.texture-forest-velvet {
-  background-color: rgba(30, 39, 19, 0.95);
-  background-image: 
-    radial-gradient(ellipse at 25% 20%, rgba(70, 91, 32, 0.35) 0%, transparent 60%),
-    radial-gradient(ellipse at 80% 85%, rgba(42, 54, 20, 0.45) 0%, transparent 70%),
-    radial-gradient(circle at 50% 50%, rgba(201, 216, 175, 0.04) 0%, transparent 90%),
-    repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.04) 0px, rgba(0, 0, 0, 0.04) 1px, transparent 1px, transparent 4px);
+    radial-gradient(ellipse at 25% 20%, rgba(70, 91, 32, 0.45) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 85%, rgba(42, 54, 20, 0.55) 0%, transparent 70%),
+    radial-gradient(circle at 50% 50%, rgba(201, 216, 175, 0.06) 0%, transparent 90%),
+    repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.06) 0px, rgba(0, 0, 0, 0.06) 1px, transparent 1px, transparent 4px);
   color: #FAF8F5;
   position: relative;
 }
 
-/* 5. Método: Papel de Estúdio Editorial Puro */
-.texture-studio-pure {
-  background-color: rgba(253, 252, 249, 0.90);
+/* 4. Projetos: Galeria de Museu em Luz Natural — Papel Seda Alabastro (Retorno Monumental à Luz) */
+.texture-gallery-light {
+  background-color: rgba(250, 249, 246, 0.45);
   background-image: 
-    radial-gradient(circle at 50% 0%, rgba(85, 107, 47, 0.035) 0%, transparent 60%),
-    repeating-linear-gradient(90deg, rgba(28, 26, 24, 0.01) 0px, rgba(28, 26, 24, 0.01) 1px, transparent 1px, transparent 8px);
+    radial-gradient(circle at 50% 10%, rgba(85, 107, 47, 0.035) 0%, transparent 70%),
+    repeating-linear-gradient(0deg, rgba(28, 26, 24, 0.01) 0px, rgba(28, 26, 24, 0.01) 1px, transparent 1px, transparent 6px);
   position: relative;
 }
 
-/* 6. Skills: Compêndio / Gazeta Cultural de Engenharia */
-.texture-gazette-index {
-  background-color: rgba(245, 243, 235, 0.92);
+/* 5. Método: Papel Kraft & Linho Tostado de Engenharia (Ateliê Artesanal) */
+.texture-toasted-kraft {
+  background-color: rgba(235, 225, 205, 0.52);
   background-image: 
-    repeating-linear-gradient(0deg, rgba(85, 107, 47, 0.018) 0px, rgba(85, 107, 47, 0.018) 1px, transparent 1px, transparent 6px),
-    radial-gradient(circle at 90% 10%, rgba(158, 103, 97, 0.02) 0%, transparent 50%);
+    radial-gradient(circle at 50% 0%, rgba(85, 107, 47, 0.06) 0%, transparent 60%),
+    radial-gradient(circle at 80% 90%, rgba(158, 103, 97, 0.05) 0%, transparent 60%),
+    repeating-linear-gradient(90deg, rgba(45, 38, 28, 0.02) 0px, rgba(45, 38, 28, 0.02) 1px, transparent 1px, transparent 7px);
   position: relative;
 }
 
-/* 7. Trajetória: Arquivo Monográfico & Crônica */
+/* 6. Skills: Gazette Noir — Compêndio Noturno de Alta Tecnologia (Segundo Choque Noturno) */
+.texture-gazette-noir {
+  background-color: rgba(22, 30, 15, 0.74);
+  background-image: 
+    radial-gradient(circle at 80% 20%, rgba(70, 91, 32, 0.35) 0%, transparent 70%),
+    radial-gradient(circle at 10% 80%, rgba(42, 54, 20, 0.45) 0%, transparent 70%),
+    repeating-linear-gradient(0deg, rgba(85, 107, 47, 0.03) 0px, rgba(85, 107, 47, 0.03) 1px, transparent 1px, transparent 5px);
+  color: #FAF8F5;
+  position: relative;
+}
+
+/* 7. Trajetória: Arquivo Monográfico & Fólio de Livro Antigo (Luz Literária) */
 .texture-archival-folio {
-  background-color: rgba(250, 248, 243, 0.90);
+  background-color: rgba(248, 245, 237, 0.48);
   background-image: 
-    radial-gradient(circle at 20% 80%, rgba(85, 107, 47, 0.03) 0%, transparent 60%),
-    repeating-linear-gradient(45deg, rgba(28, 26, 24, 0.01) 0px, rgba(28, 26, 24, 0.01) 1px, transparent 1px, transparent 8px);
+    radial-gradient(circle at 20% 80%, rgba(85, 107, 47, 0.04) 0%, transparent 60%),
+    radial-gradient(circle at 85% 15%, rgba(158, 103, 97, 0.03) 0%, transparent 60%),
+    repeating-linear-gradient(45deg, rgba(28, 26, 24, 0.015) 0px, rgba(28, 26, 24, 0.015) 1px, transparent 1px, transparent 8px);
   position: relative;
 }
 
-/* 8. Rodapé: Fechamento Noturno Quente */
+/* 8. Rodapé: Fechamento Noturno Botânico Profundo */
 .texture-night-botanical {
-  background-color: rgba(26, 34, 16, 0.97);
+  background-color: rgba(16, 22, 11, 0.78);
   background-image: 
-    radial-gradient(circle at 50% 20%, rgba(70, 91, 32, 0.25) 0%, transparent 70%),
-    radial-gradient(ellipse at 80% 90%, rgba(42, 54, 20, 0.4) 0%, transparent 60%);
+    radial-gradient(circle at 50% 20%, rgba(70, 91, 32, 0.35) 0%, transparent 70%),
+    radial-gradient(ellipse at 80% 90%, rgba(42, 54, 20, 0.5) 0%, transparent 60%);
   color: #FAF8F5;
   position: relative;
 }
 
 /* ==========================================================================
-   TRANSIÇÕES SUAVES E CONTÍNUAS ENTRE SEÇÕES (FUSÃO MATERIAL)
+   RAMPAS DE TRANSIÇÃO CONTÍNUA ENTRE SEÇÕES (FUSÃO MATERIAL DE ALTO CONTRASTE)
    ========================================================================== */
 
-.transition-to-parchment {
-  background: linear-gradient(to bottom, rgba(250, 248, 245, 0.88) 0%, rgba(244, 241, 234, 0.90) 100%);
+/* 1 -> 2: Hero (Linho Marfim) para Sobre (Pergaminho Quente) */
+.transition-hero-to-parchment {
+  background: linear-gradient(to bottom, rgba(250, 248, 245, 0.92) 0%, rgba(235, 226, 208, 0.95) 100%);
 }
 
-.transition-to-atelier {
-  background: linear-gradient(to bottom, rgba(244, 241, 234, 0.90) 0%, rgba(247, 245, 238, 0.90) 100%);
+/* 2 -> 3: Sobre (Pergaminho Quente) para Stacks (Ateliê Noturno Escuro) */
+.transition-parchment-to-atelier {
+  background: linear-gradient(to bottom, rgba(235, 226, 208, 0.95) 0%, rgba(22, 33, 15, 0.98) 100%);
 }
 
-/* Transição monumental para a seção escura de Projetos */
-.transition-to-forest {
-  background: linear-gradient(to bottom, rgba(247, 245, 238, 0.90) 0%, rgba(30, 39, 19, 0.95) 100%);
+/* 3 -> 4: Stacks (Ateliê Noturno Escuro) para Projetos (Galeria Clara) */
+.transition-atelier-to-gallery {
+  background: linear-gradient(to bottom, rgba(22, 33, 15, 0.98) 0%, rgba(250, 249, 246, 0.93) 100%);
 }
 
-/* Transição de volta para o papel de estúdio */
-.transition-from-forest {
-  background: linear-gradient(to bottom, rgba(30, 39, 19, 0.95) 0%, rgba(253, 252, 249, 0.90) 100%);
+/* 4 -> 5: Projetos (Galeria Clara) para Método (Kraft Tostado) */
+.transition-gallery-to-kraft {
+  background: linear-gradient(to bottom, rgba(250, 249, 246, 0.93) 0%, rgba(225, 215, 192, 0.95) 100%);
 }
 
-.transition-to-gazette {
-  background: linear-gradient(to bottom, rgba(253, 252, 249, 0.90) 0%, rgba(245, 243, 235, 0.92) 100%);
+/* 5 -> 6: Método (Kraft Tostado) para Skills (Gazette Noir Noturno) */
+.transition-kraft-to-gazette {
+  background: linear-gradient(to bottom, rgba(225, 215, 192, 0.95) 0%, rgba(18, 26, 12, 0.98) 100%);
 }
 
-.transition-to-folio {
-  background: linear-gradient(to bottom, rgba(245, 243, 235, 0.92) 0%, rgba(250, 248, 243, 0.90) 100%);
+/* 6 -> 7: Skills (Gazette Noir Noturno) para Trajetória (Fólio Claro) */
+.transition-gazette-to-folio {
+  background: linear-gradient(to bottom, rgba(18, 26, 12, 0.98) 0%, rgba(248, 245, 237, 0.93) 100%);
 }
 
-.transition-to-night {
-  background: linear-gradient(to bottom, rgba(250, 248, 243, 0.90) 0%, rgba(26, 34, 16, 0.97) 100%);
+/* 7 -> 8: Trajetória (Fólio Claro) para Rodapé (Noturno Botânico) */
+.transition-folio-to-night {
+  background: linear-gradient(to bottom, rgba(248, 245, 237, 0.93) 0%, rgba(13, 19, 9, 0.99) 100%);
 }
 
 /* Prancha Editorial sem cantos arredondados genéricos */
@@ -402,4 +418,94 @@
 .no-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+
+/* ==========================================================================
+   HERO — Seção 01 (acentos tipográficos e máscaras da coreografia)
+   ========================================================================== */
+.hero-key {
+  font-style: italic;
+  font-weight: 400;
+  /* lilás aprofundado para atingir 3:1 (texto grande) sobre #F5F2E9 */
+  color: #8a6bb8;
+  cursor: default;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-repeat: no-repeat;
+  background-position: 0 94%;
+  background-size: 0% 1px;
+  transition:
+    background-size 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+    color 0.3s ease;
+}
+
+.hero-key:hover {
+  color: #7a5ba8;
+  background-size: 100% 1px;
+}
+
+/* Folga para descendentes durante o reveal linha a linha (SplitText mask) */
+.intro-line-mask {
+  padding-bottom: 0.14em;
+  margin-bottom: -0.14em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-key {
+    transition: none;
+  }
+}
+
+/* ==========================================================================
+   CAPÍTULOS — cada seção ocupa uma tela; renda contínua nas costuras
+   ========================================================================== */
+.chapter {
+  min-height: 100svh;
+}
+
+/* Com altura suficiente: exatamente uma tela + encaixe por capítulo.
+   Abaixo disso (ex.: iPhone SE, 667px) o capítulo cresce com o conteúdo — nunca corta informação. */
+@media (min-height: 740px) {
+  html {
+    scroll-snap-type: y mandatory;
+  }
+  .chapter {
+    height: 100svh;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
+}
+
+.lace-seam {
+  background-repeat: repeat-x;
+  background-size: auto 100%;
+  background-position: calc(50% + var(--lace-shift, 0px)) center;
+  /* contorno sutil: a renda creme continua legível sobre fundos claros e escuros */
+  filter: drop-shadow(0 1px 1.5px rgba(35, 36, 31, 0.45)) drop-shadow(0 0 1px rgba(35, 36, 31, 0.25));
+}
+
+@keyframes chapter-rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* só anima quando o capítulo entra em tela (data-seen, ver ChapterShell) */
+.chapter[data-seen] .chapter-rise {
+  animation: chapter-rise 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.case-dialog[open] {
+  animation: chapter-rise 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chapter-rise,
+  .case-dialog[open] {
+    animation: none;
+  }
 }

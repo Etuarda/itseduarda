@@ -268,22 +268,20 @@ export default function ProjectsSection() {
 
   return (
     <section id="projetos" className="w-full py-8 sm:py-12 md:py-16 px-3 sm:px-6 md:px-8 max-w-7xl mx-auto scroll-mt-20 overflow-hidden">
-      {/* Cabeçalho Editorial (Seção 18 & 50 do Guia Mestre) */}
+      {/* Cabeçalho Editorial (Tipografia Pura, sem caixas de fundo) */}
       <div className="text-center max-w-3xl mx-auto mb-6 md:mb-8 relative z-20">
-        <div className="inline-flex items-center mb-2 px-3.5 py-1 bg-[#2A371B]/80 border border-[#C5D9A5]/35 shadow-2xs">
-          <span className="font-mono text-[10px] sm:text-xs uppercase tracking-[0.20em] text-[#E8DCBE] font-bold">
-            OBRAS SELECIONADAS • ESTUDOS DE CASO
-          </span>
-        </div>
+        <span className="font-mono text-xs uppercase tracking-[0.25em] text-[#465B20] font-bold block mb-2">
+          OBRAS SELECIONADAS • ESTUDOS DE CASO
+        </span>
 
         <h2
-          className="font-serif font-black text-2xl sm:text-3xl lg:text-4xl text-[#FAF8F5] tracking-tight leading-tight"
+          className="font-serif font-black text-2xl sm:text-3xl lg:text-4xl text-[#1C1A18] tracking-tight leading-tight"
           style={{ textWrap: "balance" }}
         >
           O código mostra o que foi construído. O estudo de caso mostra por quê.
         </h2>
 
-        <p className="font-sans text-xs sm:text-sm md:text-base text-[#E2DFD8] mt-3 max-w-2xl mx-auto leading-relaxed">
+        <p className="font-sans text-xs sm:text-sm md:text-base text-[#383531] mt-3 max-w-2xl mx-auto leading-relaxed">
           Cada projeto parte de um problema diferente. Abra os estudos de caso para conhecer o contexto, as decisões técnicas, a solução desenvolvida e os aprendizados de cada entrega.
         </p>
       </div>
@@ -291,7 +289,7 @@ export default function ProjectsSection() {
       {/* Seletor de Categorias com Scroll Suave no Mobile */}
       <div className="w-full flex items-center justify-center mb-4 md:mb-5">
         <div className="max-w-full overflow-x-auto no-scrollbar py-1 px-1">
-          <div className="inline-flex items-center p-1.5 bg-[#232F16]/90 border border-[#C5D9A5]/30 shadow-xs gap-1 sm:gap-2">
+          <div className="inline-flex items-center p-1.5 bg-white/90 border border-[#465B20]/25 shadow-xs gap-1 sm:gap-2">
             {CATEGORIES.map((cat) => {
               const Icon = cat.icon;
               const count =
@@ -307,15 +305,15 @@ export default function ProjectsSection() {
                   onClick={() => handleCategoryChange(cat.id)}
                   className={`relative px-3 sm:px-4 py-1.5 min-h-[38px] text-xs font-sans transition-all duration-300 cursor-pointer flex items-center gap-1.5 whitespace-nowrap active:scale-95 ${
                     isSelected
-                      ? "bg-[#C5D9A5] text-[#1A2310] font-bold shadow-xs"
-                      : "text-[#FAF8F5] hover:text-[#C5D9A5] hover:bg-[#FAF8F5]/10 font-medium"
+                      ? "bg-[#465B20] text-[#FAF8F5] font-bold shadow-xs"
+                      : "text-[#383531] hover:text-[#1C1A18] hover:bg-[#465B20]/10 font-medium"
                   }`}
                 >
-                  <Icon className={`w-3.5 h-3.5 ${isSelected ? "text-[#1A2310]" : "text-[#C5D9A5]"}`} />
+                  <Icon className={`w-3.5 h-3.5 ${isSelected ? "text-[#FAF8F5]" : "text-[#465B20]"}`} />
                   <span>{cat.label}</span>
                   <span
                     className={`text-[10px] font-mono px-1.5 py-0.2 ${
-                      isSelected ? "bg-[#1A2310]/20 text-[#1A2310] font-bold" : "bg-[#1A2310] text-[#C5D9A5] font-semibold border border-[#C5D9A5]/25"
+                      isSelected ? "bg-[#FAF8F5]/20 text-[#FAF8F5] font-bold" : "bg-[#FAF8F5] text-[#465B20] font-semibold border border-[#465B20]/25"
                     }`}
                   >
                     {String(count).padStart(2, "0")}
@@ -333,17 +331,17 @@ export default function ProjectsSection() {
         <button
           type="button"
           onClick={() => setIsPausedManual((prev) => !prev)}
-          className="px-3.5 py-2 min-h-[38px] border border-[#C5D9A5]/35 bg-[#232F16]/90 hover:bg-[#C5D9A5] hover:text-[#1A2310] text-[#FAF8F5] text-xs font-sans font-semibold flex items-center gap-1.5 transition-all cursor-pointer shadow-xs active:scale-95"
+          className="px-3.5 py-2 min-h-[38px] border border-[#465B20]/30 bg-white hover:bg-[#465B20] hover:text-[#FAF8F5] text-[#1C1A18] text-xs font-sans font-semibold flex items-center gap-1.5 transition-all cursor-pointer shadow-xs active:scale-95"
           aria-label={isPausedManual ? "Retomar movimento" : "Pausar movimento"}
         >
           {isPausedManual ? (
             <>
-              <Play className="w-3.5 h-3.5 ml-0.5 text-[#C5D9A5]" />
+              <Play className="w-3.5 h-3.5 ml-0.5 text-[#465B20]" />
               <span>Retomar movimento</span>
             </>
           ) : (
             <>
-              <Pause className="w-3.5 h-3.5 text-[#C5D9A5]" />
+              <Pause className="w-3.5 h-3.5 text-[#465B20]" />
               <span>Pausar movimento</span>
             </>
           )}
@@ -354,7 +352,7 @@ export default function ProjectsSection() {
           <button
             type="button"
             onClick={handlePrev}
-            className="w-10 h-10 border border-[#C5D9A5]/35 bg-[#232F16]/90 hover:bg-[#C5D9A5] hover:text-[#1A2310] text-[#FAF8F5] flex items-center justify-center transition-all cursor-pointer shadow-xs active:scale-95"
+            className="w-10 h-10 border border-[#465B20]/30 bg-white hover:bg-[#465B20] hover:text-[#FAF8F5] text-[#1C1A18] flex items-center justify-center transition-all cursor-pointer shadow-xs active:scale-95"
             aria-label="Projeto anterior"
           >
             <ChevronLeft className="w-4 h-4" />
@@ -362,7 +360,7 @@ export default function ProjectsSection() {
           <button
             type="button"
             onClick={handleNext}
-            className="w-10 h-10 border border-[#C5D9A5]/35 bg-[#232F16]/90 hover:bg-[#C5D9A5] hover:text-[#1A2310] text-[#FAF8F5] flex items-center justify-center transition-all cursor-pointer shadow-xs active:scale-95"
+            className="w-10 h-10 border border-[#465B20]/30 bg-white hover:bg-[#465B20] hover:text-[#FAF8F5] text-[#1C1A18] flex items-center justify-center transition-all cursor-pointer shadow-xs active:scale-95"
             aria-label="Próximo projeto"
           >
             <ChevronRight className="w-4 h-4" />
@@ -400,37 +398,37 @@ export default function ProjectsSection() {
                 onMouseEnter={() => setIsHoveredCard(true)}
                 onMouseLeave={() => setIsHoveredCard(false)}
                 onClick={() => setSelectedProjectForModal(project)}
-                className="editorial-specimen-dark relative w-[86vw] max-w-[340px] sm:w-[350px] md:w-[380px] h-auto min-h-[490px] sm:min-h-[520px] shrink-0 snap-center md:snap-align-none border border-[#FAF8F5]/15 hover:border-[#C5D9A5]/60 bg-[#253118]/85 backdrop-blur-xs shadow-md hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between p-4 sm:p-5 group cursor-pointer"
+                className="editorial-specimen relative w-[86vw] max-w-[340px] sm:w-[350px] md:w-[380px] h-auto min-h-[490px] sm:min-h-[520px] shrink-0 snap-center md:snap-align-none border border-[#465B20]/25 hover:border-[#465B20]/60 bg-white/95 backdrop-blur-xs shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between p-4 sm:p-5 group cursor-pointer"
               >
                 {/* Topo do Card: Tag de Categoria e Numeração Editorial */}
                 <div className="flex items-center justify-between z-10">
-                  <div className="flex items-center gap-2 bg-[#1A2310]/90 border border-[#FAF8F5]/20 px-2.5 py-1 text-[9px] font-mono text-[#E2D6BE] font-bold uppercase tracking-wider">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#C5D9A5]" />
+                  <div className="flex items-center gap-2 bg-[#FAF8F5] border border-[#465B20]/25 px-2.5 py-1 text-[9px] font-mono text-[#2A3614] font-bold uppercase tracking-wider">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#465B20]" />
                     {project.category.toUpperCase()}
                   </div>
 
-                  <span className="font-mono text-xs font-bold text-[#C5D9A5] bg-[#1A2310]/90 border border-[#FAF8F5]/20 px-2.5 py-0.5">
+                  <span className="font-mono text-xs font-bold text-[#465B20] bg-[#FAF8F5] border border-[#465B20]/25 px-2.5 py-0.5">
                     #0{(idx % filteredProjects.length) + 1}
                   </span>
                 </div>
 
-                {/* Área de Arte & Desenhos Representativos do Projeto (Prancha emoldurada) */}
-                <div className="w-full h-40 sm:h-48 my-2 border border-[#FAF8F5]/20 overflow-hidden relative group-hover:scale-[1.01] transition-transform duration-500 shrink-0 bg-[#161F0E]">
+                {/* Área de Arte & Desenhos Representativos do Projeto (Prancha emoldurada de museu) */}
+                <div className="w-full h-40 sm:h-48 my-2 border border-[#465B20]/20 overflow-hidden relative group-hover:scale-[1.01] transition-transform duration-500 shrink-0 bg-[#FAF8F5]">
                   <ProjectArtwork projectId={project.id} category={project.category} />
                 </div>
 
                 {/* Informações Editoriais: Nome Cursivo, Subtítulo, Desafio & Tags */}
                 <div className="flex flex-col gap-2 z-10 flex-1 justify-between">
-                  {/* Título em Fonte Cursiva Champagne e Subtítulo */}
+                  {/* Título em Fonte Cursiva Verde Oliva e Subtítulo */}
                   <div className="flex flex-col">
                     <h3
-                      className="text-3xl sm:text-4xl text-[#FAF8F5] tracking-normal leading-none group-hover:text-[#C5D9A5] transition-colors select-none line-clamp-1 drop-shadow-xs"
+                      className="text-3xl sm:text-4xl text-[#1C1A18] tracking-normal leading-none group-hover:text-[#465B20] transition-colors select-none line-clamp-1 drop-shadow-2xs"
                       style={{ fontFamily: "'Great Vibes', cursive" }}
                     >
                       {project.title}
                     </h3>
                     {project.subtitle && (
-                      <p className="font-sans text-[11px] sm:text-xs text-[#C5D9A5]/90 font-medium line-clamp-1 mt-1">
+                      <p className="font-sans text-[11px] sm:text-xs text-[#556B2F] font-semibold line-clamp-1 mt-1">
                         {project.subtitle}
                       </p>
                     )}
@@ -442,24 +440,24 @@ export default function ProjectsSection() {
                       e.stopPropagation();
                       setSelectedProjectForModal(project);
                     }}
-                    className="p-2.5 sm:p-3 bg-[#1A2310]/90 border border-[#FAF8F5]/15 hover:border-[#C5D9A5]/45 transition-colors group/hook"
+                    className="p-2.5 sm:p-3 bg-[#FAF8F5] border border-[#465B20]/20 hover:border-[#465B20]/45 transition-colors group/hook"
                   >
                     <div className="flex items-center justify-between gap-1 mb-1">
-                      <span className="text-[9px] font-mono uppercase tracking-wider text-[#C5D9A5] font-bold">
+                      <span className="text-[9px] font-mono uppercase tracking-wider text-[#465B20] font-bold">
                         // DESAFIO TÉCNICO
                       </span>
-                      <span className="text-[9px] font-sans font-semibold text-[#FAF8F5] bg-[#C5D9A5]/20 border border-[#C5D9A5]/30 px-2 py-0.5">
+                      <span className="text-[9px] font-sans font-semibold text-[#2A3614] bg-[#465B20]/15 border border-[#465B20]/25 px-2 py-0.5">
                         Destaque
                       </span>
                     </div>
 
-                    <p className="font-serif italic text-xs text-[#FAF8F5]/90 font-normal leading-relaxed line-clamp-2">
+                    <p className="font-serif italic text-xs text-[#1C1A18] font-normal leading-relaxed line-clamp-2">
                       "{hook.question}"
                     </p>
 
-                    <div className="flex items-center justify-between gap-2 mt-2 pt-1.5 border-t border-[#FAF8F5]/10 text-[10px] font-sans text-[#E2D6BE]">
-                      <span className="font-semibold truncate text-[#C5D9A5] font-mono">{hook.metricTag}</span>
-                      <span className="font-sans font-bold text-xs text-[#E2D6BE] group-hover/hook:text-white shrink-0 group-hover/hook:translate-x-1 transition-all">
+                    <div className="flex items-center justify-between gap-2 mt-2 pt-1.5 border-t border-[#465B20]/15 text-[10px] font-sans text-[#383531]">
+                      <span className="font-semibold truncate text-[#465B20] font-mono">{hook.metricTag}</span>
+                      <span className="font-sans font-bold text-xs text-[#9E6761] group-hover/hook:text-[#2A3614] shrink-0 group-hover/hook:translate-x-1 transition-all">
                         Ver detalhes ➜
                       </span>
                     </div>
@@ -470,27 +468,27 @@ export default function ProjectsSection() {
                     {project.tags.slice(0, 3).map((tag) => (
                       <span
                         key={tag}
-                        className="text-[9px] font-mono px-2 py-0.5 bg-[#1A2310]/80 border border-[#FAF8F5]/20 text-[#E2D6BE] font-semibold"
+                        className="text-[9px] font-mono px-2 py-0.5 bg-[#FAF8F5] border border-[#465B20]/25 text-[#2A3614] font-semibold"
                       >
                         #{tag}
                       </span>
                     ))}
                     {project.tags.length > 3 && (
-                      <span className="text-[9px] font-mono px-1.5 py-0.5 text-[#C5D9A5] font-bold">
+                      <span className="text-[9px] font-mono px-1.5 py-0.5 text-[#465B20] font-bold">
                         +{project.tags.length - 3}
                       </span>
                     )}
                   </div>
 
                   {/* Botões de Ação na Base */}
-                  <div className="pt-2 border-t border-[#FAF8F5]/15 flex items-center gap-2">
+                  <div className="pt-2 border-t border-[#465B20]/15 flex items-center gap-2">
                     <button
                       type="button"
                       onClick={(e) => {
                         e.stopPropagation();
                         setSelectedProjectForModal(project);
                       }}
-                      className="flex-1 py-2.5 px-3 min-h-[44px] bg-[#C5D9A5] hover:bg-[#FAF8F5] text-[#1A2310] font-sans font-semibold text-xs tracking-wider flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-xs active:scale-98"
+                      className="flex-1 py-2.5 px-3 min-h-[44px] bg-[#465B20] hover:bg-[#2A3614] text-[#FAF8F5] font-sans font-semibold text-xs tracking-wider flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-xs active:scale-98"
                     >
                       <BookOpen className="w-3.5 h-3.5" />
                       <span>Ver estudo de caso</span>
@@ -502,7 +500,7 @@ export default function ProjectsSection() {
                         target="_blank"
                         rel="noreferrer"
                         onClick={(e) => e.stopPropagation()}
-                        className="w-11 h-11 min-w-[44px] min-h-[44px] border border-[#FAF8F5]/20 bg-[#1A2310]/80 hover:bg-[#FAF8F5] text-[#FAF8F5] hover:text-[#1A2310] transition-all cursor-pointer flex items-center justify-center active:scale-95"
+                        className="w-11 h-11 min-w-[44px] min-h-[44px] border border-[#465B20]/30 bg-white hover:bg-[#1C1A18] hover:text-[#FAF8F5] text-[#1C1A18] transition-all cursor-pointer flex items-center justify-center active:scale-95 shadow-2xs"
                         title="Ver código"
                         aria-label={`Ver código do projeto ${project.title} no GitHub`}
                       >
@@ -516,7 +514,7 @@ export default function ProjectsSection() {
                         target="_blank"
                         rel="noreferrer"
                         onClick={(e) => e.stopPropagation()}
-                        className="w-11 h-11 min-w-[44px] min-h-[44px] border border-[#C5D9A5]/30 bg-[#1A2310]/80 hover:bg-[#C5D9A5] text-[#C5D9A5] hover:text-[#1A2310] transition-all cursor-pointer flex items-center justify-center active:scale-95"
+                        className="w-11 h-11 min-w-[44px] min-h-[44px] border border-[#465B20]/30 bg-white hover:bg-[#465B20] hover:text-[#FAF8F5] text-[#465B20] transition-all cursor-pointer flex items-center justify-center active:scale-95 shadow-2xs"
                         title="Abrir aplicação"
                         aria-label={`Abrir demonstração do projeto ${project.title}`}
                       >

@@ -1,29 +1,17 @@
 import type { ProjectCategory } from "@/types/portfolio";
 
+// Derivado dos capítulos (src/content/chapters.ts): o menu segue a arquitetura macro 01–06
 export const sectionLinks = [
-  { id: "sobre", label: "Sobre" },
-  { id: "stacks", label: "Stacks" },
-  { id: "projetos", label: "Projetos" },
-  { id: "metodo", label: "Método" },
-  { id: "competencias", label: "Competências" },
-  { id: "trajetoria", label: "Trajetória" },
-  { id: "contato", label: "Contato" },
+  { id: "sobre", label: "Formação", number: "02" },
+  { id: "projetos", label: "Projetos", number: "03" },
+  { id: "processo", label: "Processo", number: "04" },
+  { id: "trajetoria", label: "Trajetória", number: "05" },
+  { id: "contato", label: "Contato", number: "06" },
 ] as const;
 
 export type SectionId = (typeof sectionLinks)[number]["id"];
 
-export const sectionIds = [
-  "hero",
-  "sobre",
-  "stacks",
-  "projetos",
-  "metodo",
-  "competencias",
-  "skills", // retrocompatível
-  "trajetoria",
-  "experiencia", // retrocompatível
-  "contato",
-] as const;
+export const sectionIds = ["hero", "sobre", "projetos", "processo", "trajetoria", "contato"] as const;
 
 export const projectCategories = [
   { id: "all", label: "Todos" },

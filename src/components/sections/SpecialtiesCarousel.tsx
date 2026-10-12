@@ -141,22 +141,22 @@ export default function SpecialtiesCarousel() {
 
       {/* Cabeçalho Editorial (Seção 18 & 45 do Guia Mestre) */}
       <div className="text-center max-w-3xl mx-auto mb-6 sm:mb-8 relative z-20">
-        <div className="inline-flex items-center mb-2 px-3.5 py-1 rounded-full bg-white border border-[#465B20]/30 shadow-2xs">
-          <span className="font-mono text-[10px] sm:text-xs uppercase tracking-[0.20em] text-[#2A3614] font-bold">
-            BASE TÉCNICA
+        <div className="inline-flex items-center mb-2 px-3.5 py-1 bg-[#2A371B]/90 border border-[#C5D9A5]/40 shadow-xs">
+          <span className="font-mono text-[10px] sm:text-xs uppercase tracking-[0.20em] text-[#E8DCBE] font-bold">
+            BASE TÉCNICA • DISCIPLINAS
           </span>
         </div>
 
         <h2
-          className="font-serif font-black text-2xl sm:text-3xl lg:text-4xl text-[#1C1A18] tracking-tight leading-tight"
+          className="font-serif font-black text-2xl sm:text-3xl lg:text-4xl text-[#FAF8F5] tracking-tight leading-tight"
           style={{ textWrap: "balance" }}
         >
           Tecnologias diferentes. Um mesmo objetivo: construir melhor.
         </h2>
 
-        <p className="font-sans text-xs sm:text-sm md:text-base text-[#383531] mt-3 max-w-2xl mx-auto leading-relaxed">
+        <p className="font-sans text-xs sm:text-sm md:text-base text-[#E2DFD8] mt-3 max-w-2xl mx-auto leading-relaxed">
           Não escolho uma ferramenta apenas porque ela está em alta. Procuro entender{" "}
-          <strong className="text-[#1C1A18] font-semibold">
+          <strong className="text-[#FAF8F5] font-semibold">
             qual responsabilidade ela assume dentro da solução, quais problemas resolve e quais impactos essa escolha pode trazer depois.
           </strong>
         </p>
@@ -178,8 +178,8 @@ export default function SpecialtiesCarousel() {
                 }}
                 className={`px-3 py-1.5 text-xs font-sans font-semibold transition-all cursor-pointer flex items-center gap-1.5 border-b-2 ${
                   isActive
-                    ? "border-[#465B20] text-[#2A3614] bg-white/70 shadow-2xs"
-                    : "border-transparent text-[#4E4A45] hover:border-[#465B20]/30 hover:text-[#1C1A18]"
+                    ? "border-[#C5D9A5] text-[#1A2310] bg-[#C5D9A5] shadow-xs font-bold"
+                    : "border-transparent text-[#FAF8F5]/75 hover:border-[#C5D9A5]/40 hover:text-[#FAF8F5]"
                 }`}
                 aria-label={`Ver especialidade ${pillar.shortTitle}`}
               >
@@ -192,13 +192,13 @@ export default function SpecialtiesCarousel() {
 
         {/* Controles de Navegação (Setas Anterior/Próximo e Contador) */}
         <div className="flex items-center gap-2 ml-auto">
-          <span className="font-mono text-xs font-bold text-[#465B20]">
+          <span className="font-mono text-xs font-bold text-[#C5D9A5]">
             0{activePillar + 1} / 0{stackPillars.length}
           </span>
           <button
             type="button"
             onClick={goToPrev}
-            className="w-8 h-8 border border-[#465B20]/30 bg-[#FAF8F5] hover:bg-[#465B20] hover:text-[#F7F6F2] text-[#1C1A18] flex items-center justify-center transition-all cursor-pointer shadow-2xs active:scale-95"
+            className="w-8 h-8 border border-[#FAF8F5]/20 bg-[#1A2513] hover:bg-[#C5D9A5] hover:text-[#1A2310] text-[#FAF8F5] flex items-center justify-center transition-all cursor-pointer shadow-2xs active:scale-95"
             aria-label="Especialidade anterior"
           >
             <ChevronLeft className="w-4 h-4" />
@@ -206,7 +206,7 @@ export default function SpecialtiesCarousel() {
           <button
             type="button"
             onClick={goToNext}
-            className="w-8 h-8 border border-[#465B20]/30 bg-[#FAF8F5] hover:bg-[#465B20] hover:text-[#F7F6F2] text-[#1C1A18] flex items-center justify-center transition-all cursor-pointer shadow-2xs active:scale-95"
+            className="w-8 h-8 border border-[#FAF8F5]/20 bg-[#1A2513] hover:bg-[#C5D9A5] hover:text-[#1A2310] text-[#FAF8F5] flex items-center justify-center transition-all cursor-pointer shadow-2xs active:scale-95"
             aria-label="Próxima especialidade"
           >
             <ChevronRight className="w-4 h-4" />
@@ -229,10 +229,10 @@ export default function SpecialtiesCarousel() {
           return (
             <div
               key={pillar.id}
-              className={`relative border border-[#465B20]/30 overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] flex flex-col ${
+              className={`relative border overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] flex flex-col ${
                 isExpanded
-                  ? "w-full md:w-auto md:flex-[4.2] flex-none h-auto md:h-full bg-[#FAF8F5] shadow-[0_15px_35px_-10px_rgba(70,91,32,0.18)] border-[#465B20]/50 texture-scanner"
-                  : "w-full md:w-auto md:flex-1 flex-none h-[58px] sm:h-[62px] md:h-full bg-[#FAF8F5] hover:bg-white hover:border-[#465B20]/45"
+                  ? "w-full md:w-auto md:flex-[4.2] flex-none h-auto md:h-full bg-[#1A2513]/95 shadow-[0_20px_45px_-10px_rgba(0,0,0,0.5)] border-[#C5D9A5]/45 texture-scanner"
+                  : "w-full md:w-auto md:flex-1 flex-none h-[58px] sm:h-[62px] md:h-full bg-[#141D0E]/90 hover:bg-[#1E2B15] border-[#FAF8F5]/15 hover:border-[#C5D9A5]/40"
               }`}
               onMouseEnter={() => {
                 if (typeof window !== "undefined" && window.innerWidth >= 768 && window.matchMedia("(hover: hover)").matches) {
@@ -252,44 +252,44 @@ export default function SpecialtiesCarousel() {
                     pauseTemporarily(6000);
                     setActivePillar(index);
                   }}
-                  className="w-full h-full min-h-[58px] sm:min-h-[62px] flex md:flex-col items-center justify-between p-3.5 sm:p-5 select-none relative overflow-hidden group cursor-pointer text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-[#465B20] active:bg-white/80"
+                  className="w-full h-full min-h-[58px] sm:min-h-[62px] flex md:flex-col items-center justify-between p-3.5 sm:p-5 select-none relative overflow-hidden group cursor-pointer text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-[#C5D9A5] active:bg-[#1E2B15]"
                 >
                   <img
                     src={pillar.image}
                     alt=""
                     aria-hidden="true"
-                    className="absolute inset-0 w-full h-full object-cover opacity-25 grayscale group-hover:opacity-40 group-hover:scale-105 transition-all duration-500 pointer-events-none"
+                    className="absolute inset-0 w-full h-full object-cover opacity-20 grayscale group-hover:opacity-35 group-hover:scale-105 transition-all duration-500 pointer-events-none"
                   />
-                  <div className="absolute inset-0 bg-[#FAF8F5]/80 group-hover:bg-[#FAF8F5]/70 transition-colors pointer-events-none" />
+                  <div className="absolute inset-0 bg-[#141D0E]/85 group-hover:bg-[#141D0E]/70 transition-colors pointer-events-none" />
 
                   {/* Número */}
                   <div className="relative z-10 flex items-center gap-2 md:flex-col">
-                    <span className="font-serif font-black text-xl sm:text-2xl text-[#465B20]">
+                    <span className="font-serif font-black text-xl sm:text-2xl text-[#C5D9A5]">
                       {pillar.number}
                     </span>
-                    <div className="w-1.5 h-1.5 rounded-full bg-[#465B20]/45 hidden md:block" />
+                    <div className="w-1.5 h-1.5 rounded-full bg-[#C5D9A5]/45 hidden md:block" />
                   </div>
 
                   {/* Título Rotacionado no Desktop */}
                   <div className="relative z-10 hidden md:flex flex-1 items-center justify-center my-4">
-                    <span className="[writing-mode:vertical-rl] rotate-180 font-serif font-bold text-base text-[#1C1A18] tracking-widest uppercase">
+                    <span className="[writing-mode:vertical-rl] rotate-180 font-serif font-bold text-base text-[#FAF8F5] tracking-widest uppercase">
                       {pillar.shortTitle}
                     </span>
                   </div>
 
                   {/* Título Horizontal no Mobile */}
                   <div className="relative z-10 md:hidden flex items-center gap-2">
-                    <span className="font-serif font-bold text-sm text-[#1C1A18]">
+                    <span className="font-serif font-bold text-sm text-[#FAF8F5]">
                       {pillar.shortTitle}
                     </span>
                   </div>
 
                   {/* Ícone */}
-                  <div className="relative z-10 flex items-center gap-1.5 text-[#465B20]">
-                    <span className="text-[10px] font-sans font-semibold uppercase tracking-wider hidden md:block opacity-75">
+                  <div className="relative z-10 flex items-center gap-1.5 text-[#C5D9A5]">
+                    <span className="text-[10px] font-sans font-semibold uppercase tracking-wider hidden md:block opacity-75 text-[#E8DCBE]">
                       Expandir
                     </span>
-                    <Maximize2 className="w-4 h-4 text-[#465B20] group-hover:scale-110 transition-transform" />
+                    <Maximize2 className="w-4 h-4 text-[#C5D9A5] group-hover:scale-110 transition-transform" />
                   </div>
                 </button>
               )}
@@ -308,7 +308,7 @@ export default function SpecialtiesCarousel() {
                   <div className="scanner-beam" />
 
                   {/* Foto da Especialidade: Imagem limpa sem distorções */}
-                  <div className="w-full lg:w-[42%] h-auto max-h-[55svh] lg:max-h-none lg:h-full shrink-0 relative overflow-hidden bg-[#FAF8F5] flex items-center justify-center p-2 sm:p-3 lg:p-0">
+                  <div className="w-full lg:w-[42%] h-auto max-h-[55svh] lg:max-h-none lg:h-full shrink-0 relative overflow-hidden bg-[#0F160A] flex items-center justify-center p-2 sm:p-3 lg:p-0">
                     <img
                       src={pillar.image}
                       alt={pillar.fullTitle}
@@ -317,38 +317,38 @@ export default function SpecialtiesCarousel() {
                   </div>
 
                   {/* Especificações Técnicas e Conceitos */}
-                  <div className="flex-1 p-4 sm:p-6 md:p-8 flex flex-col justify-between md:overflow-y-auto no-scrollbar relative z-10">
+                  <div className="flex-1 p-4 sm:p-6 md:p-8 flex flex-col justify-between md:overflow-y-auto no-scrollbar relative z-10 bg-[#1A2513]/90">
                     <div>
                       {/* Tag e Número */}
                       <div className="flex items-center gap-2.5 mb-2">
-                        <span className="font-serif font-black text-2xl sm:text-3xl text-[#465B20]">
+                        <span className="font-serif font-black text-2xl sm:text-3xl text-[#C5D9A5]">
                           {pillar.number}
                         </span>
-                        <span className="text-[#4E4A45] text-xs">•</span>
-                        <span className="font-sans text-[10px] uppercase tracking-[0.2em] text-[#2A3614] font-bold px-2.5 py-0.5 rounded-full bg-[#465B20]/15 border border-[#465B20]/25">
+                        <span className="text-[#FAF8F5]/40 text-xs">•</span>
+                        <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#E8DCBE] font-bold px-2.5 py-0.5 bg-[#C5D9A5]/20 border border-[#C5D9A5]/35">
                           {pillar.shortTitle}
                         </span>
                       </div>
 
                       {/* Título */}
-                      <h3 className="font-serif font-bold text-lg sm:text-xl md:text-2xl text-[#1C1A18] tracking-tight leading-snug">
+                      <h3 className="font-serif font-bold text-lg sm:text-xl md:text-2xl text-[#FAF8F5] tracking-tight leading-snug">
                         {pillar.fullTitle}
                       </h3>
 
-                      <p className="font-sans text-xs sm:text-sm text-[#383531] font-normal leading-relaxed my-3">
+                      <p className="font-sans text-xs sm:text-sm text-[#E2DFD8] font-normal leading-relaxed my-3">
                         {pillar.description}
                       </p>
 
                       {/* Práticas / Conceitos */}
                       <div className="mb-3">
-                        <span className="font-sans text-[10px] uppercase tracking-wider text-[#4E4A45] font-bold block mb-1.5">
+                        <span className="font-mono text-[10px] uppercase tracking-wider text-[#C5D9A5] font-bold block mb-1.5">
                           Práticas & Arquitetura:
                         </span>
                         <div className="flex flex-wrap gap-1.5">
                           {pillar.concepts.map((concept) => (
                             <span
                               key={concept}
-                              className="bg-white border border-[#465B20]/25 text-[#1C1A18] font-sans text-[11px] font-medium px-2.5 py-0.5 rounded-md shadow-2xs"
+                              className="bg-[#141D0E] border border-[#FAF8F5]/15 text-[#E8DCBE] font-sans text-[11px] font-medium px-2.5 py-0.5 shadow-2xs"
                             >
                               {concept}
                             </span>
@@ -358,14 +358,14 @@ export default function SpecialtiesCarousel() {
 
                       {/* Stack / Ferramentas */}
                       <div>
-                        <span className="font-sans text-[10px] uppercase tracking-wider text-[#4E4A45] font-bold block mb-1.5">
+                        <span className="font-mono text-[10px] uppercase tracking-wider text-[#C5D9A5] font-bold block mb-1.5">
                           Tecnologias:
                         </span>
                         <div className="flex flex-wrap gap-1">
                           {pillar.tools.map((tool) => (
                             <span
                               key={tool}
-                              className="bg-white border border-[#465B20]/30 text-[#2A3614] font-mono text-[10px] px-2 py-0.5 rounded-md font-semibold shadow-2xs"
+                              className="bg-[#141D0E] border border-[#C5D9A5]/35 text-[#C5D9A5] font-mono text-[10px] px-2 py-0.5 font-semibold shadow-2xs"
                             >
                               #{tool}
                             </span>
@@ -375,12 +375,12 @@ export default function SpecialtiesCarousel() {
                     </div>
 
                     {/* Fechamento do Card */}
-                    <div className="mt-4 pt-3 border-t border-[#465B20]/20 flex flex-wrap items-center justify-between gap-2.5 text-xs font-sans text-[#4E4A45]">
-                      <span className="font-serif italic text-xs sm:text-sm text-[#465B20] font-semibold">
+                    <div className="mt-4 pt-3 border-t border-[#FAF8F5]/15 flex flex-wrap items-center justify-between gap-2.5 text-xs font-sans text-[#E2DFD8]">
+                      <span className="font-serif italic text-xs sm:text-sm text-[#C5D9A5] font-semibold">
                         “{pillar.closingQuote}”
                       </span>
 
-                      <span className="font-mono text-[10px] text-[#4E4A45] shrink-0 font-bold">
+                      <span className="font-mono text-[10px] text-[#E8DCBE]/70 shrink-0 font-bold">
                         FAIXA {pillar.number} / 04
                       </span>
                     </div>
@@ -392,11 +392,11 @@ export default function SpecialtiesCarousel() {
         })}
       </div>
 
-      {/* CTA Final de Stacks (EPIC 06) */}
+      {/* CTA Final de Stacks */}
       <div className="mt-8 text-center">
         <a
           href="#projetos"
-          className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#465B20] hover:bg-[#2A3614] text-[#F7F6F2] font-sans font-semibold text-xs sm:text-sm uppercase tracking-[0.14em] transition-all shadow-xs active:scale-98 cursor-pointer"
+          className="inline-flex items-center gap-2 px-6 py-3 bg-[#C5D9A5] hover:bg-[#FAF8F5] text-[#1A2310] font-sans font-semibold text-xs sm:text-sm uppercase tracking-[0.14em] transition-all shadow-md active:scale-98 cursor-pointer"
         >
           Ver essas tecnologias em projetos reais <ArrowRight className="w-4 h-4" />
         </a>

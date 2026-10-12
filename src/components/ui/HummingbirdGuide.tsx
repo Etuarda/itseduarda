@@ -1,40 +1,56 @@
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState, useId, useRef } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { Volume2, VolumeX, Sparkles, X, Compass, MessageSquare } from "lucide-react";
-import {
-  useBirdRoute,
-  zoneClasses,
-  EDITORIAL_GUIDE_HINTS,
-  type Zone,
-  type SectionId,
-  type SectionThought,
-  SECTION_IDS,
-  getSide,
-} from "@/lib/hummingbirdRoute";
+import { X } from "lucide-react";
+import gsap from "gsap";
+import { MotionPathPlugin } from "gsap/MotionPathPlugin";
+import { CHAPTERS, birdZoneCoords, nextChapter, zoneFacing, type ChapterId } from "@/content/chapters";
+
+gsap.registerPlugin(MotionPathPlugin);
 
 export type HummingbirdGuideProps = {
-  zone?: Zone;
-  hint?: string;
   className?: string;
 };
+
+const prefersReduced = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+/** Eventos de coordenação com a apresentação do Hero (HeroMotionController). */
+export const HUMMINGBIRD_INTRO_DONE = "hummingbird:intro-done";
+export const HERO_INTRO_PLAY = "hero-intro:play";
+export const HERO_INTRO_DONE = "hero-intro:done";
+
+declare global {
+  interface Window {
+    __hummingbirdIntroDone?: boolean;
+  }
+}
 
 /**
  * Ilustração Vetorial Autêntica do Beija-Flor em SVG
  */
-function HummingbirdSvg({
+export function HummingbirdSvg({
   facingInward = 1,
   bubbleDismissed = false,
   onReopenBubble,
   onClick,
+  interactive = true,
+  perch = false,
 }: {
   facingInward?: number;
   bubbleDismissed?: boolean;
   onReopenBubble?: () => void;
   onClick?: () => void;
+  /** false quando usado como ator decorativo (palco do Hero) */
+  interactive?: boolean;
+  /** marca o pássaro pousado, usado como destino do voo de volta do Hero */
+  perch?: boolean;
 }) {
+  // IDs únicos: há mais de um beija-flor no documento e url(#id) resolve o primeiro
+  const uid = useId().replace(/:/g, "");
+  const id = (name: string) => `${name}-${uid}`;
   return (
     <div
-      className="relative w-11 sm:w-14 md:w-16 h-11 sm:h-14 md:h-16 pointer-events-auto cursor-pointer group"
+      data-hummingbird={perch ? "perch" : undefined}
+      className={`relative w-11 sm:w-14 md:w-16 h-11 sm:h-14 md:h-16 group ${interactive ? "pointer-events-auto cursor-pointer" : "pointer-events-none"}`}
       onClick={() => {
         if (bubbleDismissed && onReopenBubble) {
           onReopenBubble();
@@ -42,7 +58,7 @@ function HummingbirdSvg({
           onClick();
         }
       }}
-      title={bubbleDismissed ? "Ver dica" : "Seguir para a próxima seção"}
+      title={interactive ? (bubbleDismissed ? "Ver dica" : "Seguir para a próxima seção") : undefined}
       style={{
         transform: `scaleX(${facingInward})`,
         transition: "transform 0.3s ease-out",
@@ -58,7 +74,7 @@ function HummingbirdSvg({
         <g className="animate-wing-left">
           <path
             d="M 45 42 C 35 15, 20 8, 12 18 C 8 26, 25 38, 42 45 Z"
-            fill="url(#wingGradient)"
+            fill={`url(#${id("wingGradient")})`}
             opacity="0.85"
           />
           <path
@@ -88,18 +104,18 @@ function HummingbirdSvg({
           rx="16"
           ry="11"
           transform="rotate(-24 46 50)"
-          fill="url(#bodyGradient)"
+          fill={`url(#${id("bodyGradient")})`}
         />
 
         {/* Peito e Garganta */}
         <path
           d="M 46 44 C 54 44, 58 52, 54 58 C 48 60, 44 54, 46 44 Z"
-          fill="url(#throatGradient)"
+          fill={`url(#${id("throatGradient")})`}
         />
 
         {/* Cabeça */}
         <circle cx="62" cy="40" r="9.5" fill="#3A4423" />
-        <circle cx="62" cy="40" r="8" fill="url(#headGradient)" />
+        <circle cx="62" cy="40" r="8" fill={`url(#${id("headGradient")})`} />
 
         {/* Olho com Ponto de Luz */}
         <circle cx="65" cy="38.5" r="2.2" fill="#1C1A18" />
@@ -115,7 +131,7 @@ function HummingbirdSvg({
         <g className="animate-wing-right">
           <path
             d="M 48 44 C 42 16, 30 8, 22 16 C 16 24, 32 38, 46 48 Z"
-            fill="url(#wingGradientFront)"
+            fill={`url(#${id("wingGradientFront")})`}
             opacity="0.9"
           />
           <path
@@ -129,31 +145,31 @@ function HummingbirdSvg({
 
         {/* Gradientes */}
         <defs>
-          <linearGradient id="bodyGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          <linearGradient id={id("bodyGradient")} x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stopColor="#556B2F" />
             <stop offset="60%" stopColor="#3A4423" />
             <stop offset="100%" stopColor="#283618" />
           </linearGradient>
 
-          <linearGradient id="headGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          <linearGradient id={id("headGradient")} x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stopColor="#8A9A68" />
             <stop offset="60%" stopColor="#556B2F" />
             <stop offset="100%" stopColor="#3A4423" />
           </linearGradient>
 
-          <linearGradient id="throatGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          <linearGradient id={id("throatGradient")} x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stopColor="#D4CEBF" />
             <stop offset="40%" stopColor="#8A9A68" />
             <stop offset="100%" stopColor="#556B2F" />
           </linearGradient>
 
-          <linearGradient id="wingGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          <linearGradient id={id("wingGradient")} x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stopColor="#8A9A68" />
             <stop offset="50%" stopColor="#6B7B4B" />
             <stop offset="100%" stopColor="#3A4423" />
           </linearGradient>
 
-          <linearGradient id="wingGradientFront" x1="0%" y1="0%" x2="100%" y2="100%">
+          <linearGradient id={id("wingGradientFront")} x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stopColor="#A4B384" />
             <stop offset="50%" stopColor="#7B8B5B" />
             <stop offset="100%" stopColor="#4A562D" />
@@ -164,66 +180,38 @@ function HummingbirdSvg({
   );
 }
 
-export default function HummingbirdGuide({
-  zone: explicitZone,
-  hint: explicitHint,
-  className = "",
-}: HummingbirdGuideProps) {
-  const [isMobile, setIsMobile] = useState<boolean>(() => {
-    if (typeof window !== "undefined") {
-      return window.innerWidth < 768;
-    }
-    return false;
-  });
-
-  // Mapeamento determinístico alternado (D → E → D → E → D → E → D)
-  const birdRoute = useBirdRoute(isMobile);
-
-  const [activeSection, setActiveSection] = useState<SectionId>("hero");
-  const [isMuted, setIsMuted] = useState<boolean>(false);
-  const [bubbleDismissed, setBubbleDismissed] = useState<boolean>(true);
+export default function HummingbirdGuide({ className = "" }: HummingbirdGuideProps) {
+  const [isMobile, setIsMobile] = useState<boolean>(() =>
+    typeof window !== "undefined" ? window.innerWidth < 768 : false,
+  );
   const [isCinematicIntro, setIsCinematicIntro] = useState<boolean>(true);
-  const [transitionState, setTransitionState] = useState<"idle" | "leaving" | "arriving">("idle");
-  const [manualSectionIndex, setManualSectionIndex] = useState<number | null>(null);
+  // Durante a apresentação do Hero, o "ator" é a cópia do pássaro no palco
+  const [yieldToHero, setYieldToHero] = useState(false);
+  const [chapter, setChapter] = useState<ChapterId>("hero");
+  const [hintOpen, setHintOpen] = useState(false);
+  const [resting, setResting] = useState(true);
 
-  // Zona ativa calculada determinística pela seção atual
-  const effectiveSection: SectionId = useMemo(() => {
-    if (manualSectionIndex !== null) {
-      return SECTION_IDS[manualSectionIndex % SECTION_IDS.length];
-    }
-    return activeSection;
-  }, [manualSectionIndex, activeSection]);
+  const birdRef = useRef<HTMLDivElement | null>(null);
+  const faceRef = useRef<HTMLDivElement | null>(null);
+  const pos = useRef<{ x: number; y: number } | null>(null);
+  const landedFromHero = useRef(false);
 
-  const currentZone: Zone = useMemo(() => {
-    if (explicitZone) return explicitZone;
-    return birdRoute[effectiveSection] || "right-top";
-  }, [explicitZone, birdRoute, effectiveSection]);
+  const current = CHAPTERS.find((c) => c.id === chapter) ?? CHAPTERS[0];
+  const next = nextChapter(chapter);
+  const isLeftSide = current.bird.startsWith("left");
 
-  // Pensamento poético editorial da seção
-  const currentThought: SectionThought = useMemo(() => {
-    if (explicitHint) {
-      return {
-        tag: "Guia Editorial",
-        title: "Dossiê Narrativo",
-        text: explicitHint,
-        actionText: "Avançar",
-        targetId: effectiveSection,
-      };
-    }
-    return EDITORIAL_GUIDE_HINTS[effectiveSection] || EDITORIAL_GUIDE_HINTS["hero"];
-  }, [explicitHint, effectiveSection]);
+  function goToNext() {
+    setHintOpen(false);
+    const target = next ?? CHAPTERS[0];
+    document.getElementById(target.id)?.scrollIntoView({ behavior: prefersReduced() ? "auto" : "smooth" });
+  }
 
-  const isLeftSide = getSide(currentZone) === "left";
-  // O beija-flor DEVE olhar para dentro:
-  // Quando na esquerda: olha para a direita (scaleX = 1) -> 🐦 → conteúdo
-  // Quando na direita: olha para a esquerda (scaleX = -1) -> conteúdo ← 🐦
-  const facingInward = isLeftSide ? 1 : -1;
+  // usados pelo voo de entrada (bloco preservado)
+  const setBubbleDismissed = (dismissed: boolean) => setHintOpen(!dismissed);
+  const handleNextSectionPerch = () => goToNext();
 
-  // Atualiza detecção mobile
   useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
     window.addEventListener("resize", checkMobile);
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
@@ -232,123 +220,126 @@ export default function HummingbirdGuide({
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsCinematicIntro(false);
+      // Libera a apresentação do Hero, que começa a partir deste poleiro
+      window.__hummingbirdIntroDone = true;
+      window.dispatchEvent(new Event(HUMMINGBIRD_INTRO_DONE));
     }, 2000);
     return () => clearTimeout(timer);
   }, []);
 
-  // Scroll Spy com requestAnimationFrame para detectar com 100% de precisão todas as seções (incluindo competências e trajetória)
   useEffect(() => {
-    if (explicitZone) return;
-
-    let ticking = false;
-
-    const computeCurrentSection = (): SectionId => {
-      const scrollY = window.scrollY;
-      const winHeight = window.innerHeight;
-      const docHeight = document.documentElement.scrollHeight;
-
-      // Topo da tela: Início no Hero
-      if (scrollY < 80) return "hero";
-
-      // Fim da página: Contato / Rodapé
-      if (scrollY + winHeight >= docHeight - 80) return "contato";
-
-      // Ponto focal de leitura na viewport (40% da altura da janela)
-      const focalPoint = scrollY + winHeight * 0.4;
-
-      // Lista ordenada de seções com seus respectivos elementos no DOM
-      const candidateSections: { id: SectionId; element: HTMLElement | null }[] = [
-        { id: "hero", element: document.getElementById("hero") },
-        { id: "stacks", element: document.getElementById("stacks") || document.getElementById("the-edits") },
-        { id: "projetos", element: document.getElementById("projetos") },
-        { id: "skills", element: document.getElementById("skills") || document.getElementById("competencias") },
-        { id: "experiencia", element: document.getElementById("trajetoria") || document.getElementById("experiencia") },
-        { id: "contato", element: document.getElementById("contato") },
-      ];
-
-      // Busca reversa pela seção que envolve o ponto focal
-      for (let i = candidateSections.length - 1; i >= 0; i--) {
-        const item = candidateSections[i];
-        if (!item.element) continue;
-
-        const top = item.element.offsetTop;
-        const height = item.element.offsetHeight;
-
-        if (focalPoint >= top && focalPoint < top + height) {
-          return item.id;
-        }
-      }
-
-      // Fallback para a seção visível mais próxima
-      let closestId: SectionId = "hero";
-      let minDistance = Infinity;
-
-      for (const item of candidateSections) {
-        if (!item.element) continue;
-        const dist = Math.abs(item.element.offsetTop - focalPoint);
-        if (dist < minDistance) {
-          minDistance = dist;
-          closestId = item.id;
-        }
-      }
-
-      return closestId;
+    const onPlay = () => setYieldToHero(true);
+    const onDone = (e: Event) => {
+      // fim natural: o pássaro do palco já pousou na zona do Hero
+      landedFromHero.current = Boolean((e as CustomEvent<{ landed?: boolean }>).detail?.landed);
+      setYieldToHero(false);
     };
-
-    const handleScroll = () => {
-      if (!ticking) {
-        requestAnimationFrame(() => {
-          const detected = computeCurrentSection();
-          setActiveSection((prev) => {
-            if (detected !== prev) {
-              // Voo fluido do beija-flor para a nova seção
-              setTransitionState("leaving");
-
-              setTimeout(() => {
-                setActiveSection(detected);
-                setManualSectionIndex(null);
-                const isTrajetoriaSection = detected === "experiencia" || detected === "trajetoria";
-                setBubbleDismissed(isTrajetoriaSection); // Na trajetória, permanece silencioso por padrão
-                setTransitionState("arriving");
-
-                setTimeout(() => {
-                  setTransitionState("idle");
-                }, 320);
-              }, 200);
-            }
-            return prev;
-          });
-          ticking = false;
-        });
-        ticking = true;
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll();
-
+    window.addEventListener(HERO_INTRO_PLAY, onPlay);
+    window.addEventListener(HERO_INTRO_DONE, onDone);
     return () => {
-      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener(HERO_INTRO_PLAY, onPlay);
+      window.removeEventListener(HERO_INTRO_DONE, onDone);
     };
-  }, [explicitZone]);
+  }, []);
 
-  // Alternância manual ao clicar no pássaro
-  const handleNextSectionPerch = () => {
-    setTransitionState("leaving");
-    setTimeout(() => {
-      setManualSectionIndex((prev) => (prev === null ? 1 : prev + 1));
-      setBubbleDismissed(false);
-      setTransitionState("arriving");
-      setTimeout(() => setTransitionState("idle"), 320);
-    }, 200);
-  };
+  // Capítulo ativo: o que contém o centro da viewport
+  useEffect(() => {
+    let raf = 0;
+    const detect = () => {
+      raf = 0;
+      const mid = window.innerHeight / 2;
+      for (const c of CHAPTERS) {
+        const el = document.getElementById(c.id);
+        if (!el) continue;
+        const r = el.getBoundingClientRect();
+        if (r.top <= mid && r.bottom > mid) {
+          setChapter((prev) => (prev === c.id ? prev : c.id));
+          return;
+        }
+      }
+    };
+    const onScroll = () => {
+      if (!raf) raf = requestAnimationFrame(detect);
+    };
+    detect();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("scroll", onScroll);
+    };
+  }, []);
 
-  // A dica só aparece quando pousado em repouso (idle)
-  const isSpeechVisible = !isMuted && !bubbleDismissed && transitionState === "idle";
+  // Voo entre zonas: arco que sobrevoa a tela, olhando na direção do voo
+  useEffect(() => {
+    const bird = birdRef.current;
+    const face = faceRef.current;
+    if (isCinematicIntro || !bird || !face) return;
+
+    const W = document.documentElement.clientWidth;
+    const H = window.innerHeight;
+    const target = birdZoneCoords(current.bird, W, H);
+    const restFacing = zoneFacing(current.bird);
+    setHintOpen(false);
+
+    // primeira posição: onde o voo de entrada pousou (canto superior direito)
+    if (!pos.current) {
+      pos.current = { x: W - (W < 768 ? 65 : 85), y: W < 768 ? 78 : 84 };
+      gsap.set(bird, pos.current);
+      gsap.set(face, { scaleX: -1 });
+    }
+    if (yieldToHero) return;
+
+    // parte da posição REAL (um voo pode ter sido interrompido no meio pela apresentação do Hero)
+    const from = { x: Number(gsap.getProperty(bird, "x")), y: Number(gsap.getProperty(bird, "y")) };
+    pos.current = { x: target.x, y: target.y };
+
+    if (landedFromHero.current || prefersReduced()) {
+      landedFromHero.current = false;
+      gsap.set(bird, { x: target.x, y: target.y, rotate: 0 });
+      gsap.set(face, { scaleX: restFacing });
+      return;
+    }
+
+    const dx = target.x - from.x;
+    const dy = target.y - from.y;
+    if (Math.abs(dx) < 2 && Math.abs(dy) < 2) {
+      gsap.set(face, { scaleX: restFacing });
+      return;
+    }
+    const travelFacing: 1 | -1 = dx === 0 ? restFacing : dx > 0 ? 1 : -1;
+    // ponto de controle: atravessa o miolo da tela, como quem sobrevoa o conteúdo
+    const mid = {
+      x: gsap.utils.clamp(0, W - target.size, (from.x + target.x) / 2 + (Math.abs(dx) < W * 0.3 ? (W / 2 - from.x) * 0.5 : 0)),
+      y: gsap.utils.clamp(70, H - target.size, Math.min(from.y, target.y) - H * 0.12 + (Math.abs(dy) > H * 0.4 ? H * 0.18 : 0)),
+    };
+
+    setResting(false);
+    const tl = gsap.timeline({ onComplete: () => setResting(true) });
+    tl.to(face, { scaleX: travelFacing, duration: 0.2, ease: "power2.out" }, 0)
+      .to(bird, { rotate: travelFacing * -8, duration: 0.35, ease: "power2.out" }, 0)
+      .to(bird, { motionPath: { path: [mid, { x: target.x, y: target.y }], curviness: 1.4 }, duration: 1.6, ease: "power1.inOut" }, 0)
+      .to(bird, { rotate: 0, duration: 0.4, ease: "power2.inOut" }, 1.25)
+      .to(face, { scaleX: restFacing, duration: 0.25, ease: "power2.out" }, 1.45);
+    return () => {
+      tl.kill();
+    };
+  }, [current.bird, isCinematicIntro, yieldToHero]);
+
+  // Resize: reposiciona sem voo
+  useEffect(() => {
+    const onResize = () => {
+      const bird = birdRef.current;
+      if (!bird || !pos.current) return;
+      const t = birdZoneCoords(current.bird, document.documentElement.clientWidth, window.innerHeight);
+      pos.current = { x: t.x, y: t.y };
+      gsap.set(bird, pos.current);
+    };
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, [current.bird]);
 
   // =========================================================================
-  // FASE 1: VOO INICIAL CINEMATOGRÁFICO NA TELA INICIAL (SPLASH / HERO)
-  // z-[70] para ser 100% visível sobre o carregamento inicial
+  // FASE 1: VOO INICIAL CINEMATOGRÁFICO NA TELA INICIAL (preservado)
   // =========================================================================
   if (isCinematicIntro) {
     const screenW = typeof window !== "undefined" ? window.innerWidth : 1024;
@@ -439,157 +430,68 @@ export default function HummingbirdGuide({
     );
   }
 
-  // =========================================================================
-  // FASE 2: GUIA NARRADOR EDITORIAL ALTERNADO (D → E → D → E → D → E → D)
-  // Deslocamento curto de voo ao entrar, recuo para fora ao sair
-  // =========================================================================
-  const travelDirectionOffset = isLeftSide ? -35 : 35;
 
+  // =========================================================================
+  // FASE 2: SOBREVOO ENTRE CAPÍTULOS (posições alternadas por capítulo)
+  // =========================================================================
   return (
     <aside
-      aria-label="Guia Beija-Flor do Portfólio"
-      className={`fixed inset-0 pointer-events-none z-[60] select-none overflow-hidden ${className}`}
+      aria-label="Guia beija-flor do portfólio"
+      className={`fixed inset-0 pointer-events-none z-[60] select-none overflow-hidden transition-opacity duration-300 ${className}`}
+      // visibility (e não display) mantém o pássaro mensurável durante a apresentação do Hero
+      style={yieldToHero ? { opacity: 0, visibility: "hidden" } : undefined}
     >
-      {/* Posição calculada com clamp nas bordas perimétricas seguras */}
-      <div
-        className={`absolute ${zoneClasses[currentZone]} transition-all duration-300 ease-out`}
-      >
-        <div className="relative flex items-center">
-          {/* Micro-deslocamento curto na borda: sai da tela / surge da margem */}
-          <motion.div
-            key={`${currentZone}-${effectiveSection}`}
-            initial={{
-              x: travelDirectionOffset,
-              opacity: 0,
-              scale: 0.9,
-            }}
-            animate={{
-              x: transitionState === "leaving" ? travelDirectionOffset : 0,
-              opacity: transitionState === "leaving" ? 0 : 1,
-              scale: transitionState === "leaving" ? 0.88 : 1,
-            }}
-            transition={{
-              duration: transitionState === "leaving" ? 0.2 : 0.32,
-              ease: "easeOut",
-            }}
-            className="relative flex items-center"
-          >
-            {/* Balão Editorial Poético (Abre sempre voltado para o conteúdo interior) */}
-            <AnimatePresence>
-              {isSpeechVisible && (
-                <motion.div
-                  initial={{
-                    opacity: 0,
-                    scale: 0.9,
-                    x: isLeftSide ? -10 : 10,
-                  }}
-                  animate={{
-                    opacity: 1,
-                    scale: 1,
-                    x: 0,
-                  }}
-                  exit={{
-                    opacity: 0,
-                    scale: 0.85,
-                    x: isLeftSide ? -8 : 8,
-                  }}
-                  transition={{ duration: 0.26, ease: "easeOut" }}
-                  className={`absolute pointer-events-auto w-56 sm:w-64 md:w-72 max-w-[calc(100vw-4.5rem)] bg-[#FAF8F5] border border-[#465B20]/40 rounded-2xl p-3 sm:p-3.5 shadow-[0_12px_32px_-6px_rgba(28,26,24,0.25)] text-[#1C1A18] z-50 ${
-                    isLeftSide
-                      ? "left-full ml-3"
-                      : "right-full mr-3"
-                  }`}
-                  style={{
-                    top: currentZone.endsWith("bottom")
-                      ? "auto"
-                      : currentZone.endsWith("top")
-                      ? "0"
-                      : "50%",
-                    bottom: currentZone.endsWith("bottom") ? "0" : "auto",
-                    transform: currentZone.endsWith("middle")
-                      ? "translateY(-50%)"
-                      : "none",
-                  }}
-                >
-                  {/* Cabeçalho do Balão */}
-                  <div className="flex items-center justify-between pb-1.5 mb-1.5 border-b border-[#465B20]/20">
-                    <div className="flex items-center gap-1.5">
-                      <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-[#465B20] font-bold">
-                        Guia Beija-Flor
-                      </span>
-                      <span className="text-[8px] sm:text-[9px] uppercase tracking-wider px-1.5 py-0.5 rounded-full bg-[#465B20]/15 text-[#2A3614] font-bold">
-                        {currentThought.tag}
-                      </span>
-                    </div>
+      <div ref={birdRef} className="absolute left-0 top-0 will-change-transform">
+        <div className="relative">
+          <div ref={faceRef}>
+            <HummingbirdSvg
+              facingInward={1}
+              bubbleDismissed={!hintOpen}
+              onReopenBubble={() => setHintOpen(true)}
+              onClick={() => setHintOpen((o) => !o)}
+              perch
+            />
+          </div>
 
-                    <div className="flex items-center gap-1">
-                      <button
-                        type="button"
-                        onClick={() => setIsMuted(!isMuted)}
-                        className="p-1 rounded-md text-[#383531] hover:text-[#1C1A18] hover:bg-[#E5E2D8] transition-colors cursor-pointer"
-                        title={isMuted ? "Mostrar dicas" : "Ocultar dicas"}
-                        aria-label={isMuted ? "Mostrar dicas" : "Ocultar dicas"}
-                      >
-                        {isMuted ? (
-                          <VolumeX className="w-3 h-3 text-[#9E6761]" />
-                        ) : (
-                          <Volume2 className="w-3 h-3" />
-                        )}
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => setBubbleDismissed(true)}
-                        className="p-1 rounded-md text-[#383531] hover:text-[#1C1A18] hover:bg-[#E5E2D8] transition-colors cursor-pointer"
-                        title="Fechar"
-                        aria-label="Fechar"
-                      >
-                        <X className="w-3 h-3" />
-                      </button>
-                    </div>
-                  </div>
-
-                  {/* Título & Mensagem Narrativa Poética */}
-                  <h4 className="font-serif font-bold text-xs sm:text-sm text-[#1C1A18] leading-tight mb-1">
-                    {currentThought.title}
-                  </h4>
-                  <p className="font-sans text-[11px] sm:text-xs text-[#383531] font-normal leading-relaxed mb-2">
-                    “{currentThought.text}”
-                  </p>
-
-                  {/* Ação de avançar percurso editorial (Seções 81 a 87, 92) */}
+          <AnimatePresence>
+            {hintOpen && resting && (
+              <motion.div
+                role="dialog"
+                aria-label={`Dica do capítulo ${current.number}`}
+                initial={{ opacity: 0, scale: 0.92 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.9 }}
+                transition={{ duration: 0.22, ease: "easeOut" }}
+                className={`absolute pointer-events-auto w-64 max-w-[calc(100vw-5rem)] bg-[#FBF9F4] text-[#23241F] border border-[#23241F]/20 p-3.5 shadow-[0_14px_36px_-10px_rgba(35,36,31,0.45)] ${
+                  isLeftSide ? "left-full ml-3" : "right-full mr-3"
+                } ${current.bird.endsWith("bottom") ? "bottom-0" : current.bird.endsWith("top") ? "top-0" : "top-1/2 -translate-y-1/2"}`}
+                style={{ fontFamily: "'DM Sans', sans-serif" }}
+              >
+                <div className="flex items-center justify-between gap-2 pb-2 mb-2 border-b border-[#23241F]/15">
+                  <span className="text-[10px] uppercase tracking-[0.2em] font-semibold text-[#44503A]">
+                    {current.number} · {current.title}
+                  </span>
                   <button
                     type="button"
-                    onClick={handleNextSectionPerch}
-                    className="w-full flex items-center justify-between pt-1.5 border-t border-[#465B20]/20 text-[10px] font-sans font-bold text-[#465B20] hover:text-[#2A3614] cursor-pointer"
+                    onClick={() => setHintOpen(false)}
+                    aria-label="Fechar dica"
+                    className="p-1 text-[#4B4B44] hover:text-[#23241F] cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-[#B69AD9]"
                   >
-                    <span className="flex items-center gap-1">
-                      <Compass className="w-3 h-3" /> {currentThought.actionText}
-                    </span>
-                    <span className="font-mono text-[9px] text-[#4E4A45] font-semibold">
-                      {effectiveSection} ({isLeftSide ? "E" : "D"}) ↗
-                    </span>
+                    <X className="w-3.5 h-3.5" aria-hidden="true" />
                   </button>
-
-                  {/* Seta do Balão */}
-                  <div
-                    className={`absolute top-4 w-0 h-0 border-solid ${
-                      isLeftSide
-                        ? "right-full border-r-8 border-r-[#F7F6F2] border-y-6 border-y-transparent border-l-0"
-                        : "left-full border-l-8 border-l-[#F7F6F2] border-y-6 border-y-transparent border-r-0"
-                    }`}
-                  />
-                </motion.div>
-              )}
-            </AnimatePresence>
-
-            {/* Pássaro voltado para dentro: scaleX(1) na esquerda, scaleX(-1) na direita */}
-            <HummingbirdSvg
-              facingInward={facingInward}
-              bubbleDismissed={bubbleDismissed}
-              onReopenBubble={() => setBubbleDismissed(false)}
-              onClick={handleNextSectionPerch}
-            />
-          </motion.div>
+                </div>
+                <p className="text-xs leading-relaxed text-[#3B3A35] mb-3">{current.hint}</p>
+                <button
+                  type="button"
+                  onClick={goToNext}
+                  className="w-full flex items-center justify-between text-[11px] uppercase tracking-[0.16em] font-semibold text-[#23241F] hover:text-[#5B4A86] cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-[#B69AD9]"
+                >
+                  <span>{next ? `Próximo: ${next.number} ${next.nav}` : "Voltar ao início"}</span>
+                  <span aria-hidden="true">{next ? "↓" : "↑"}</span>
+                </button>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </div>
     </aside>

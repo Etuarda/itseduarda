@@ -88,6 +88,7 @@ export default function Header() {
                       }`}
                       aria-label={`Ir para seção ${item.label}`}
                     >
+                      <span className="tabular-nums opacity-60 mr-1.5">{item.number}</span>
                       {item.label}
                       {isActive && (
                         <span className="absolute bottom-0 left-0 right-0 h-[1.5px] bg-[#465B20] rounded-full" />
@@ -151,7 +152,7 @@ export default function Header() {
 
               {/* Lista de Seções */}
               <nav className="flex flex-col gap-2 mb-6">
-                {sectionLinks.map((item, idx) => {
+                {sectionLinks.map((item) => {
                   const isActive = activeSection === item.id;
                   return (
                     <button
@@ -166,7 +167,7 @@ export default function Header() {
                     >
                       <div className="flex items-center gap-3">
                         <span className={`font-mono text-xs ${isActive ? "text-white/80" : "text-[#465B20]"}`}>
-                          0{idx + 1}.
+                          {item.number}.
                         </span>
                         <span className="font-serif text-base font-semibold">
                           {item.label}

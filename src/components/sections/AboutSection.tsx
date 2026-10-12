@@ -1,205 +1,153 @@
-import { ArrowRight, HeartHandshake, Compass } from "lucide-react";
+import React from "react";
+import SectionTitle from "@/components/ui/SectionTitle";
+import { LaceFrameAsset, PhotoFrame, BotanicalFlourishAsset } from "@/components/ui/AssetSlots";
+import aboutPortraitImg from "@/components/assets/about-portrait-editorial.png";
+import { ArrowRight, Compass, HeartHandshake, ShieldCheck } from "lucide-react";
 
 export default function AboutSection() {
   return (
     <section
       id="sobre"
-      className="w-full py-16 sm:py-20 md:py-24 px-4 sm:px-6 md:px-8 max-w-6xl mx-auto scroll-mt-20 relative select-text"
-      aria-label="Como eu penso - Filosofia Técnica e de Produto"
+      aria-label="Sobre Eduarda Silva Santos e Filosofia de Engenharia"
+      className="w-full py-16 sm:py-24 md:py-32 px-4 sm:px-8 md:px-12 lg:px-16 max-w-7xl mx-auto scroll-mt-20 relative select-text"
     >
-      {/* ========================================================================= */}
-      {/* CABEÇALHO DA SEÇÃO (Editorial Assimétrico)                                */}
-      {/* ========================================================================= */}
-      <header className="mb-12 sm:mb-16 border-b border-[#465B20]/20 pb-8 sm:pb-10">
-        <div className="flex items-center gap-3 mb-3">
-          <span className="font-mono text-[10px] sm:text-xs uppercase tracking-[0.20em] text-[#465B20] font-bold">
-            COMO EU PENSO
-          </span>
-          <span className="h-px w-12 bg-[#465B20]/25" />
-          <span className="font-mono text-[10px] uppercase tracking-wider text-[#4E4A45]">
-            02 / MANIFESTO TÉCNICO
-          </span>
-        </div>
+      {/* 1. Título Editorial Puro (Sem caixa de fundo, sem traços ----) */}
+      <div className="mb-12 sm:mb-16 md:mb-20">
+        <SectionTitle
+          index="01"
+          title="Sobre"
+          scriptAccent="como eu penso"
+          align="left"
+          subtitle="Antes de escolher a tecnologia, procuro entender o problema: contexto operacional, regras do negócio e impacto nas pessoas."
+        />
+      </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-end">
-          <div className="lg:col-span-8">
-            <h2 className="font-serif font-semibold text-3xl sm:text-5xl lg:text-6xl text-[#1C1A18] tracking-tight leading-[1.08]">
-              Antes de escolher a tecnologia,
-              <br />
-              <span className="text-[#2A3614]">eu procuro entender o problema.</span>
-            </h2>
+      {/* 2. Prancha Editorial Assimétrica de Página Dupla */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
+        
+        {/* COLUNA ESQUERDA: RETRATO EDITORIAL + METÁFORA DO BEIJA-FLOR (5 cols) */}
+        <div className="lg:col-span-5 flex flex-col items-center lg:items-start gap-8">
+          
+          {/* Retrato Editorial com Moldura de Renda (Foto SOBRE a renda: z-10 sobre z-0) */}
+          <div className="relative w-full max-w-[320px] sm:max-w-[360px] mx-auto lg:mx-0">
+            <LaceFrameAsset className="w-full">
+              <PhotoFrame className="w-full bg-[#FAF8F5]">
+                <img
+                  src={aboutPortraitImg}
+                  alt="Eduarda Silva Santos em registro editorial de trabalho e estudo"
+                  loading="lazy"
+                  className="w-full h-auto object-cover aspect-[4/5] filter contrast-[1.03] sepia-[0.08]"
+                />
+              </PhotoFrame>
+            </LaceFrameAsset>
+
+            {/* Acento Botânico em Aquarela Delicada */}
+            <BotanicalFlourishAsset
+              variant="flowers-mauve"
+              className="absolute -bottom-8 -right-8 w-24 h-24 opacity-80"
+            />
           </div>
 
-          <div className="lg:col-span-4 lg:text-right pb-1">
-            <span className="font-script text-2xl sm:text-3xl text-[#9E6761] block leading-none">
-              escutar, estruturar e construir
-            </span>
-            <p className="font-sans text-xs text-[#4E4A45] mt-1.5 font-normal">
-              Engenharia a serviço do contexto de negócio.
-            </p>
-          </div>
-        </div>
-      </header>
-
-      {/* ========================================================================= */}
-      {/* COMPOSIÇÃO DE PÁGINA DUPLA: MANIFESTO EDITORIAL + PERFIL DE VALOR         */}
-      {/* ========================================================================= */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 mb-12">
-        {/* COLUNA 1: MANIFESTO DE ENGENHARIA & OS 4 PONTOS CRÍTICOS (7 cols) */}
-        <div className="lg:col-span-7 flex flex-col justify-between">
-          <div>
-            <div className="flex items-center gap-2 mb-6">
-              <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-[#465B20] font-bold">
-                DIREÇÃO TÉCNICA
-              </span>
-              <span className="h-px flex-1 bg-[#465B20]/15" />
-            </div>
-
-            {/* Lead com abertura editorial */}
-            <div className="border-l-2 border-[#465B20] pl-5 sm:pl-6 py-2 mb-8 bg-[#FAF8F5]/80">
-              <p className="font-serif text-base sm:text-lg text-[#1C1A18] leading-relaxed italic">
-                “Meu trabalho não começa pela ferramenta. Procuro entender o contexto, as pessoas envolvidas, as regras do negócio e o que realmente precisa melhorar antes de escrever a primeira linha de código.”
-              </p>
-            </div>
-
-            {/* Os 4 Pontos Críticos em Diagramação Editorial */}
-            <div className="flex flex-col divide-y divide-[#465B20]/15 mb-8">
-              {/* 01. INTERFACE */}
-              <div className="py-3.5 flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 sm:gap-4">
-                <div className="flex items-baseline gap-2 shrink-0">
-                  <span className="font-mono text-[10px] text-[#465B20] font-bold">01</span>
-                  <h3 className="font-sans font-bold text-xs uppercase tracking-[0.14em] text-[#2A3614]">
-                    INTERFACE
-                  </h3>
-                </div>
-                <p className="font-sans text-xs sm:text-sm text-[#383531] leading-relaxed sm:text-right">
-                  Uma interface pode estar bonita e ainda confundir quem usa.
-                </p>
-              </div>
-
-              {/* 02. ARQUITETURA */}
-              <div className="py-3.5 flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 sm:gap-4">
-                <div className="flex items-baseline gap-2 shrink-0">
-                  <span className="font-mono text-[10px] text-[#465B20] font-bold">02</span>
-                  <h3 className="font-sans font-bold text-xs uppercase tracking-[0.14em] text-[#2A3614]">
-                    ARQUITETURA
-                  </h3>
-                </div>
-                <p className="font-sans text-xs sm:text-sm text-[#383531] leading-relaxed sm:text-right">
-                  Uma API pode funcionar e continuar difícil de manter.
-                </p>
-              </div>
-
-              {/* 03. DADOS */}
-              <div className="py-3.5 flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 sm:gap-4">
-                <div className="flex items-baseline gap-2 shrink-0">
-                  <span className="font-mono text-[10px] text-[#465B20] font-bold">03</span>
-                  <h3 className="font-sans font-bold text-xs uppercase tracking-[0.14em] text-[#2A3614]">
-                    DADOS
-                  </h3>
-                </div>
-                <p className="font-sans text-xs sm:text-sm text-[#383531] leading-relaxed sm:text-right">
-                  Dados podem existir sem gerar informação útil.
-                </p>
-              </div>
-
-              {/* 04. IA APLICADA */}
-              <div className="py-3.5 flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 sm:gap-4">
-                <div className="flex items-baseline gap-2 shrink-0">
-                  <span className="font-mono text-[10px] text-[#465B20] font-bold">04</span>
-                  <h3 className="font-sans font-bold text-xs uppercase tracking-[0.14em] text-[#2A3614]">
-                    IA APLICADA
-                  </h3>
-                </div>
-                <p className="font-sans text-xs sm:text-sm text-[#383531] leading-relaxed sm:text-right">
-                  Uma IA pode responder com segurança aparente sem ter evidência para sustentar o que diz.
-                </p>
-              </div>
-            </div>
-
-            <p className="font-sans text-xs sm:text-sm text-[#383531] leading-relaxed">
-              Transformo essas percepções em soluções técnicas claras para quem usa e compreensíveis para quem vai continuar desenvolvendo e mantendo a aplicação.
-            </p>
-          </div>
-
-          {/* Destaque: Ciclo de Pensamento (Seção 42) */}
-          <div className="mt-8 pt-4 border-t border-[#465B20]/20 flex flex-wrap items-center justify-between gap-4">
-            <div className="flex flex-wrap items-center gap-2 text-xs font-mono font-bold text-[#2A3614]">
-              <span className="px-2.5 py-1 bg-[#465B20]/10 border border-[#465B20]/25 rounded">Entender</span>
-              <span className="text-[#465B20]">→</span>
-              <span className="px-2.5 py-1 bg-[#465B20]/10 border border-[#465B20]/25 rounded">Estruturar</span>
-              <span className="text-[#465B20]">→</span>
-              <span className="px-2.5 py-1 bg-[#465B20]/10 border border-[#465B20]/25 rounded">Desenvolver</span>
-              <span className="text-[#465B20]">→</span>
-              <span className="px-2.5 py-1 bg-[#465B20]/10 border border-[#465B20]/25 rounded">Validar</span>
-            </div>
-
-            <a
-              href="#stacks"
-              className="inline-flex items-center gap-1.5 text-xs font-sans font-bold uppercase tracking-wider text-[#465B20] hover:text-[#2A3614] transition-colors border-b border-[#465B20]/30 pb-0.5"
+          {/* Legenda Editorial e Assinatura de Princípio */}
+          <div className="w-full max-w-[340px] text-center lg:text-left">
+            <span
+              className="font-script text-2xl sm:text-3xl text-[#9E6761] block leading-tight"
             >
-              Ver base técnica <ArrowRight className="w-3.5 h-3.5" />
+              precisão em cada conexão
+            </span>
+            <p className="font-mono text-[11px] text-[#4E4A45] mt-1 uppercase tracking-wider">
+              Eduarda Silva Santos • Salvador / Remoto
+            </p>
+          </div>
+
+          {/* O Símbolo do Beija-Flor: Conectar Disciplinas */}
+          <div className="w-full max-w-[380px] pt-4 flex flex-col gap-2.5">
+            <div className="flex items-center gap-2 text-[#465B20]">
+              <Compass className="w-4 h-4" />
+              <span className="font-mono text-xs font-bold uppercase tracking-widest">
+                O Símbolo do Beija-Flor
+              </span>
+            </div>
+            <p className="font-sans text-xs sm:text-sm text-[#383531] leading-relaxed">
+              O beija-flor não carrega excesso de bagagem: ele acessa a flor certa com leveza, velocidade e exatidão milimétrica. Na engenharia de software, adoto a mesma postura: foco na essência, contratos enxutos e integração harmônica entre back-end, front-end, dados e IA.
+            </p>
+          </div>
+        </div>
+
+        {/* COLUNA DIREITA: OS 3 EIXOS NARRATIVOS EDITORIALMENTE COMPILADOS (7 cols) */}
+        <div className="lg:col-span-7 flex flex-col gap-10 sm:gap-12">
+          
+          {/* Citação Editorial em Cormorant Garamond (Manifesto Principal) */}
+          <blockquote className="pl-4 sm:pl-6 border-l-2 border-[#465B20] text-[#1C1A18]">
+            <p className="font-serif text-xl sm:text-2xl md:text-3xl italic leading-snug">
+              “Uma interface pode ser atraente e ainda confundir quem usa. Uma API pode compilar e ainda ser inviável de manter. Meu compromisso é alinhar rigor arquitetural às restrições do mundo real.”
+            </p>
+          </blockquote>
+
+          {/* Os 3 Eixos Estratégicos com Diagramação Editorial Limpa (Sem caixas de fundo nem divisores ----) */}
+          <div className="flex flex-col gap-8 sm:gap-10">
+            
+            {/* Eixo 1: Engenharia Orientada a Regras de Negócio */}
+            <article className="flex flex-col gap-2">
+              <div className="flex items-baseline gap-3">
+                <span className="font-mono text-xs font-bold text-[#465B20] select-none">
+                  01
+                </span>
+                <h3 className="font-serif font-bold text-lg sm:text-xl text-[#1C1A18]">
+                  Engenharia Orientada a Regras de Negócio
+                </h3>
+              </div>
+              <p className="font-sans text-xs sm:text-sm text-[#383531] leading-relaxed pl-7">
+                Minha formação e prática têm no <strong className="font-semibold text-[#1C1A18]">Back-end estruturado (Node.js, TypeScript e PostgreSQL)</strong> o seu eixo central. Antes de adotar bibliotecas ou padrões complexos, modelo as entidades do domínio, garanto transações atômicas, desenho contratos com validação estrita (Zod) e escrevo testes para que o sistema seja sustentável por anos, não apenas na entrega inicial.
+              </p>
+            </article>
+
+            {/* Eixo 2: Visão de Usuário e Contexto Operacional */}
+            <article className="flex flex-col gap-2">
+              <div className="flex items-baseline gap-3">
+                <span className="font-mono text-xs font-bold text-[#465B20] select-none">
+                  02
+                </span>
+                <h3 className="font-serif font-bold text-lg sm:text-xl text-[#1C1A18]">
+                  Visão de Usuário e Contexto Operacional
+                </h3>
+              </div>
+              <p className="font-sans text-xs sm:text-sm text-[#383531] leading-relaxed pl-7">
+                Minha trajetória começou lidando diretamente com o atendimento ao cliente e resolução de problemas operacionais na <strong className="font-semibold text-[#1C1A18]">AeC Centro de Contatos</strong>. Essa vivência moldou minha capacidade de escuta ativa: sei traduzir frustrações reais de quem usa em requisitos claros de engenharia, antecipar cenários de erro e projetar sistemas acessíveis (WCAG 2.2) que eliminam barreiras operacionais.
+              </p>
+            </article>
+
+            {/* Eixo 3: Conexão Entre Disciplinas — Software, Dados e IA */}
+            <article className="flex flex-col gap-2">
+              <div className="flex items-baseline gap-3">
+                <span className="font-mono text-xs font-bold text-[#465B20] select-none">
+                  03
+                </span>
+                <h3 className="font-serif font-bold text-lg sm:text-xl text-[#1C1A18]">
+                  Conexão Entre Disciplinas: Software, Dados e IA
+                </h3>
+              </div>
+              <p className="font-sans text-xs sm:text-sm text-[#383531] leading-relaxed pl-7">
+                Não vejo fronteiras artificiais entre desenvolvimento de aplicações, engenharia de dados e inteligência artificial. Integro interfaces fluidas em React a pipelines analíticos em Python/SQL e fluxos de IA generativa (RAG) baseados em evidências verificáveis. Essa polinização multidisciplinar me permite participar desde a concepção até a orquestração completa da solução.
+              </p>
+            </article>
+          </div>
+
+          {/* Chamada para Exploração de Competências */}
+          <div className="pt-2 pl-7 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <span className="font-mono text-xs text-[#4E4A45]">
+              Próximo passo: conheça os pilares técnicos e projetos aplicados.
+            </span>
+            <a
+              href="#competencias"
+              className="inline-flex items-center gap-1.5 text-xs font-sans font-bold uppercase tracking-wider text-[#465B20] hover:text-[#1E2713] transition-colors cursor-pointer group"
+            >
+              <span>Ver competências e projetos</span>
+              <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
             </a>
           </div>
         </div>
 
-        {/* COLUNA 2: EXPERIÊNCIA HUMANA & CONEXÃO (5 cols no desktop, filete vertical) */}
-        <aside className="lg:col-span-5 lg:border-l lg:border-[#465B20]/20 lg:pl-8 flex flex-col justify-between gap-8">
-          {/* Bloco: Experiência Humana (Seção 43) */}
-          <div className="flex flex-col">
-            <div className="flex items-center justify-between border-b border-[#465B20]/20 pb-2 mb-4">
-              <div className="flex items-center gap-2 text-[#465B20]">
-                <HeartHandshake className="w-3.5 h-3.5" />
-                <span className="font-mono text-[10px] uppercase tracking-[0.20em] font-bold">
-                  EXPERIÊNCIA HUMANA
-                </span>
-              </div>
-              <span className="font-script text-lg text-[#9E6761]">
-                escutar antes de construir
-              </span>
-            </div>
-
-            <h3 className="font-serif font-bold text-xl sm:text-2xl text-[#1C1A18] mb-2.5 leading-snug">
-              Tecnologia também começa sabendo ouvir.
-            </h3>
-
-            <p className="font-sans text-xs sm:text-sm text-[#383531] leading-relaxed mb-3">
-              Antes de aprofundar minha atuação em desenvolvimento, trabalhei diretamente com atendimento e resolução de problemas operacionais.
-            </p>
-            <p className="font-sans text-xs sm:text-sm text-[#383531] leading-relaxed">
-              Essa experiência continua presente na forma como trabalho hoje: ouvir, identificar o que realmente está sendo pedido, organizar informações e buscar uma solução objetiva sem retrabalho.
-            </p>
-          </div>
-
-          {/* Bloco: Significado do Beija-Flor (Seção 44) */}
-          <div className="flex flex-col border-t border-[#465B20]/20 pt-6">
-            <div className="flex items-center justify-between border-b border-[#465B20]/20 pb-2 mb-4">
-              <div className="flex items-center gap-2 text-[#465B20]">
-                <Compass className="w-3.5 h-3.5" />
-                <span className="font-mono text-[10px] uppercase tracking-[0.20em] font-bold">
-                  SÍMBOLO & PROPÓSITO
-                </span>
-              </div>
-              <span className="font-script text-lg text-[#9E6761]">
-                precisão em cada conexão
-              </span>
-            </div>
-
-            <h3 className="font-serif font-bold text-xl sm:text-2xl text-[#1C1A18] mb-2.5 leading-snug">
-              Por que um beija-flor?
-            </h3>
-
-            <p className="font-sans text-xs sm:text-sm text-[#383531] leading-relaxed mb-2">
-              O beija-flor representa uma ideia simples que orienta minha entrega:
-              <strong className="text-[#1C1A18] font-semibold block mt-1">
-                conectar diferentes pontos com precisão.
-              </strong>
-            </p>
-            <p className="font-sans text-xs sm:text-sm text-[#4E4A45] leading-relaxed">
-              Front-end, back-end, dados e IA podem ser áreas diferentes. O valor para a equipe está em fazê-las trabalhar juntas para resolver o problema certo.
-            </p>
-          </div>
-        </aside>
       </div>
     </section>
   );

@@ -41,28 +41,28 @@ const STATUS_STYLES: Record<
   { bg: string; border: string; text: string; dot: string }
 > = {
   PRODUÇÃO: {
-    bg: "bg-[#465B20]/15",
-    border: "border-[#465B20]/45",
-    text: "text-[#2A3614]",
-    dot: "bg-[#465B20]",
+    bg: "bg-[#C5D9A5]/20",
+    border: "border-[#C5D9A5]/45",
+    text: "text-[#E8DCBE]",
+    dot: "bg-[#C5D9A5]",
   },
   PROJETO: {
-    bg: "bg-[#5C6E50]/15",
-    border: "border-[#5C6E50]/40",
-    text: "text-[#243B2B]",
-    dot: "bg-[#5C6E50]",
+    bg: "bg-[#8CA864]/20",
+    border: "border-[#8CA864]/40",
+    text: "text-[#D8E6C2]",
+    dot: "bg-[#8CA864]",
   },
   PESQUISA: {
-    bg: "bg-[#9E6761]/20",
-    border: "border-[#9E6761]/45",
-    text: "text-[#2E221E]",
-    dot: "bg-[#9E6761]",
+    bg: "bg-[#C6928B]/20",
+    border: "border-[#C6928B]/45",
+    text: "text-[#F0D5D1]",
+    dot: "bg-[#C6928B]",
   },
   EXPLORANDO: {
-    bg: "bg-[#9E4A28]/15",
-    border: "border-[#9E4A28]/40",
-    text: "text-[#4A1E0D]",
-    dot: "bg-[#9E4A28]",
+    bg: "bg-[#D4A373]/20",
+    border: "border-[#D4A373]/40",
+    text: "text-[#F5DFCA]",
+    dot: "bg-[#D4A373]",
   },
 };
 
@@ -245,23 +245,21 @@ export default function SkillsSection() {
       {/* Âncora de compatibilidade para competências e skills */}
       <div id="competencias" className="absolute -top-20" />
 
-      {/* Cabeçalho Editorial (Seções 18 & 64 do Guia Mestre) */}
+      {/* Cabeçalho Editorial (Tipografia Pura, sem caixas de fundo) */}
       <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-10 relative z-20">
-        <div className="inline-flex items-center mb-2 px-3.5 py-1 rounded-full bg-white border border-[#465B20]/30 shadow-2xs">
-          <span className="font-mono text-[10px] sm:text-xs uppercase tracking-[0.20em] text-[#2A3614] font-bold">
-            COMPÊNDIO TÉCNICO • DISCIPLINA & MATURIDADE
-          </span>
-        </div>
+        <span className="font-mono text-xs uppercase tracking-[0.25em] text-[#C5D9A5] font-bold block mb-2">
+          COMPÊNDIO TÉCNICO • GAZETTE NOIR
+        </span>
 
         <h2
-          className="font-serif font-black text-2xl sm:text-4xl lg:text-5xl text-[#1C1A18] tracking-tight leading-tight mt-1"
+          className="font-serif font-black text-2xl sm:text-4xl lg:text-5xl text-[#FAF8F5] tracking-tight leading-tight mt-1"
           style={{ textWrap: "balance" }}
         >
           Ferramentas mudam. A capacidade de tomar boas decisões precisa permanecer.
         </h2>
 
         <p
-          className="font-sans text-xs sm:text-sm md:text-base text-[#383531] mt-3 leading-relaxed max-w-2xl mx-auto"
+          className="font-sans text-xs sm:text-sm md:text-base text-[#E2DFD8] mt-3 leading-relaxed max-w-2xl mx-auto"
           style={{ textWrap: "balance" }}
         >
           Não organizo tecnologias como uma lista genérica de palavras-chave. Cada competência abaixo possui nível de maturidade técnica, contexto de uso documentado e evidências em projetos reais.
@@ -269,10 +267,10 @@ export default function SkillsSection() {
       </div>
 
       {/* Barra de Filtros Editoriais & Stacks Predefinidas */}
-      <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-6 pb-4 border-b border-[#465B20]/20">
+      <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-6 pb-4 border-b border-[#FAF8F5]/15">
         {/* Filtro por Nível de Maturidade */}
         <div className="flex flex-wrap items-center gap-1 sm:gap-1.5">
-          <span className="font-mono text-[10px] uppercase tracking-wider text-[#4E4A45] mr-1 font-semibold hidden sm:inline">
+          <span className="font-mono text-[10px] uppercase tracking-wider text-[#E8DCBE]/70 mr-1 font-semibold hidden sm:inline">
             Maturidade:
           </span>
           {(["TODAS", "PRODUÇÃO", "PROJETO", "PESQUISA", "EXPLORANDO"] as FilterStatus[]).map((st) => {
@@ -284,8 +282,8 @@ export default function SkillsSection() {
                 onClick={() => setActiveFilter(st)}
                 className={`px-3 py-1 text-xs font-sans tracking-wide transition-all cursor-pointer border-b-2 ${
                   isSelected
-                    ? "border-[#465B20] text-[#2A3614] font-bold"
-                    : "border-transparent text-[#4E4A45] hover:text-[#1C1A18] hover:border-[#465B20]/40"
+                    ? "border-[#C5D9A5] text-[#C5D9A5] font-bold"
+                    : "border-transparent text-[#FAF8F5]/70 hover:text-[#FAF8F5] hover:border-[#C5D9A5]/40"
                 }`}
               >
                 {st}
@@ -296,7 +294,7 @@ export default function SkillsSection() {
 
         {/* Stacks Rápidas de Referência */}
         <div className="flex flex-wrap items-center gap-1.5">
-          <span className="font-mono text-[10px] uppercase tracking-wider text-[#4E4A45] mr-1 font-semibold hidden sm:inline">
+          <span className="font-mono text-[10px] uppercase tracking-wider text-[#E8DCBE]/70 mr-1 font-semibold hidden sm:inline">
             Composições:
           </span>
           {PRESET_STACKS.map((preset) => (
@@ -304,7 +302,7 @@ export default function SkillsSection() {
               key={preset.name}
               type="button"
               onClick={() => handleApplyPreset(preset)}
-              className="px-2.5 py-1 text-[11px] font-sans text-[#2A3614] bg-white/80 border border-[#465B20]/25 hover:bg-[#465B20] hover:text-[#F7F6F2] transition-all cursor-pointer shadow-2xs font-medium"
+              className="px-2.5 py-1 text-[11px] font-sans text-[#FAF8F5] bg-[#1A2513] border border-[#FAF8F5]/20 hover:bg-[#C5D9A5] hover:text-[#1A2310] transition-all cursor-pointer shadow-2xs font-medium"
             >
               {preset.name}
             </button>
@@ -313,11 +311,11 @@ export default function SkillsSection() {
       </div>
 
       {/* ==========================================================================
-          O COMPÊNDIO EDITORIAL (4 DISCIPLINAS TÉCNICAS EM PRANCHAS DE CATÁLOGO)
+          O COMPÊNDIO EDITORIAL (4 DISCIPLINAS TÉCNICAS EM PRANCHAS DE CATÁLOGO NOIR)
           Eliminação de cards arredondados genéricos. Estrutura pura de imprensa cultural.
           ========================================================================== */}
-      <div className="w-full border-t border-b border-[#465B20]/25 bg-white/60 backdrop-blur-xs mb-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 divide-y md:divide-y-0 md:divide-x divide-[#465B20]/20">
+      <div className="w-full border-t border-b border-[#FAF8F5]/15 bg-[#141D0E]/95 backdrop-blur-xs mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 divide-y md:divide-y-0 md:divide-x divide-[#FAF8F5]/15">
           {SKILLS_BOARD_COLUMNS.map((col) => {
             const Icon = COLUMN_ICONS[col.id];
             const filteredSkills =
@@ -328,27 +326,27 @@ export default function SkillsSection() {
             return (
               <div key={col.id} className="flex flex-col">
                 {/* Cabeçalho Editorial da Disciplina */}
-                <div className="p-4 sm:p-5 border-b border-[#465B20]/20 bg-[#FAF8F5]/90">
+                <div className="p-4 sm:p-5 border-b border-[#FAF8F5]/15 bg-[#1A2513]">
                   <div className="flex items-baseline justify-between mb-1.5">
                     <div className="flex items-center gap-2">
-                      <span className="font-serif font-black text-2xl text-[#465B20]">
+                      <span className="font-serif font-black text-2xl text-[#C5D9A5]">
                         {col.number}
                       </span>
-                      <h3 className="font-serif font-bold text-base text-[#1C1A18] tracking-tight">
+                      <h3 className="font-serif font-bold text-base text-[#FAF8F5] tracking-tight">
                         {col.title}
                       </h3>
                     </div>
-                    <span className="font-mono text-[10px] text-[#465B20] font-bold">
+                    <span className="font-mono text-[10px] text-[#C5D9A5] font-bold">
                       [{filteredSkills.length}]
                     </span>
                   </div>
-                  <p className="font-sans text-[11px] text-[#4E4A45] italic">
+                  <p className="font-sans text-[11px] text-[#E2DFD8]/70 italic">
                     {col.tagline}
                   </p>
                 </div>
 
                 {/* Lista de Espécimes Técnicos da Coluna */}
-                <div className="flex flex-col divide-y divide-[#465B20]/10">
+                <div className="flex flex-col divide-y divide-[#FAF8F5]/10">
                   {filteredSkills.map((skill) => {
                     const isSelected = selectedSkillIds.has(skill.id);
                     const statusStyle = STATUS_STYLES[skill.status];
@@ -359,14 +357,14 @@ export default function SkillsSection() {
                         onClick={() => handleToggleSkill(skill)}
                         className={`p-3.5 sm:p-4 transition-all duration-200 cursor-pointer flex flex-col justify-between group relative ${
                           isSelected
-                            ? "bg-[#F1F5E8] border-l-2 border-l-[#465B20]"
-                            : "hover:bg-white/80 border-l-2 border-l-transparent"
+                            ? "bg-[#243419] border-l-2 border-l-[#C5D9A5]"
+                            : "hover:bg-[#1E2B15] border-l-2 border-l-transparent"
                         }`}
                       >
                         <div>
                           {/* Metadados: Código & Status Pill */}
                           <div className="flex items-center justify-between mb-1">
-                            <span className="font-mono text-[9px] text-[#4E4A45] font-semibold">
+                            <span className="font-mono text-[9px] text-[#C5D9A5]/80 font-semibold">
                               #{skill.code}
                             </span>
                             <span
@@ -378,36 +376,36 @@ export default function SkillsSection() {
                           </div>
 
                           {/* Nome da Tecnologia */}
-                          <h4 className="font-serif font-bold text-base text-[#1C1A18] group-hover:text-[#465B20] transition-colors leading-tight">
+                          <h4 className="font-serif font-bold text-base text-[#FAF8F5] group-hover:text-[#C5D9A5] transition-colors leading-tight">
                             {skill.name}
                           </h4>
 
                           {/* Tag de Contexto de Aplicação */}
-                          <span className="font-sans text-[9px] uppercase font-bold text-[#465B20] block mt-0.5 tracking-wider">
+                          <span className="font-mono text-[9px] uppercase font-bold text-[#C5D9A5] block mt-0.5 tracking-wider">
                             {skill.shortTag}
                           </span>
 
                           {/* Descrição Concisa */}
-                          <p className="font-sans text-[11px] text-[#383531] font-normal leading-relaxed mt-1.5 line-clamp-2">
+                          <p className="font-sans text-[11px] text-[#E2DFD8] font-normal leading-relaxed mt-1.5 line-clamp-2">
                             {skill.description}
                           </p>
                         </div>
 
                         {/* Ações Integradas */}
-                        <div className="flex items-center justify-between pt-2.5 mt-2 border-t border-[#465B20]/10 text-[10px] font-sans">
+                        <div className="flex items-center justify-between pt-2.5 mt-2 border-t border-[#FAF8F5]/10 text-[10px] font-sans">
                           <button
                             type="button"
                             onClick={(e) => {
                               e.stopPropagation();
                               setInspectingSkill(skill);
                             }}
-                            className="text-[#465B20] hover:text-[#1C1A18] font-semibold flex items-center gap-1 hover:underline cursor-pointer"
+                            className="text-[#C5D9A5] hover:text-white font-semibold flex items-center gap-1 hover:underline cursor-pointer"
                           >
                             <Eye className="w-3 h-3" />
                             <span>Ficha técnica</span>
                           </button>
 
-                          <span className="font-mono text-[9px] text-[#4E4A45] font-medium">
+                          <span className={`font-mono text-[9px] font-medium ${isSelected ? "text-[#C5D9A5]" : "text-[#E8DCBE]/60"}`}>
                             {isSelected ? "● Combinada" : "○ Selecionar"}
                           </span>
                         </div>
@@ -416,7 +414,7 @@ export default function SkillsSection() {
                   })}
 
                   {filteredSkills.length === 0 && (
-                    <div className="p-8 text-center text-xs text-[#4E4A45] italic font-sans">
+                    <div className="p-8 text-center text-xs text-[#E2DFD8]/60 italic font-sans">
                       Nenhuma tecnologia com status "{activeFilter}" nesta disciplina.
                     </div>
                   )}
@@ -431,22 +429,22 @@ export default function SkillsSection() {
           BANCADA TÉCNICA: SÍNTESE ARQUITETURAL & PROJETOS CONECTADOS
           Prancha arquitetural sem cards arredondados genéricos.
           ========================================================================== */}
-      <div className="border border-[#465B20]/25 bg-[#FAF8F5]/90 p-4 sm:p-6 mb-8">
-        <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-[#465B20]/20 mb-4">
+      <div className="border border-[#FAF8F5]/20 bg-[#1A2513]/95 p-4 sm:p-6 mb-8 text-[#FAF8F5]">
+        <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-[#FAF8F5]/15 mb-4">
           <div className="flex items-center gap-2">
-            <span className="p-1.5 bg-[#465B20] text-[#F7F6F2]">
+            <span className="p-1.5 bg-[#C5D9A5] text-[#1A2310]">
               <Sparkles className="w-4 h-4" />
             </span>
             <div>
               <div className="flex items-center gap-2">
-                <h3 className="font-serif font-bold text-lg sm:text-xl text-[#1C1A18] tracking-tight">
+                <h3 className="font-serif font-bold text-lg sm:text-xl text-[#FAF8F5] tracking-tight">
                   Bancada de Combinação Técnica
                 </h3>
-                <span className="text-[10px] font-mono font-bold px-2 py-0.5 bg-[#465B20]/15 text-[#2A3614] border border-[#465B20]/30">
+                <span className="text-[10px] font-mono font-bold px-2 py-0.5 bg-[#C5D9A5]/20 text-[#C5D9A5] border border-[#C5D9A5]/35">
                   {selectedSkillIds.size} selecionadas
                 </span>
               </div>
-              <p className="font-sans text-xs text-[#2A3614] font-medium mt-0.5">
+              <p className="font-sans text-xs text-[#E8DCBE] font-medium mt-0.5">
                 {architectureDiagnosis}
               </p>
             </div>
@@ -455,16 +453,16 @@ export default function SkillsSection() {
           <button
             type="button"
             onClick={handleClearAll}
-            className="px-3 py-1 border border-[#465B20]/30 bg-white hover:bg-[#FAF8F5] text-[#383531] hover:text-[#1C1A18] text-xs font-sans font-medium flex items-center gap-1.5 transition-colors cursor-pointer shadow-2xs"
+            className="px-3 py-1 border border-[#FAF8F5]/20 bg-[#141D0E] hover:bg-[#C5D9A5] hover:text-[#1A2310] text-[#FAF8F5] text-xs font-sans font-medium flex items-center gap-1.5 transition-colors cursor-pointer shadow-2xs"
           >
-            <RotateCcw className="w-3 h-3 text-[#465B20]" />
+            <RotateCcw className="w-3 h-3 text-[#C5D9A5]" />
             <span>Limpar seleção</span>
           </button>
         </div>
 
         {/* Projetos Correspondentes */}
         <div className="pt-2">
-          <span className="text-[10px] font-mono font-bold text-[#2A3614] uppercase tracking-wider block mb-2">
+          <span className="text-[10px] font-mono font-bold text-[#C5D9A5] uppercase tracking-wider block mb-2">
             Estudos de caso que comprovam essa combinação ({matchingProjects.length}):
           </span>
 
@@ -474,9 +472,9 @@ export default function SkillsSection() {
                 key={project.id}
                 type="button"
                 onClick={() => setSelectedProjectForModal(project)}
-                className="inline-flex items-center gap-2 px-3 py-1.5 bg-[#465B20] hover:bg-[#2A3614] text-[#F7F6F2] text-xs font-sans font-semibold transition-all shadow-xs cursor-pointer active:scale-98"
+                className="inline-flex items-center gap-2 px-3 py-1.5 bg-[#C5D9A5] hover:bg-[#FAF8F5] text-[#1A2310] text-xs font-sans font-semibold transition-all shadow-xs cursor-pointer active:scale-98"
               >
-                <CheckCircle2 className="w-3.5 h-3.5 text-[#C5D9A5]" />
+                <CheckCircle2 className="w-3.5 h-3.5 text-[#1A2310]" />
                 <span>{project.title}</span>
                 <span className="text-[10px] opacity-85 font-mono">
                   ({score} techs em comum)
@@ -485,7 +483,7 @@ export default function SkillsSection() {
             ))}
 
             {matchingProjects.length === 0 && (
-              <span className="text-xs text-[#4E4A45] italic py-1">
+              <span className="text-xs text-[#E2DFD8]/70 italic py-1">
                 Nenhum projeto específico encontrado com a combinação atual. Experimente selecionar React, Node.js ou PostgreSQL!
               </span>
             )}
