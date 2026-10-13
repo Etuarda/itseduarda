@@ -141,7 +141,7 @@ export function BarsGraphic() {
       {items.map((item) => (
         <li key={item.title} className="grid grid-cols-[1fr_auto] gap-x-4 gap-y-1.5 items-end">
           <span className="text-sm sm:text-base text-[#23241F] leading-tight">
-            <span className="font-semibold">{item.title.replace("Desenvolvimento de Software — ", "")}</span>
+            <span className="font-semibold">{item.title.replace("Desenvolvimento de Software · ", "")}</span>
             <span className="text-[#4B4B44]"> · {item.institution}</span>
           </span>
           <span

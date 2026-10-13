@@ -1,5 +1,6 @@
 import React from "react";
 import Header from "@/components/layout/Header";
+import Footer from "@/components/layout/Footer";
 import HeroSection from "@/components/sections/HeroSection";
 import HummingbirdGuide from "@/components/ui/HummingbirdGuide";
 import LaceSeam from "@/components/chapters/LaceSeam";
@@ -43,6 +44,8 @@ export default function App() {
         <LaceSeam variant="medallion" />
         <ContactChapter />
       </main>
+      <LaceSeam variant="ribbon" />
+      <Footer />
     </div>
   );
 }

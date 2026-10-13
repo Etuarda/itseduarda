@@ -31,6 +31,6 @@ export const CONTACT = {
 export const CONTACT_FORM = {
   recipient: "ettuarda@gmail.com",
   endpoint: (to: string) => `https://formsubmit.co/ajax/${to}`,
-  subject: "Portfólio — nova mensagem",
-  limits: { name: 80, message: 2000 },
+  subject: "Portfólio: nova mensagem",
+  limits: { name: 80 },
 };

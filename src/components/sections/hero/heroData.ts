@@ -10,7 +10,7 @@ export type InstitutionLogo = { src: string; alt: string };
 export const LOGOS = {
   pucrs: { src: pucrsLogo, alt: "PUCRS" },
   ecoa: { src: ecoaLogo, alt: "Instituto ECOA PUC-Rio" },
-  fdte: { src: fdteLogo, alt: "FDTE — Fundação para o Desenvolvimento Tecnológico da Engenharia" },
+  fdte: { src: fdteLogo, alt: "FDTE, Fundação para o Desenvolvimento Tecnológico da Engenharia" },
   cubos: { src: cubosLogo, alt: "Cubos Academy" },
   pda: { src: pdaLogo, alt: "Programadores do Amanhã" },
 } satisfies Record<string, InstitutionLogo>;
@@ -50,8 +50,8 @@ export const CREDENTIAL_HUBS: CredentialHub[] = [
     items: [
       {
         title: "Tecnologia em Análise e Desenvolvimento de Sistemas",
-        institution: "PUCRS — Pontifícia Universidade Católica do Rio Grande do Sul",
-        period: "2024–2027 • Em andamento",
+        institution: "PUCRS, Pontifícia Universidade Católica do Rio Grande do Sul",
+        period: "2024 a 2027 • Em andamento",
         logo: LOGOS.pucrs,
         skills: [
           "Engenharia de Software",
@@ -134,7 +134,7 @@ export const CREDENTIAL_HUBS: CredentialHub[] = [
     logos: [LOGOS.cubos, LOGOS.pda],
     items: [
       {
-        title: "Desenvolvimento de Software — Back-end",
+        title: "Desenvolvimento de Software · Backend",
         institution: "Cubos Academy",
         logo: LOGOS.cubos,
         hours: "600h+",
@@ -142,7 +142,7 @@ export const CREDENTIAL_HUBS: CredentialHub[] = [
         skills: ["JavaScript", "Node.js", "Express", "PostgreSQL", "APIs REST"],
       },
       {
-        title: "Desenvolvimento de Software — Front-end",
+        title: "Desenvolvimento de Software · Frontend",
         institution: "Cubos Academy",
         logo: LOGOS.cubos,
         hours: "492h",
@@ -194,7 +194,7 @@ export const HERO_COPY = {
       { text: "." },
     ],
   ] as CopySegment[][],
-  hook: "Veja como transformo problemas em soluções reais",
+  hook:"",
   /** Rótulos de canto da moldura editorial: [destaque, complemento] */
   corners: [
     ["Eduarda", "Silva Santos"],

@@ -11,13 +11,13 @@ const label = "text-[11px] uppercase tracking-[0.2em] font-semibold text-[#B5C29
 export default function ContactForm() {
   const uid = useId();
   const [status, setStatus] = useState<Status>("idle");
-  const [values, setValues] = useState({ name: "", email: "", message: "" });
+  const [values, setValues] = useState({ name: "", email: "", phone: "", message: "" });
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
     setValues((v) => ({ ...v, [e.target.name]: e.target.value }));
 
   const mailtoFallback = `mailto:${CONTACT_FORM.recipient}?subject=${encodeURIComponent(CONTACT_FORM.subject)}&body=${encodeURIComponent(
-    `${values.message}\n\n— ${values.name} (${values.email})`,
+    `${values.message}\n\nDe: ${values.name} (${values.email}${values.phone ? `, ${values.phone}` : ""})`,
   )}`;
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -35,6 +35,7 @@ export default function ContactForm() {
         body: JSON.stringify({
           name: values.name,
           email: values.email,
+          phone: values.phone,
           message: values.message,
           _replyto: values.email,
           _subject: `${CONTACT_FORM.subject} de ${values.name}`,
@@ -45,7 +46,7 @@ export default function ContactForm() {
       const data = (await res.json().catch(() => ({}))) as { success?: string | boolean };
       if (!res.ok || String(data.success) !== "true") throw new Error("envio recusado");
       setStatus("sent");
-      setValues({ name: "", email: "", message: "" });
+      setValues({ name: "", email: "", phone: "", message: "" });
     } catch {
       setStatus("error");
     }
@@ -87,6 +88,21 @@ export default function ContactForm() {
         </div>
       </div>
       <div className="flex flex-col gap-1.5">
+        <label htmlFor={`${uid}-phone`} className={label}>
+          Telefone / WhatsApp <span className="normal-case tracking-normal font-normal text-[#DAD6CA]/70"></span>
+        </label>
+        <input
+          id={`${uid}-phone`}
+          name="phone"
+          type="tel"
+          autoComplete="tel"
+          inputMode="tel"
+          value={values.phone}
+          onChange={onChange}
+          className={field}
+        />
+      </div>
+      <div className="flex flex-col gap-1.5">
         <label htmlFor={`${uid}-message`} className={label}>
           Mensagem
         </label>
@@ -94,8 +110,6 @@ export default function ContactForm() {
           id={`${uid}-message`}
           name="message"
           required
-          minLength={10}
-          maxLength={CONTACT_FORM.limits.message}
           rows={4}
           value={values.message}
           onChange={onChange}
@@ -112,10 +126,10 @@ export default function ContactForm() {
           disabled={status === "sending"}
           className="inline-flex items-center gap-2 px-5 py-3 bg-[#C9B3E6] text-[#161B12] text-xs uppercase tracking-[0.18em] font-semibold hover:bg-[#F5F2E9] disabled:opacity-60 disabled:cursor-wait transition-colors cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-[#F5F2E9] focus-visible:ring-offset-2 focus-visible:ring-offset-[#161B12]"
         >
-          {status === "sending" ? "Enviando…" : "Enviar mensagem"} <span aria-hidden="true">→</span>
+          {status === "sending" ? "Enviando…" : "Enviar mensagem"}
         </button>
         <p id={`${uid}-status`} role="status" aria-live="polite" className="text-sm text-[#DAD6CA]">
-          {status === "sent" && "Mensagem enviada. Obrigada — respondo em breve."}
+          {status === "sent" && "Mensagem enviada. Obrigada, respondo em breve."}
           {status === "error" && (
             <>
               Não consegui enviar agora.{" "}

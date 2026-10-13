@@ -12,8 +12,11 @@ export default function ChapterShell({
   innerClassName = "",
   children,
   decor,
+  domId,
 }: {
   id: ChapterId;
+  /** id do elemento quando a âncora do capítulo fica num wrapper (ex.: 03 com duas telas) */
+  domId?: string;
   className?: string;
   innerClassName?: string;
   children: React.ReactNode;
@@ -41,7 +44,7 @@ export default function ChapterShell({
   return (
     <section
       ref={ref}
-      id={id}
+      id={domId ?? id}
       data-chapter={id}
       aria-labelledby={`${id}-title`}
       className={`chapter relative w-full overflow-hidden ${className}`}
@@ -60,10 +63,9 @@ export default function ChapterShell({
   );
 }
 
-/** Título de capítulo: número + nome editorial + h2 com uma palavra de destaque em itálico. */
+/** Título de capítulo: nome editorial + h2 com uma palavra de destaque em itálico. */
 export function ChapterHeading({
   id,
-  number,
   kicker,
   title,
   accentClass,
@@ -71,7 +73,6 @@ export function ChapterHeading({
   className = "",
 }: {
   id: ChapterId;
-  number: string;
   kicker: string;
   title: { lead: string; accent: string; tail: string };
   accentClass: string;
@@ -80,10 +81,8 @@ export function ChapterHeading({
 }) {
   return (
     <header className={`flex flex-col gap-2 sm:gap-3 ${className}`}>
-      <p className={`flex items-center gap-3 text-[11px] sm:text-xs uppercase tracking-[0.24em] font-semibold ${kickerClass}`} style={{ fontFamily: "'DM Sans', sans-serif" }}>
-        <span className="tabular-nums">{number}</span>
-        <span aria-hidden="true" className="block h-px w-8 bg-current opacity-50" />
-        <span>{kicker}</span>
+      <p className={`text-[11px] sm:text-xs uppercase tracking-[0.24em] font-semibold ${kickerClass}`} style={{ fontFamily: "'DM Sans', sans-serif" }}>
+        {kicker}
       </p>
       <h2
         id={`${id}-title`}

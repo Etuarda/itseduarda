@@ -1,56 +1,80 @@
-import React, { useId, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import ChapterShell, { ChapterHeading } from "./ChapterShell";
+import { useCarouselAutoplay } from "@/hooks/useCarouselAutoplay";
 import InstitutionLogo from "@/components/sections/hero/InstitutionLogo";
-import { AUTHORITY, type AuthorityAxis } from "@/content/authority";
+import { AUTHORITY, type AuthorityAxis, type Credential } from "@/content/authority";
 import textureGrain from "@/components/assets/texture-grain-soft.png";
 
 const sans = { fontFamily: "'DM Sans', sans-serif" };
 const display = { fontFamily: "'Playfair Display', Georgia, serif" };
 
-/** 02 — Conexão + Autoridade · oliva profundo, eixos em abas, provas curtas. */
-export default function AuthorityChapter() {
-  const [active, setActive] = useState<AuthorityAxis["id"]>("software");
-  const tabsRef = useRef<HTMLDivElement | null>(null);
-  const uid = useId();
-  const axis = AUTHORITY.axes.find((a) => a.id === active)!;
+type Item = Credential & { axis: AuthorityAxis["id"]; axisLabel: string };
 
-  // Setas/Home/End movem entre as abas (padrão WAI-ARIA tabs)
+/** Todas as formações numa sequência só; o eixo vira marcador e atalho. */
+const ITEMS: Item[] = AUTHORITY.axes.flatMap((a) => a.credentials.map((c) => ({ ...c, axis: a.id, axisLabel: a.label })));
+
+/** Anterior/próximo só para teclado e leitores de tela: aparecem ao receber foco. */
+const srNav =
+  "sr-only focus:not-sr-only focus:absolute focus:z-20 focus:top-1/2 focus:-translate-y-1/2 focus:px-3 focus:py-2 focus:bg-[#F5F2E9] focus:text-[#23241F] text-xs uppercase tracking-[0.18em] font-semibold outline-none focus-visible:ring-2 focus-visible:ring-[#D4C2EE]";
+
+/** Conexão + Autoridade: oliva profundo, formações num carrossel 3D que gira sozinho (coverflow). */
+export default function AuthorityChapter() {
+  const [active, setActive] = useState(0);
+  const drag = useRef<{ x: number; id: number } | null>(null);
+  const swiped = useRef(false);
+  const region = useRef<HTMLDivElement | null>(null);
+  const total = ITEMS.length;
+  const current = ITEMS[active];
+
+  const go = (i: number) => setActive(((i % total) + total) % total);
+  // gira para a próxima formação a cada 4,2 s; qualquer interação segura o giro por alguns segundos
+  const auto = useCarouselAutoplay(region, { interval: 4200, onTick: () => setActive((a) => (a + 1) % total) });
+  const goManual = (i: number) => {
+    auto.hold();
+    go(i);
+  };
+
   const onKeyDown = (e: React.KeyboardEvent) => {
-    const ids = AUTHORITY.axes.map((a) => a.id);
-    const i = ids.indexOf(active);
-    const next =
-      e.key === "ArrowRight" ? ids[(i + 1) % ids.length]
-      : e.key === "ArrowLeft" ? ids[(i - 1 + ids.length) % ids.length]
-      : e.key === "Home" ? ids[0]
-      : e.key === "End" ? ids[ids.length - 1]
-      : null;
-    if (!next) return;
-    e.preventDefault();
-    setActive(next);
-    tabsRef.current?.querySelector<HTMLButtonElement>(`[data-axis="${next}"]`)?.focus();
+    if (e.key === "ArrowRight") {
+      e.preventDefault();
+      goManual(active + 1);
+    } else if (e.key === "ArrowLeft") {
+      e.preventDefault();
+      goManual(active - 1);
+    }
+  };
+
+  // arrastar/deslizar: 40px já troca de formação
+  const onPointerDown = (e: React.PointerEvent) => {
+    drag.current = { x: e.clientX, id: e.pointerId };
+  };
+  const onPointerUp = (e: React.PointerEvent) => {
+    const d = drag.current;
+    drag.current = null;
+    if (!d || d.id !== e.pointerId) return;
+    const dx = e.clientX - d.x;
+    if (Math.abs(dx) > 40) {
+      goManual(active + (dx < 0 ? 1 : -1));
+      // o clique que o navegador dispara após o arraste não deve focar a vizinha
+      swiped.current = true;
+      window.setTimeout(() => (swiped.current = false), 0);
+    }
   };
 
   return (
     <ChapterShell
       id="sobre"
       className="bg-[#2B3524] text-[#F5F2E9]"
-      innerClassName="pt-[max(5.5rem,12svh)] pb-[max(4.5rem,10svh)] justify-center-safe gap-[clamp(0.8rem,2.3svh,2rem)]"
+      innerClassName="pt-[max(5.5rem,12svh)] pb-[max(4rem,9svh)] justify-center-safe gap-[clamp(0.7rem,2svh,1.6rem)]"
       decor={
         <>
           <div className="absolute inset-0 opacity-[0.18] mix-blend-soft-light" style={{ backgroundImage: `url(${textureGrain})` }} />
-          <span
-            className="absolute -right-[4vw] -bottom-[6svh] leading-none font-black text-[clamp(12rem,32vw,30rem)] text-transparent"
-            style={{ ...display, WebkitTextStroke: "1px rgba(201,179,230,0.18)" }}
-          >
-            02
-          </span>
         </>
       }
     >
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-x-12 gap-y-3 items-end">
         <ChapterHeading
           id="sobre"
-          number="02"
           kicker={AUTHORITY.kicker}
           title={AUTHORITY.title}
           accentClass="text-[#D4C2EE]"
@@ -58,87 +82,128 @@ export default function AuthorityChapter() {
           className="lg:col-span-7"
         />
         <p
-          className="lg:col-span-5 text-[#E7E3D6] text-[clamp(0.95rem,1.15vw,1.08rem)] leading-relaxed max-w-xl [@media(max-height:720px)]:max-lg:hidden"
+          className="lg:col-span-5 text-[#E7E3D6] text-[clamp(0.95rem,1.15vw,1.08rem)] leading-relaxed max-w-xl max-sm:hidden [@media(max-height:760px)]:max-lg:hidden"
           style={sans}
         >
           {AUTHORITY.text}
         </p>
       </div>
 
-      {/* Eixos de formação */}
       <div
-        ref={tabsRef}
-        role="tablist"
-        aria-label="Eixos de formação"
+        role="region"
+        aria-roledescription="carrossel"
+        aria-label="Formações"
+        ref={region}
+        tabIndex={0}
         onKeyDown={onKeyDown}
-        className="flex gap-1 overflow-x-auto no-scrollbar border-b border-[#F5F2E9]/20"
+        {...auto.handlers}
+        className="relative flex-1 min-h-0 flex flex-col gap-[clamp(0.6rem,1.6svh,1rem)] outline-none focus-visible:ring-2 focus-visible:ring-[#D4C2EE]/60 focus-visible:ring-offset-4 focus-visible:ring-offset-[#2B3524]"
         style={sans}
       >
-        {AUTHORITY.axes.map((a) => {
-          const selected = a.id === active;
-          return (
-            <button
-              key={a.id}
-              type="button"
-              role="tab"
-              data-axis={a.id}
-              id={`${uid}-tab-${a.id}`}
-              aria-selected={selected}
-              aria-controls={`${uid}-panel`}
-              tabIndex={selected ? 0 : -1}
-              onClick={() => setActive(a.id)}
-              className={`relative shrink-0 px-3 sm:px-4 py-3 text-[11px] sm:text-xs uppercase tracking-[0.2em] font-semibold transition-colors outline-none focus-visible:ring-2 focus-visible:ring-[#D4C2EE] cursor-pointer ${
-                selected ? "text-[#F5F2E9]" : "text-[#F5F2E9]/60 hover:text-[#F5F2E9]"
-              }`}
-            >
-              {a.label}
-              <span className="ml-2 tabular-nums text-[#D4C2EE]">{a.credentials.length}</span>
-              {/* estado também por forma, não só cor */}
-              <span aria-hidden="true" className={`absolute left-0 right-0 -bottom-px h-[3px] ${selected ? "bg-[#D4C2EE]" : "bg-transparent"}`} />
-            </button>
-          );
-        })}
-      </div>
+        {/* Eixos: mostram onde a formação atual está e levam direto ao eixo */}
+        <div className="flex items-center gap-2 overflow-x-auto no-scrollbar -mx-6 px-6 sm:mx-0 sm:px-0">
+          {AUTHORITY.axes.map((a) => {
+            const on = current.axis === a.id;
+            const first = ITEMS.findIndex((it) => it.axis === a.id);
+            return (
+              <button
+                key={a.id}
+                type="button"
+                onClick={() => goManual(first)}
+                aria-pressed={on}
+                className={`shrink-0 h-9 px-3 text-[11px] uppercase tracking-[0.2em] font-semibold border transition-colors cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-[#D4C2EE] ${
+                  on ? "bg-[#D4C2EE] text-[#23241F] border-[#D4C2EE]" : "border-[#F5F2E9]/30 text-[#F5F2E9]/80 hover:text-[#F5F2E9] hover:border-[#F5F2E9]/70"
+                }`}
+              >
+                {a.label}
+              </button>
+            );
+          })}
+        </div>
 
-      <div
-        id={`${uid}-panel`}
-        role="tabpanel"
-        aria-labelledby={`${uid}-tab-${active}`}
-        key={active}
-        className="-mx-6 px-6 sm:mx-0 sm:px-0 flex sm:grid sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 overflow-x-auto sm:overflow-visible snap-x snap-mandatory no-scrollbar"
-      >
-        {axis.credentials.map((c, i) => (
-          <article
-            key={c.name}
-            className="chapter-rise shrink-0 w-[82%] sm:w-auto snap-start flex flex-col gap-1.5 xl:gap-2 p-4 [@media(min-height:860px)]:p-5 bg-[#F5F2E9]/[0.06] border border-[#F5F2E9]/15 hover:border-[#D4C2EE]/70 transition-colors"
-            style={{ ...sans, animationDelay: `${i * 70}ms` }}
-          >
-            <div className="flex items-center justify-between gap-3 min-h-8">
-              {c.logo ? (
-                <InstitutionLogo logo={c.logo} size="sm" tone="light" className="!h-6 sm:!h-7" />
-              ) : (
-                <span className="text-xs uppercase tracking-[0.16em] text-[#C9D3B4]">{c.institution}</span>
-              )}
-              {c.hours && (
-                <span className="text-[clamp(1.4rem,2.2vw,1.9rem)] leading-none text-[#D4C2EE] tabular-nums" style={display}>
-                  {c.hours}
-                </span>
-              )}
-            </div>
-            <h3 className="font-bold text-[1.05rem] sm:text-lg leading-snug text-[#F5F2E9]" style={display}>
-              {c.name}
-            </h3>
-            <p className="text-xs uppercase tracking-[0.14em] text-[#C9D3B4]">
-              <span className="sr-only">{c.institution} · </span>
-              {c.period}
-            </p>
-            <p className="text-[0.82rem] text-[#E7E3D6] leading-relaxed">{c.tags.join(" · ")}</p>
-          </article>
-        ))}
+        {/* Palco em perspectiva: a formação atual no centro, vizinhas inclinadas nas laterais */}
+        <div
+          className="relative flex-1 min-h-[16rem] [perspective:1400px] touch-pan-y select-none"
+          {...auto.hoverHandlers}
+          onPointerDown={onPointerDown}
+          onPointerUp={onPointerUp}
+          onPointerCancel={() => (drag.current = null)}
+        >
+          <ul className="absolute inset-0 [transform-style:preserve-3d]">
+            {ITEMS.map((c, i) => {
+              // distância circular até a ativa, para o carrossel girar sem fim
+              let d = i - active;
+              if (d > total / 2) d -= total;
+              if (d < -total / 2) d += total;
+              const ad = Math.abs(d);
+              const visible = ad <= 2;
+              return (
+                <li
+                  key={`${c.axis}-${c.name}`}
+                  role="group"
+                  aria-roledescription="slide"
+                  aria-label={c.name}
+                  aria-hidden={d !== 0}
+                  inert={d !== 0}
+                  onClick={() => !swiped.current && d !== 0 && goManual(i)}
+                  className={`coverflow-card absolute left-1/2 top-1/2 w-[min(78vw,27rem)] h-full max-h-[22rem] ${d !== 0 ? "cursor-pointer" : ""}`}
+                  style={{
+                    transform: `translate(-50%,-50%) translateX(${d * 62}%) translateZ(${-ad * 160}px) rotateY(${-d * 28}deg)`,
+                    opacity: visible ? 1 - ad * 0.36 : 0,
+                    zIndex: 10 - ad,
+                    pointerEvents: visible ? "auto" : "none",
+                  }}
+                >
+                  <article
+                    className={`h-full flex flex-col gap-2 p-[clamp(1rem,2.4svh,1.6rem)] border transition-colors ${
+                      d === 0 ? `bg-[#F5F2E9] text-[#23241F] border-[#F5F2E9] shadow-[0_30px_60px_-30px_rgba(0,0,0,0.7)] ${auto.running ? "coverflow-float" : ""}` : "bg-[#36422D] text-[#F5F2E9]/70 border-[#F5F2E9]/20 [&_*]:!opacity-80"
+                    }`}
+                  >
+                    <div className="flex items-start justify-between gap-3">
+                      {c.logo ? (
+                        <InstitutionLogo logo={c.logo} size="sm" tone={d === 0 ? "color" : "light"} className="!h-8 sm:!h-9" />
+                      ) : (
+                        <span className="text-xs uppercase tracking-[0.16em]">{c.institution}</span>
+                      )}
+                      <span className={`text-[10px] uppercase tracking-[0.2em] font-semibold ${d === 0 ? "text-[#44503A]" : "text-[#C9D3B4]"}`}>{c.axisLabel}</span>
+                    </div>
+                    <div className="mt-auto flex flex-col gap-1.5">
+                      {c.hours && (
+                        <span className={`text-[clamp(2.2rem,min(5vw,7svh),3.6rem)] leading-none tabular-nums ${d === 0 ? "text-[#3E2A6B]" : "text-[#D4C2EE]"}`} style={display}>
+                          {c.hours}
+                        </span>
+                      )}
+                      <h3 className="font-bold text-[clamp(1.1rem,1.7vw,1.4rem)] leading-snug" style={display}>
+                        {c.name}
+                      </h3>
+                      <p className="text-xs uppercase tracking-[0.14em] opacity-80">
+                        {c.institution} · {c.period}
+                      </p>
+                      <p className="text-[0.82rem] leading-relaxed opacity-90 line-clamp-2">{c.tags.join(" · ")}</p>
+                    </div>
+                  </article>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+
+        {/* anterior/próximo só aparecem para quem navega por teclado */}
+        <div className="relative h-0">
+          <button type="button" onClick={() => goManual(active - 1)} className={`${srNav} focus:left-0`}>
+            Formação anterior
+          </button>
+          <button type="button" onClick={() => goManual(active + 1)} className={`${srNav} focus:right-0`}>
+            Próxima formação
+          </button>
+        </div>
+        <p aria-live="polite" className="sr-only">
+          {current.name}, {current.institution}
+        </p>
       </div>
 
       {/* Qualidade e backend: faixa menor */}
-      <ul className="flex flex-col sm:flex-row sm:flex-wrap gap-x-8 gap-y-1.5 text-[0.82rem] text-[#E7E3D6]" style={sans}>
+      <ul className="flex flex-col sm:flex-row sm:flex-wrap gap-x-8 gap-y-1 text-[0.82rem] text-[#E7E3D6] [@media(max-height:700px)]:hidden" style={sans}>
         {AUTHORITY.extras.map((x) => (
           <li key={x.name}>
             <span className="font-semibold text-[#F5F2E9]">{x.name}</span> · {x.meta}
@@ -146,8 +211,8 @@ export default function AuthorityChapter() {
         ))}
       </ul>
 
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-1">
-        <p className="italic text-[clamp(1.05rem,1.6vw,1.35rem)] text-[#F5F2E9] max-w-2xl" style={display}>
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <p className="hidden sm:block italic text-[clamp(1rem,1.5vw,1.3rem)] text-[#F5F2E9] max-w-2xl" style={display}>
           {AUTHORITY.closing}
         </p>
         <a
@@ -155,7 +220,7 @@ export default function AuthorityChapter() {
           className="self-start sm:self-auto inline-flex items-center gap-2 px-5 py-3 bg-[#D4C2EE] text-[#23241F] text-xs uppercase tracking-[0.18em] font-semibold hover:bg-[#F5F2E9] transition-colors outline-none focus-visible:ring-2 focus-visible:ring-[#F5F2E9] focus-visible:ring-offset-2 focus-visible:ring-offset-[#2B3524]"
           style={sans}
         >
-          Ver projetos <span aria-hidden="true">↓</span>
+          Ver projetos
         </a>
       </div>
     </ChapterShell>

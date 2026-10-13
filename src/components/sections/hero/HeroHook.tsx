@@ -10,9 +10,6 @@ export default function HeroHook() {
       style={{ fontFamily: "'DM Sans', sans-serif" }}
     >
       {HERO_COPY.hook}
-      <span aria-hidden="true" className="inline-block text-[#58644B] transition-transform duration-300 group-hover:translate-y-0.5">
-        ↓
-      </span>
     </a>
   );
 }

@@ -259,7 +259,6 @@ export default function HeroMotionController() {
         const highlightIn = (n: number, t: number) => {
           const sel = `[data-intro="hl-${n}"]`;
           tl!.set(sel, { autoAlpha: 1 }, t);
-          tl!.from(`${sel} [data-intro="hl-index"]`, { yPercent: 110, duration: 0.8, ease: "power4.out" }, t);
           tl!.from(`${sel} [data-intro="hl-label"]`, { opacity: 0, x: -12, duration: 0.6 }, t + 0.2);
           tl!.from(`${sel} [data-intro="hl-title"]`, { clipPath: HIDE_LEFT, duration: 1.0, ease: "power4.inOut" }, t + 0.15);
           tl!.from(`${sel} [data-intro="hl-sub"]`, { opacity: 0, y: 10, duration: 0.7 }, t + 0.7);

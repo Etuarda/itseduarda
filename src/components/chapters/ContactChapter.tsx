@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import ChapterShell, { ChapterHeading } from "./ChapterShell";
 import ContactForm from "./ContactForm";
 import { CONTACT } from "@/content/contactInfo";
@@ -7,20 +7,8 @@ import flowers from "@/components/assets/botanical-flowers-mauve-01.png";
 const sans = { fontFamily: "'DM Sans', sans-serif" };
 const display = { fontFamily: "'Playfair Display', Georgia, serif" };
 
-/** 06 — Contato · noite botânica: caixa de mensagem + canais diretos. */
+/** Contato · noite botânica: caixa de mensagem + canais diretos. */
 export default function ContactChapter() {
-  const [copied, setCopied] = useState(false);
-
-  const copyEmail = async () => {
-    try {
-      await navigator.clipboard.writeText(CONTACT.email);
-      setCopied(true);
-      window.setTimeout(() => setCopied(false), 2400);
-    } catch {
-      window.location.href = `mailto:${CONTACT.email}`;
-    }
-  };
-
   return (
     <ChapterShell
       id="contato"
@@ -37,7 +25,6 @@ export default function ContactChapter() {
         <div className="lg:col-span-6 flex flex-col gap-[clamp(0.75rem,2svh,1.5rem)]">
           <ChapterHeading
             id="contato"
-            number="06"
             kicker={CONTACT.kicker}
             title={CONTACT.title}
             accentClass="text-[#C9B3E6]"
@@ -67,9 +54,6 @@ export default function ContactChapter() {
                   <span className="hidden lg:inline flex-1 text-[clamp(1rem,1.6vw,1.35rem)] text-[#F5F2E9] group-hover:text-[#C9B3E6] group-hover:italic transition-colors truncate" style={display}>
                     {l.value}
                   </span>
-                  <span aria-hidden="true" className="text-[#C9B3E6] transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
-                    {l.download ? "↓" : "↗"}
-                  </span>
                   {l.href.startsWith("http") && <span className="sr-only">(abre em nova aba)</span>}
                 </a>
               </li>
@@ -86,19 +70,6 @@ export default function ContactChapter() {
         </section>
       </div>
 
-      <div className="flex flex-wrap items-center justify-between gap-3 text-xs text-[#DAD6CA]/80" style={sans}>
-        <button
-          type="button"
-          onClick={copyEmail}
-          className="underline underline-offset-4 decoration-[#C9B3E6]/60 hover:text-[#F5F2E9] cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-[#C9B3E6]"
-        >
-          {copied ? "E-mail copiado" : `Copiar ${CONTACT.email}`}
-        </button>
-        <span role="status" className="sr-only">
-          {copied ? "E-mail copiado para a área de transferência" : ""}
-        </span>
-        <p>© {new Date().getFullYear()} Eduarda Silva Santos · Software, dados e IA</p>
-      </div>
     </ChapterShell>
   );
 }

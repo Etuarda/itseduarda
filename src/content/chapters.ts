@@ -31,7 +31,7 @@ export const CHAPTERS: Chapter[] = [
     nav: "Início",
     title: "Apresentação",
     bird: "left-top",
-    hint: "Comece pela trajetória que virou prática — ou pule direto para os projetos.",
+    hint: "Comece pela trajetória que virou prática, ou pule direto para os projetos.",
   },
   {
     id: "sobre",

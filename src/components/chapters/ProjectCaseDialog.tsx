@@ -2,16 +2,13 @@ import React, { useEffect, useRef } from "react";
 import { X } from "lucide-react";
 import type { Project } from "@/content/portfolioProjects";
 import { PROJECT_IDENTITY } from "@/content/projectIdentity";
+import { LINK_LABEL, linkLabel } from "./ProjectLinks";
+
+export { LINK_LABEL };
 
 const sans = { fontFamily: "'DM Sans', sans-serif" };
 const display = { fontFamily: "'Playfair Display', Georgia, serif" };
 
-export const LINK_LABEL: Record<string, string> = {
-  deploy: "Deploy",
-  github: "GitHub",
-  backend: "Backend",
-  dashboard: "Dashboard",
-};
 
 /**
  * Case completo em <dialog> nativo: foco preso no diálogo, Esc fecha e o foco
@@ -45,7 +42,7 @@ export default function ProjectCaseDialog({ project, onClose }: { project: Proje
           <header className="relative flex items-start justify-between gap-4 px-6 sm:px-8 py-5" style={{ background: id.bg, color: id.ink }}>
             <div className="flex flex-col gap-1">
               <p className="text-[11px] uppercase tracking-[0.2em] opacity-80" style={sans}>
-                {project.kind}
+                {project.nature}
               </p>
               <h3 id="case-title" className="text-[clamp(1.8rem,4vw,2.8rem)] font-bold leading-tight" style={id.font ? { fontFamily: id.font } : display}>
                 {project.name}
@@ -66,87 +63,88 @@ export default function ProjectCaseDialog({ project, onClose }: { project: Proje
           </header>
 
           <div className="overflow-y-auto px-6 sm:px-8 py-6 flex flex-col gap-6" style={sans}>
-            <section>
-              <h4 className="text-[11px] uppercase tracking-[0.2em] text-[#5B4A86] font-semibold mb-1.5">Problema</h4>
+            <Block title="Problema">
               <p className="text-[clamp(1.1rem,2vw,1.4rem)] leading-snug italic" style={display}>
                 {project.problem}
               </p>
-            </section>
+            </Block>
 
-            {project.origin && (
-              <section>
-                <h4 className="text-[11px] uppercase tracking-[0.2em] text-[#5B4A86] font-semibold mb-1.5">Origem</h4>
-                <p className="leading-relaxed">{project.origin}</p>
-              </section>
-            )}
-
-            <section>
-              <h4 className="text-[11px] uppercase tracking-[0.2em] text-[#5B4A86] font-semibold mb-1.5">Solução</h4>
-              <p className="leading-relaxed">{project.solution}</p>
-            </section>
+            <Block title="Solução">
+              <p className="leading-relaxed font-medium">{project.solution}</p>
+              <p className="mt-3 leading-relaxed text-[#3A3A34]">{project.story}</p>
+            </Block>
 
             {project.role && (
-              <section>
-                <h4 className="text-[11px] uppercase tracking-[0.2em] text-[#5B4A86] font-semibold mb-1.5">Minha atuação</h4>
+              <Block title="Minha atuação">
                 <p className="leading-relaxed">{project.role}</p>
-              </section>
+              </Block>
             )}
 
-            {project.flow && (
-              <section>
-                <h4 className="text-[11px] uppercase tracking-[0.2em] text-[#5B4A86] font-semibold mb-2">
-                  {project.slug === "analise-dados" ? "Processo" : "Fluxo"}
-                </h4>
-                <ol className="flex flex-wrap items-center gap-x-2 gap-y-2 text-sm">
-                  {project.flow.map((step, i) => (
-                    <li key={step} className="flex items-center gap-2">
-                      <span className="px-2.5 py-1 border border-[#23241F]/25 bg-white">{step}</span>
-                      {i < project.flow!.length - 1 && <span aria-hidden="true" className="text-[#5B4A86]">→</span>}
+            <Block title="Engenharia aplicada">
+              <ul className="grid sm:grid-cols-2 gap-x-6 gap-y-1 text-sm leading-relaxed list-disc pl-4 marker:text-[#5B4A86]">
+                {project.engineering.map((e) => (
+                  <li key={e}>{e}</li>
+                ))}
+              </ul>
+            </Block>
+
+            <Block title={project.slug === "analise-dados" ? "Processo" : "Fluxo"}>
+              <ol className="flex flex-wrap items-center gap-x-2 gap-y-2 text-sm">
+                {project.flow.map((step, i) => (
+                  <li key={step} className="flex items-center gap-2">
+                    <span className="px-2.5 py-1 border border-[#23241F]/25 bg-white">{step}</span>
+                    {i < project.flow.length - 1 && <span aria-hidden="true" className="block size-1.5 rounded-full bg-[#5B4A86]" />}
+                  </li>
+                ))}
+              </ol>
+              {project.flowNote && <p className="mt-2 text-xs text-[#4B4B44]">{project.flowNote}</p>}
+            </Block>
+
+            <Block title="Tecnologias">
+              <p className="text-sm leading-relaxed">{project.highlight.join(" · ")}</p>
+            </Block>
+
+            {project.evidence && (
+              <Block title="Evidências no código">
+                <ul className="flex flex-col gap-1 text-[13px]">
+                  {project.evidence.map((e) => (
+                    <li key={e} className="font-mono break-all text-[#2F2E2A]">
+                      {e}
                     </li>
                   ))}
-                </ol>
-              </section>
+                </ul>
+              </Block>
             )}
 
-            {project.proofs && (
-              <section>
-                <h4 className="text-[11px] uppercase tracking-[0.2em] text-[#5B4A86] font-semibold mb-2">Provas</h4>
-                <dl className="grid grid-cols-3 gap-3">
-                  {project.proofs.map((p) => (
-                    <div key={p.label} className="border-l-2 border-[#5B4A86] pl-3">
-                      <dt className="sr-only">{p.label}</dt>
-                      <dd className="text-[clamp(1.4rem,3vw,2rem)] font-bold leading-none tabular-nums" style={display}>
-                        {p.value}
-                      </dd>
-                      <dd className="text-xs text-[#4B4B44] mt-1">{p.label}</dd>
-                    </div>
-                  ))}
-                </dl>
-              </section>
-            )}
 
-            <section>
-              <h4 className="text-[11px] uppercase tracking-[0.2em] text-[#5B4A86] font-semibold mb-2">Stack</h4>
-              <p className="text-sm leading-relaxed">{project.stack.join(" · ")}</p>
-            </section>
-
-            <section className="flex flex-wrap gap-2 pb-2">
-              {Object.entries(project.links).map(([kind, href]) => (
-                <a
-                  key={kind}
-                  href={href}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex items-center gap-2 px-4 py-2.5 bg-[#23241F] text-[#F5F2E9] text-xs uppercase tracking-[0.16em] font-semibold hover:bg-[#5B4A86] transition-colors outline-none focus-visible:ring-2 focus-visible:ring-[#B69AD9] focus-visible:ring-offset-2"
-                >
-                  {LINK_LABEL[kind] ?? kind} <span aria-hidden="true">↗</span>
-                  <span className="sr-only">(abre em nova aba)</span>
-                </a>
-              ))}
-            </section>
+            <Block title="Links">
+              <div className="flex flex-wrap gap-2 pb-2">
+                {project.links.map((l) => (
+                  <a
+                    key={l.href}
+                    href={l.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-4 py-2.5 bg-[#23241F] text-[#F5F2E9] text-xs uppercase tracking-[0.16em] font-semibold hover:bg-[#5B4A86] transition-colors outline-none focus-visible:ring-2 focus-visible:ring-[#B69AD9] focus-visible:ring-offset-2"
+                  >
+                    {linkLabel(l)}
+                    <span className="sr-only"> (abre em nova aba)</span>
+                  </a>
+                ))}
+              </div>
+            </Block>
           </div>
         </div>
       )}
     </dialog>
+  );
+}
+
+function Block({ title, children }: { title: string; children: React.ReactNode }) {
+  return (
+    <section>
+      <h4 className="text-[11px] uppercase tracking-[0.2em] text-[#5B4A86] font-semibold mb-1.5">{title}</h4>
+      {children}
+    </section>
   );
 }

@@ -462,6 +462,111 @@
   min-height: 100svh;
 }
 
+/* rodapé curto: encaixa no fim da página para continuar alcançável com o snap obrigatório */
+.site-footer {
+  scroll-snap-align: end;
+}
+
+/* 03 · película "Mais no GitHub": cartões levemente inclinados que se endireitam no hover/foco */
+.film-strip[data-dragging] {
+  cursor: grabbing;
+  scroll-snap-type: none;
+  user-select: none;
+}
+.film-card {
+  transform: rotate(var(--tilt, 0deg));
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease, border-color 0.3s ease;
+}
+.film-card:hover,
+.film-card:focus-within {
+  transform: rotate(0deg) translateY(-6px);
+  border-color: rgba(35, 36, 31, 0.55);
+  box-shadow: 0 22px 40px -26px rgba(35, 36, 31, 0.7);
+}
+@media (prefers-reduced-motion: reduce) {
+  .film-card {
+    transition: none;
+  }
+}
+
+/* 03 · cases: a cada troca a janela "abre", o celular sobe e o texto entra em cascata */
+@keyframes case-window-in {
+  from {
+    clip-path: inset(8% 12% 8% 12%);
+    opacity: 0.35;
+    transform: scale(0.96);
+  }
+  to {
+    clip-path: inset(0);
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes case-phone-in {
+  from {
+    opacity: 0;
+    transform: translateY(22%) rotate(4deg);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes case-text-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.chapter[data-seen] .case-slide[data-active="true"] .case-window {
+  animation: case-window-in 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.chapter[data-seen] .case-slide[data-active="true"] .case-phone {
+  animation: case-phone-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.35s both;
+}
+.chapter[data-seen] .case-slide[data-active="true"] .case-text > * {
+  animation: case-text-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.case-slide .case-text > :nth-child(2) { animation-delay: 0.08s !important; }
+.case-slide .case-text > :nth-child(3) { animation-delay: 0.14s !important; }
+.case-slide .case-text > :nth-child(4) { animation-delay: 0.2s !important; }
+.case-slide .case-text > :nth-child(5) { animation-delay: 0.26s !important; }
+.case-slide .case-text > :nth-child(6) { animation-delay: 0.32s !important; }
+.case-slide .case-text > :nth-child(7) { animation-delay: 0.38s !important; }
+@media (prefers-reduced-motion: reduce) {
+  .chapter[data-seen] .case-slide[data-active="true"] .case-window,
+  .chapter[data-seen] .case-slide[data-active="true"] .case-phone,
+  .chapter[data-seen] .case-slide[data-active="true"] .case-text > * {
+    animation: none;
+  }
+}
+
+/* 02 · coverflow das formações */
+.coverflow-card {
+  transform-style: preserve-3d;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.45s ease;
+}
+/* formação em destaque "respira" enquanto o carrossel gira sozinho */
+@keyframes coverflow-float {
+  0%, 100% { transform: translateY(0) rotateX(0deg); }
+  50% { transform: translateY(-6px) rotateX(2deg); }
+}
+.coverflow-float {
+  animation: coverflow-float 4.2s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .coverflow-card {
+    transition: none;
+  }
+  .coverflow-float {
+    animation: none;
+  }
+}
+
 /* Com altura suficiente: exatamente uma tela + encaixe por capítulo.
    Abaixo disso (ex.: iPhone SE, 667px) o capítulo cresce com o conteúdo — nunca corta informação. */
 @media (min-height: 740px) {

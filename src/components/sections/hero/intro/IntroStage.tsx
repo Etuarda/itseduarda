@@ -44,13 +44,6 @@ function HighlightHead({ hubIndex, dark = false }: { hubIndex: number; dark?: bo
     <div className="flex flex-col gap-3">
       <div className="flex items-baseline gap-4 overflow-hidden">
         <span
-          data-intro="hl-index"
-          className={`block italic leading-none text-[clamp(2.6rem,6vw,6rem)] ${dark ? "text-[#C9B3E6]" : "text-[#8A6BB8]"}`}
-          style={display}
-        >
-          {hub.index}
-        </span>
-        <span
           data-intro="hl-label"
           className={`text-[11px] sm:text-xs uppercase tracking-[0.22em] font-semibold ${dark ? "text-[#F5F2E9]/80" : "text-[#58644B]"}`}
           style={sans}
@@ -191,10 +184,8 @@ export default function IntroStage() {
           {HERO_COPY.fullName}
         </p>
         <p data-intro="final-hook" className="text-[#4B4B44] text-[clamp(1rem,1.5vw,1.3rem)] text-center" style={sans}>
-          {HERO_COPY.hook}{" "}
-          <span data-intro="final-arrow" className="inline-block text-[#58644B]">
-            ↓
-          </span>
+          {HERO_COPY.hook}
+          <span data-intro="final-arrow" aria-hidden="true" className="inline-block w-px h-[1em] align-middle" />
         </p>
       </div>
 

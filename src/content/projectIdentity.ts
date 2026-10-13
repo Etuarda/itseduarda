@@ -1,4 +1,4 @@
-import type { Project } from "./portfolioProjects";
+import type { OtherSlug, ProjectSlug } from "./portfolioProjects";
 import nexoDesktop from "@/components/assets/projects/nexo-rj-desktop.webp";
 import nexoMobile from "@/components/assets/projects/nexo-rj-mobile.webp";
 import nexoLogo from "@/components/assets/projects/nexo-rj-logo.png";
@@ -7,10 +7,8 @@ import onvagasMobile from "@/components/assets/projects/onvagas-mobile.webp";
 import a11yDesktop from "@/components/assets/projects/a11y-desktop.webp";
 import a11yMobile from "@/components/assets/projects/a11y-mobile.webp";
 import dadosCover from "@/components/assets/projects/analise-dados-cover.webp";
-import roadmapDesktop from "@/components/assets/projects/roadmap-desktop.webp";
-import roadmapMobile from "@/components/assets/projects/roadmap-mobile.webp";
-import caminhoDesktop from "@/components/assets/projects/caminho-seguro-desktop.webp";
-import caminhoMobile from "@/components/assets/projects/caminho-seguro-mobile.webp";
+import vemariDesktop from "@/components/assets/projects/vemari-desktop.webp";
+import vemariMobile from "@/components/assets/projects/vemari-mobile.webp";
 
 // Identidade visual real de cada projeto, levantada do próprio produto em 2026-10-12:
 // paleta das variáveis CSS do deploy, tipografia computada e capturas reais.
@@ -27,7 +25,7 @@ export type ProjectIdentity = {
   logo?: string;
 };
 
-export const PROJECT_IDENTITY: Record<Project["slug"], ProjectIdentity> = {
+export const PROJECT_IDENTITY: Record<ProjectSlug, ProjectIdentity> = {
   // :root do bundle publicado — marfim + dourado, Inter
   "nexo-rj": {
     bg: "#F7F5EF",
@@ -39,6 +37,20 @@ export const PROJECT_IDENTITY: Record<Project["slug"], ProjectIdentity> = {
     mobile: nexoMobile,
     logo: nexoLogo,
   },
+  // backend puro, sem interface: composição tipográfica no neutro do portfólio.
+  // (project-plans-system-cover.png não é usado: é uma colagem ilustrativa com telas
+  // e métricas que o projeto não tem.)
+  planos: { bg: "#23241F", surface: "#2F3029", ink: "#F5F2E9", accent: "#B5C29C" },
+  // /assets/css/styles.css — tokens tinta/papel, Instrument Serif
+  a11y: {
+    bg: "#F7F5F2",
+    surface: "#FFFFFF",
+    ink: "#12100E",
+    accent: "#6B645E",
+    font: "'Instrument Serif', Georgia, serif",
+    desktop: a11yDesktop,
+    mobile: a11yMobile,
+  },
   // :root do site — papel + tinta, Instrument Serif (wordmark em itálico)
   onvagas: {
     bg: "#F7F5F2",
@@ -49,42 +61,32 @@ export const PROJECT_IDENTITY: Record<Project["slug"], ProjectIdentity> = {
     desktop: onvagasDesktop,
     mobile: onvagasMobile,
   },
-  // Repositório privado e sem deploy: identidade não verificável.
-  // Usa a tinta do portfólio para não inventar uma marca.
-  vendefacil: { bg: "#23241F", surface: "#2F3029", ink: "#F5F2E9", accent: "#C9B3E6" },
-  // /assets/css/styles.css — mesmos tokens tinta/papel do OnVagas
-  a11y: {
-    bg: "#F7F5F2",
+  // capturas do deploy (GitHub Pages): areia + azul-marinho + dourado
+  vemari: {
+    bg: "#F7F2E8",
     surface: "#FFFFFF",
-    ink: "#12100E",
-    accent: "#6B645E",
-    font: "'Instrument Serif', Georgia, serif",
-    desktop: a11yDesktop,
-    mobile: a11yMobile,
+    ink: "#273147",
+    accent: "#C99A3E",
+    desktop: vemariDesktop,
+    mobile: vemariMobile,
   },
-  // capa do relatório Looker/Data Studio (as páginas de gráficos estão com erro de dataset)
+  // capa do relatório Looker/Data Studio
   "analise-dados": { bg: "#000000", surface: "#171717", ink: "#FFFFFF", accent: "#0233FF", desktop: dadosCover },
 };
 
-
-/** Projetos compactos: mesma regra — identidade do produto quando ela existe. */
-export const OTHER_IDENTITY: Record<string, ProjectIdentity> = {
-  // backend puro, sem interface: neutro do portfólio
-  planos: { bg: "#23241F", surface: "#2F3029", ink: "#F5F2E9", accent: "#B5C29C" },
-  // App.tsx (Tailwind): marrons + Playfair Display
-  roadmap: {
-    bg: "#FAF8F6",
-    surface: "#FFFCF9",
-    ink: "#3E2723",
-    accent: "#5D4037",
-    font: "'Playfair Display', Georgia, serif",
-    desktop: roadmapDesktop,
-    mobile: roadmapMobile,
-  },
-  // src/theme.js (MUI dark): vermelho cinema + dourado
-  "serie-journal": { bg: "#1A0505", surface: "#2D0A0A", ink: "#FDFBF7", accent: "#E50914" },
-  // notebooks: neutro do portfólio
-  "lab-ia": { bg: "#EDE4CF", surface: "#F5EEDD", ink: "#23241F", accent: "#44503A" },
-  // global.css: rosas; abre como calculadora disfarçada
-  "caminho-seguro": { bg: "#FADADD", surface: "#FFF5F8", ink: "#333333", accent: "#E59AB2", desktop: caminhoDesktop, mobile: caminhoMobile },
+/** Projetos compactos: só a cor de destaque do produto (o card continua compacto). */
+export const OTHER_IDENTITY: Record<OtherSlug, Pick<ProjectIdentity, "accent">> = {
+  // sem identidade levantada do produto: tons do próprio portfólio (oliva / lilás-tinta)
+  "arquivo-literario": { accent: "#44503A" },
+  healthhub: { accent: "#3E2A6B" },
+  // App.tsx (Tailwind): marrons
+  roadmap: { accent: "#5D4037" },
+  // src/theme.js (MUI dark): vermelho cinema
+  "series-journal": { accent: "#E50914" },
+  "laboratorio-rag": { accent: "#44503A" },
+  "chatbot-pln": { accent: "#3E2A6B" },
+  "classificacao-tumores": { accent: "#44503A" },
+  // global.css: rosas
+  "caminho-seguro": { accent: "#E59AB2" },
+  "pokemon-card-battle": { accent: "#3E2A6B" },
 };

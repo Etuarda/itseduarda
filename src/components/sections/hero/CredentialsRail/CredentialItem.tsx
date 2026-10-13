@@ -2,7 +2,7 @@ import React from "react";
 import type { CredentialHub } from "../heroData";
 
 const PROOF: Record<CredentialHub["id"], React.ReactNode> = {
-  formacao: <>2024–2027 · Em andamento</>,
+  formacao: <>2024 a 2027 · Em andamento</>,
   residencias: <>Dados 320h · IA 360h · RAG 284h</>,
   intensivas: <>PDA · 720h · Cubos · 600h+ · 492h</>,
 };
@@ -41,11 +41,11 @@ export default function CredentialItem({
       <span className="block">
         <span className="flex items-center justify-between gap-3 mb-2 text-[11px] uppercase tracking-[0.18em] text-[#58644B] font-semibold">
           <span>
-            {hub.index} — {hub.title}
+            {hub.title}
           </span>
           {/* Estado em texto, não só em cor */}
-          <span aria-hidden="true" className="text-[#44503A] text-sm leading-none">
-            {isActive ? "−" : "+"}
+          <span aria-hidden="true" className={`text-[#44503A] text-sm leading-none transition-transform duration-300 ${isActive ? "rotate-45" : ""}`}>
+            +
           </span>
         </span>
 

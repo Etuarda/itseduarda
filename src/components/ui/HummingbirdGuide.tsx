@@ -348,7 +348,7 @@ export default function HummingbirdGuide({ className = "" }: HummingbirdGuidePro
 
     return (
       <aside
-        aria-label="Guia Beija-Flor - Voo de Entrada"
+        aria-label="Guia beija-flor, voo de entrada"
         className={`fixed inset-0 pointer-events-none z-[70] select-none overflow-hidden ${className}`}
       >
         <motion.div
@@ -413,7 +413,7 @@ export default function HummingbirdGuide({ className = "" }: HummingbirdGuidePro
                   }}
                   className="text-[11px] font-sans font-bold text-[#465B20] hover:text-[#2A3614] cursor-pointer"
                 >
-                  Ver projetos →
+                  Ver projetos
                 </button>
                 <button
                   type="button"
@@ -457,7 +457,7 @@ export default function HummingbirdGuide({ className = "" }: HummingbirdGuidePro
             {hintOpen && resting && (
               <motion.div
                 role="dialog"
-                aria-label={`Dica do capítulo ${current.number}`}
+                aria-label={`Dica: ${current.title}`}
                 initial={{ opacity: 0, scale: 0.92 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.9 }}
@@ -469,7 +469,7 @@ export default function HummingbirdGuide({ className = "" }: HummingbirdGuidePro
               >
                 <div className="flex items-center justify-between gap-2 pb-2 mb-2 border-b border-[#23241F]/15">
                   <span className="text-[10px] uppercase tracking-[0.2em] font-semibold text-[#44503A]">
-                    {current.number} · {current.title}
+                    {current.title}
                   </span>
                   <button
                     type="button"
@@ -481,14 +481,15 @@ export default function HummingbirdGuide({ className = "" }: HummingbirdGuidePro
                   </button>
                 </div>
                 <p className="text-xs leading-relaxed text-[#3B3A35] mb-3">{current.hint}</p>
-                <button
-                  type="button"
-                  onClick={goToNext}
-                  className="w-full flex items-center justify-between text-[11px] uppercase tracking-[0.16em] font-semibold text-[#23241F] hover:text-[#5B4A86] cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-[#B69AD9]"
-                >
-                  <span>{next ? `Próximo: ${next.number} ${next.nav}` : "Voltar ao início"}</span>
-                  <span aria-hidden="true">{next ? "↓" : "↑"}</span>
-                </button>
+                {next && (
+                  <button
+                    type="button"
+                    onClick={goToNext}
+                    className="w-full flex items-center justify-between text-[11px] uppercase tracking-[0.16em] font-semibold text-[#23241F] hover:text-[#5B4A86] cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-[#B69AD9]"
+                  >
+                    <span>Próximo: {next.nav}</span>
+                  </button>
+                )}
               </motion.div>
             )}
           </AnimatePresence>

@@ -55,7 +55,7 @@ export default function CredentialExpanded({
       <div data-frag="head" className="flex items-start justify-between gap-4 border-b border-[#58644B]/20 pb-4 mb-5">
         <div className="flex flex-col gap-1">
           <span className="text-[11px] uppercase font-semibold text-[#58644B] tracking-[0.18em]">
-            {hub.index} — {hub.title}
+            {hub.title}
           </span>
           <h3
             className="font-black text-2xl sm:text-3xl text-[#23241F]"

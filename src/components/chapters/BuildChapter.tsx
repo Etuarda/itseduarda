@@ -49,7 +49,6 @@ export default function BuildChapter() {
       <div ref={rootRef} className="grid grid-cols-1 lg:grid-cols-12 gap-x-12 gap-y-3 items-end">
         <ChapterHeading
           id="processo"
-          number="04"
           kicker={BUILD.kicker}
           title={BUILD.title}
           accentClass="text-[#C9B3E6]"
@@ -68,12 +67,7 @@ export default function BuildChapter() {
             className="group chapter-rise bg-[#1E1F1B] p-3 sm:p-6 flex flex-col gap-1.5 sm:gap-3 hover:bg-[#262722] transition-colors"
             style={{ ...sans, animationDelay: `${i * 80}ms` }}
           >
-            <p className="flex items-center justify-between text-[11px] uppercase tracking-[0.22em] text-[#B5C29C] font-semibold">
-              <span>{b.label}</span>
-              <span aria-hidden="true" className="tabular-nums text-[#F5F2E9]/40 group-hover:text-[#C9B3E6]">
-                0{i + 1}
-              </span>
-            </p>
+            <p className="text-[11px] uppercase tracking-[0.22em] text-[#B5C29C] font-semibold group-hover:text-[#C9B3E6] transition-colors">{b.label}</p>
             <h3 className="text-[clamp(1rem,1.6vw,1.35rem)] font-bold leading-snug text-[#F5F2E9]" style={display}>
               {b.tools}
             </h3>
@@ -104,11 +98,17 @@ export default function BuildChapter() {
                     setTouched(true);
                     setStep(i);
                   }}
-                  className={`w-full flex flex-col items-start gap-1 sm:gap-2 pt-2 sm:pt-3 text-left cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-[#C9B3E6] border-t-2 transition-colors ${
-                    active ? "border-[#C9B3E6] text-[#F5F2E9]" : past ? "border-[#B5C29C] text-[#DAD6CA]" : "border-[#F5F2E9]/20 text-[#F5F2E9]/60"
+                  className={`w-full flex flex-col items-start gap-1.5 sm:gap-2 text-left cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-[#C9B3E6] transition-colors ${
+                    active ? "text-[#F5F2E9]" : past ? "text-[#DAD6CA]" : "text-[#F5F2E9]/60"
                   }`}
                 >
-                  <span className="text-[11px] tabular-nums tracking-[0.2em]">0{i + 1}</span>
+                  {/* marcador da etapa: cheio quando ativa ou concluída */}
+                  <span
+                    aria-hidden="true"
+                    className={`block size-2.5 rounded-full border transition-all duration-300 ${
+                      active ? "bg-[#C9B3E6] border-[#C9B3E6] scale-125" : past ? "bg-[#B5C29C] border-[#B5C29C]" : "border-[#F5F2E9]/40"
+                    }`}
+                  />
                   <span className={`text-sm sm:text-base font-semibold ${active ? "italic" : ""}`} style={active ? display : undefined}>
                     {s}
                   </span>

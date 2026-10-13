@@ -19,7 +19,6 @@ export default function TrajectoryChapter() {
     >
       <ChapterHeading
         id="trajetoria"
-        number="05"
         kicker={TRAJECTORY.kicker}
         title={TRAJECTORY.title}
         accentClass="text-[#44503A]"
@@ -47,10 +46,7 @@ export default function TrajectoryChapter() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-x-10 min-h-0">
         {TRAJECTORY.lanes.map((l) => (
           <section key={l.id} aria-label={l.label} className={`${lane === l.id ? "block" : "hidden"} lg:block min-h-0`} style={sans}>
-            <h3 className="hidden lg:flex items-center gap-3 text-[11px] uppercase tracking-[0.22em] font-semibold text-[#44503A] mb-3">
-              {l.label}
-              <span aria-hidden="true" className="flex-1 h-px bg-[#44503A]/30" />
-            </h3>
+            <h3 className="hidden lg:block text-[11px] uppercase tracking-[0.22em] font-semibold text-[#44503A] mb-3">{l.label}</h3>
             <ol className="relative flex flex-col border-l border-[#44503A]/35 ml-1.5">
               {l.items.map((m, i) => (
                 <li
